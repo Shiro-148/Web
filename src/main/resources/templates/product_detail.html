@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/product_detailStyles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://kit.fontawesome.com/580f8cec38.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div th:insert="~{header :: header}"></div>
+    </div>
+    <div class="center" id="center">
+        <form action="">
+            <div class="wrapper_product_cate_detail">
+                <div class="container">
+                    <div class="product_cate_detail">
+                        <div class="btn_back">
+                            <button type="button" title="Back">← Back</button>
+                        </div>
+                        <div class="content">
+                            <div class="content_left">
+                                <div class="img">
+                                    <div class="icon_heart">
+                                        <i class='bx bx-heart'></i>
+                                        <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
+                                    </div>
+                                    <img src="/image/img/product_cate_detail_15.png" alt="">   
+                                    <div class="title">Chicken Set</div>
+                                    <div class="price">87.000 ₫</div>
+                                    <div class="price_old">
+                                        <i class='bx bxs-discount'></i>
+                                        <span>120.000₫</span>
+                                    </div>
+                                    <div class="note_discount">
+                                        Bạn tiết kiệm được <span class="txt_note_discount">27.000 ₫</span> sau khi giảm giá.
+                                    </div>
+                                    <div class="note">
+                                        <p>02 Fried Chicken</p>
+                                        <p>01 French Fries</p>
+                                        <p>01 Pepsi (M)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content_right">
+                                <div class="options_product">
+                                    <div class="title">
+                                        Add more sauce for fried chicken
+                                    </div>
+                                    <ul class="list_options">
+                                        <li>
+                                            <div class="option">
+                                                <img src="/image/img/bonus_option_1.png" alt="">
+                                                <span class="txt">Add HS Sauce</span>
+                                            </div>
+                                            <div class="price">
+                                                <span class="txt_price">5.000 ₫</span>
+                                                <div class="count">
+                                                    <button type="button" class="btn_minus">-</button>
+                                                    <span class="txt_count">0</span>
+                                                    <button type="button" class="btn_plus">+</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="option">
+                                                <img src="/image/img/bonus_option_1.png" alt="">
+                                                <span class="txt">Add HS Sauce</span>
+                                            </div>
+                                            <div class="price">
+                                                <span class="txt_price">5.000 ₫</span>
+                                                <div class="count">
+                                                    <button type="button" class="btn_minus">-</button>
+                                                    <span class="txt_count">0</span>
+                                                    <button type="button" class="btn_plus">+</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="option">
+                                                <img src="/image/img/bonus_option_1.png" alt="">
+                                                <span class="txt">Add HS Sauce</span>
+                                            </div>
+                                            <div class="price">
+                                                <span class="txt_price">5.000 ₫</span>
+                                                <div class="count">
+                                                    <button type="button" class="btn_minus">-</button>
+                                                    <span class="txt_count">0</span>
+                                                    <button type="button" class="btn_plus">+</button>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="add_to_cart">
+                                        <div class="quantity">
+                                            <span class="txt">Quantity</span>
+                                            <button type="button" class="btn_minus">-</button>
+                                            <input class="txt_count" maxlength="2" value="1">
+                                            <button type="button" class="btn_plus">+</button>
+                                        </div>
+                                        <button class="btn_add_to_cart" type="button">Add to cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <div th:insert="~{footer :: footer}"></div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

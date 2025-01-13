@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://kit.fontawesome.com/580f8cec38.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="page">
+        <div class="header" id="header">
+        </div>
+        <div class="center">
+            <div class="container">
+                <div class="my_account">
+                    <div class="my_account_left">
+                        <div class="my_avatar">
+                            <div class="first_name">S</div>
+                            <div class="full_name">Shiiro</div>
+                        </div>
+                        <div class="account_menu">
+                            <ul>
+                                <li><a href="#" data-target="account_information"><i class='bx bx-user icon_size'></i>Account information</a></li>
+                                <li><a href="#" data-target="social_network"><i class='bx bx-add-to-queue icon_size'></i>Social network accounts</a></li>
+                                <li><a href="#" data-target="address"><i class='bx bx-location-plus icon_size'></i>Shipping Address</a></li>
+                                <li><a href="#" data-target="order_history"><i class='bx bx-food-menu icon_size'></i>Order history</a></li>
+                                <li><a href="#" data-target="my_coupons"><i class='bx bxs-discount icon_size'></i>My coupons</a></li>
+                                <li><a href="#" data-target="my_menu"><i class='bx bx-heart icon_size'></i>My menu / wishlist</a></li>
+                                <li><a href="#" data-target="feedback"><i class='bx bx-chat icon_size'></i>Feedback</a></li>
+                                <li><a href="#" data-target="support"><i class='bx bx-chat icon_size'></i>Support</a></li>
+                                <li><a href="#" data-target="sign_out"><i class='bx bx-power-off icon_size'></i>Sign out</a></li>
+                            </ul>
+                            
+                        </div>
+                    </div>
+                    <div class="my_account_right">
+                        <div class="account_information" style="display: none;">
+                            <div class="head_title">
+                                Account information
+                            </div>
+                            <div class="account_info">
+                                <form action="">
+                                    <h5>User Information</h5>
+                                    <div class="custom_user_information">
+                                        <label for="full_name">Fullname </label>
+                                        <input type="text" id="full_name" placeholder="Fullname">
+                                    </div>
+                                    <div class="custom_user_information">
+                                        <label for="birthday">Date of birth</label>
+                                        <input type="date" id="birthday">
+                                    </div>
+                                    <div class="custom_user_information">
+                                        <label for="phone_number">Phone number</label>
+                                        <input type="text" placeholder="Phone number" id="phone_number" readonly>
+                                    </div>
+                                    <div class="custom_user_information">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" placeholder="Email">
+                                    </div>
+                                </form>
+                                <div class="btn_group">
+                                    <button type="submit" class="btn_delete">Delete your account</button>
+                                    <button type="submit" class="btn_save">Save information</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social_network" style="display: none;">
+                            <div class="head_title">
+                                Social network accounts
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="custom_user_social">
+                                        <img src="img/icon-fb.svg" alt="">
+                                        <span>Connect your Facebook account</span>
+                                    </div>
+                                    <div class="btn_group_social">
+                                        <button class="btn_connect">Connect</button>
+                                        <button class="btn_detail_user_connect" disabled><i
+                                                class='bx bx-chevron-right'></i></button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="custom_user_social">
+                                        <img src="img/icon-google.svg" alt="">
+                                        <span>Connect your Google account</span>
+                                    </div>
+                                    <div class="btn_group_social">
+                                        <button class="btn_connect">Connect</button>
+                                        <button class="btn_detail_user_connect">
+                                            <i class='bx bx-chevron-right'></i>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="address" style="display: none;">
+                            <div class="head_title">
+                                Shipping Address
+                                <button class="btn_add_address">
+                                    + Add
+                                </button>
+                            </div>
+                            <div class="wrapper_user_address">
+                                <h5>Address</h5>
+                                <div class="user_address">
+                                    <div class="contact_info">
+                                        <div class="user">
+                                            <div class="full_name">
+                                                <span>Shiiro</span>
+                                            </div>
+                                            <div class="split"></div>
+                                            <div class="phone">
+                                                <span>0123456789</span>
+                                            </div>
+                                        </div>
+                                        <div class="btn_group_address">
+                                            <button class="btn_address_update">Update</button>
+                                            <button class="btn_address_delete">Delete</button>
+                                        </div>
+                                    </div>
+                                    <div class="address_info">
+                                        <div class="details_address">
+                                            <div class="specific_address">Home</div>
+                                            <div class="address">Xã Vĩnh Lâm, Huyện Vĩnh Linh, Quảng Trị</div>
+                                        </div>
+                                        <button class="default_setting">Default setting</button>
+                                    </div>
+                                    <div class="setting_info">
+                                        <span>Default</span>
+                                    </div>
+                                </div>
+                                <div class="user_address">
+                                    <div class="contact_info">
+                                        <div class="user">
+                                            <div class="full_name">
+                                                <span>Shiiro</span>
+                                            </div>
+                                            <div class="split"></div>
+                                            <div class="phone">
+                                                <span>0123456789</span>
+                                            </div>
+                                        </div>
+                                        <div class="btn_group_address">
+                                            <button class="btn_address_update">Update</button>
+                                            <button class="btn_address_delete">Delete</button>
+                                        </div>
+                                    </div>
+                                    <div class="address_info">
+                                        <div class="details_address">
+                                            <div class="specific_address">Home</div>
+                                            <div class="address">Xã Vĩnh Lâm, Huyện Vĩnh Linh, Quảng Trị</div>
+                                        </div>
+                                        <button class="default_setting">Default setting</button>
+                                    </div>
+                                    <div class="setting_info">
+                                        <span>Default</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order_history" style="display: none;">
+                            <div class="head_title">
+                                Order history
+                            </div>
+                            <div class="tab_order">
+                                <ul>
+                                    <li><a href="#" class="txt">All</a></li>
+                                    <li><a href="#" class="txt">Completed order</a></li>
+                                    <li><a href="#" class="txt">Prepare dish</a></li>
+                                    <li><a href="#" class="txt">Are delivery</a></li>
+                                    <li><a href="#" class="txt">Ordered success</a></li>
+                                    <li><a href="#" class="txt">Canceled</a></li>
+                                </ul>
+                            </div>
+                            <div class="order_history_item">
+                                <div class="order_history_empty">
+                                    <img src="/img/order-empty.png" alt="">
+                                    Bạn chưa có lịch sử đặt hàng nào
+                                </div>
+                                <div class="order_history_list" style="display: none;">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my_coupons" style="display: none;">
+                            <div class="head_title">
+                                My coupons
+                            </div>
+                        </div>
+                        <div class="my_menu" style="display: none;">
+                            <div class="head_title">
+                                my menu / wishlist
+                            </div>
+                            <div class="my_menu_content">
+                                <div class="wrapper_my_menu_card">
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="my_menu_card">
+                                        <div class="my_menu_card_img">
+                                            <img src="img/burger.png" alt="">
+                                        </div>
+                                        <div class="menu_title_heart">
+                                            <div class="title">
+                                                Value Burger Bulgogi 
+                                            </div>
+                                            <div class="heart">
+                                                <!-- <i class='bx bx-heart'></i> -->
+                                                <i class='bx bxs-heart' style='color:#ef0a48'></i>
+                                            </div>
+                                        </div>
+                                        <div class="menu_card_note">
+                                            <span>01 Burger Bulgogi</span>
+                                            <br>
+                                            <span>01 Gà rán</span>
+                                        </div>
+                                        <div class="menu_card_price">
+                                            <span>99.000₫</span>
+                                        </div>
+                                        <div class="menu_card_discount">
+                                            <div class="menu_price_old">
+                                                <i class='bx bxs-discount' style='color:#ff5b6a'></i>
+                                                <span>120.000₫</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+        </div>
+    </div>
+    <div role="dialog" aria-modal="true" class="fade modal-delivery-address modal" id="location" tabindex="-1"
+        style="overflow-y: scroll;">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="address_form">
+                        <form>
+                            <p>Vui lòng nhập địa chỉ của bạn (địa chỉ này sẽ được dùng làm địa chỉ giao hàng).
+                                Hệ thống sẽ tìm cửa hàng gần nơi bạn sinh sống.</p>
+                            <div class="home_address">
+                                <label for="address">Địa chỉ</label>
+                                <input type="text" placeholder="Vui lòng nhập" id="address">
+                            </div>
+                            <div class="detail_address">
+                                <div class="name_address">
+                                    <label for="name_address">Tên địa chỉ</label>
+                                    <br>
+                                    <input type="text" placeholder="Gym / Nhà riêng / cơ quan" id="name_address">
+                                </div>
+                                <div class="note">
+                                    <label for="note">Ghi chú</label>
+                                    <br>
+                                    <input type="text" placeholder="Vui lòng nhập" id="note">
+                                </div>
+                                <div class="btn_toggle">
+                                    <input type="checkbox" id="check">
+                                    <label for="check" class="button"></label>
+                                    <span>Đặt làm địa chỉ mặc định</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn custom_btn_cancel" title="Hủy bỏ" data-bs-dismiss="modal">Hủy
+                        bỏ</button>
+                    <button type="button" class="btn custom_btn_submit" title="Thêm mới" disabled>Thêm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+    <script>
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header').innerHTML = data);
+        // Load footer
+        fetch('footer.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('footer').innerHTML = data);
+    </script>
+</body>
+
+</html>

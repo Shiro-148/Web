@@ -1,0 +1,528 @@
+.my_account {
+    margin-top: 135px;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    display: flex;
+}
+
+.center .my_account>.my_account_left {
+    background-color: #FF5B6A;
+    max-width: 355px;
+    width: 355px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.center .my_account>.my_account_left>.my_avatar {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.center .my_account>.my_account_left>.my_avatar>.first_name {
+    color: black;
+    background-color: #fff;
+    font-size: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 130px;
+    height: 130px;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.center .my_account>.my_account_left>.my_avatar>.full_name {
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.center .my_account_left>.account_menu {
+    width: 100%;
+}
+
+.center .my_account_left>.account_menu>ul {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.center .my_account_left>.account_menu>ul>li {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    list-style: none;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    padding: 20px 10px 20px 35px;
+    text-decoration: none;
+    margin: 0;
+}
+
+.my_account_left>.account_menu>ul>li:hover,
+.my_account_left>.account_menu>ul>li.active {
+    background-color: rgba(255, 255, 255, .2);
+    font-weight: 500;
+}
+
+.my_account_left>.account_menu>ul>li>a {
+    color: #fff;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.center .my_account_left>.account_menu>ul>li i {
+    margin-right: 5px;
+}
+
+.center .my_account>.my_account_left>.account_menu>ul>li>i {
+    position: absolute;
+    font-size: 21px;
+    left: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.center .my_account>.my_account_right {
+    display: block;
+}
+
+.my_account_right {
+    width: 100%;
+}
+
+.my_account_right .head_title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 600;
+    padding: 20px 0;
+    border-bottom: solid 1px #FF5B6A;
+    text-transform: uppercase;
+}
+
+.my_account_right .account_info h5 {
+    margin-top: 25px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.my_account_right .account_info {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.my_account_right .account_info form .custom_user_information {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .account_info form .custom_user_information>label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-right: 10px;
+    min-width: 200px;
+}
+
+.my_account_right .account_info form .custom_user_information>input {
+    width: 60%;
+    padding: 8px;
+    border-radius: 5px;
+    border: solid 1px #FF5B6A;
+    margin-bottom: 20px;
+}
+
+.my_account_right .account_info form .custom_user_information #phone_number {
+    background-color: #f8e7e9;
+}
+
+.my_account_right .account_info form .custom_user_information #phone_number:focus {
+    outline: none;
+}
+
+.my_account_right .account_info form .custom_user_information>input[type="date"] {
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.my_account_right .account_info form .custom_user_information>input:focus {
+    outline: solid 1px #FF5B6A;
+}
+
+.my_account_right .account_info .btn_group {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .account_info .btn_group>button {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: solid 1px #FF5B6A;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 15px;
+    margin-top: 20px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+}
+
+.my_account_right .account_info .btn_group>.btn_delete {
+    background-color: #fff;
+    color: #FF5B6A;
+}
+
+.my_account_right .account_info .btn_group>.btn_save {
+    background-color: #FF5B6A;
+    color: #fff;
+}
+
+.my_account_right .social_network li {
+    list-style: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.my_account_right .custom_user_social {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .social_network ul {
+    margin-right: 30px;
+    padding-left: 20px;
+}
+
+.my_account_right .social_network ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #ffeae3;
+}
+
+.my_account_right .social_network .btn_group_social {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .social_network ul li img {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.my_account_right .social_network .btn_group_social>button {
+    color: #FF5B6A;
+    background-color: #fff;
+    border: solid 1px #FF5B6A;
+}
+
+.my_account_right .social_network .btn_group_social>.btn_connect {
+    border-radius: 7px;
+    padding: 5px;
+}
+
+.my_account_right .social_network .btn_group_social>.btn_detail_user_connect>i {
+    margin: 5px;
+    font-size: 25px;
+}
+
+.my_account_right .social_network .btn_group_social>.btn_detail_user_connect {
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.my_account_right .social_network .btn_group_social>.btn_detail_user_connect:disabled {
+    opacity: 0.5;
+}
+
+.my_account_right .address .head_title {
+    position: relative;
+}
+
+.my_account_right .address .btn_add_address {
+    position: absolute;
+    right: 35px;
+    background-color: #fff;
+    border: none;
+    color: #FF5B6A;
+    font-size: 17px;
+}
+
+.my_account_right .wrapper_user_address {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.my_account_right .wrapper_user_address h5 {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.my_account_right .wrapper_user_address .user_address {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: start;
+    padding-bottom: 25px;
+    margin-top: 20px;
+    border-bottom: solid 1px #cec9c9;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info>.user {
+    display: flex;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info .split {
+    width: 1px;
+    background-color: #696464;
+    margin: 0 8px;
+    opacity: 0.7;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info .full_name {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info .phone {
+    opacity: 0.7;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address>button {
+    border: none;
+    background-color: #fff;
+    color: #FF5B6A;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.my_account_right .wrapper_user_address .user_address>.address_info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my_account_right .wrapper_user_address .user_address>.address_info>.address {
+    display: flex;
+    flex-direction: column;
+}
+
+.my_account_right .wrapper_user_address .user_address>.address_info>button {
+    margin-right: 15px;
+    border-radius: 2px;
+    padding: 3px;
+    border: solid 1px;
+    background-color: #fff;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.my_account_right .wrapper_user_address .user_address>.setting_info {
+    border: #FF5B6A solid 1px;
+    color: #FF5B6A;
+    padding: 0 5px;
+    border-radius: 2px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+
+.my_account_right .order_history_content {
+    padding: auto;
+}
+
+.my_account_right .tab_order {
+    padding-top: 30px;
+    padding-bottom: 15px;
+    border-bottom: solid 1px #FF5B6A;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .tab_order>ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.my_account_right .tab_order>ul>li {
+    list-style: none;
+}
+
+.my_account_right .tab_order>ul>li>a {
+    color: #888;
+    text-transform: uppercase;
+    position: relative;
+}
+
+.my_account_right .tab_order>ul>li>a:hover,
+.my_account_right .tab_order>ul>li>a:focus {
+    color: #ff5b6a;
+}
+
+.my_account_right .tab_order>ul>li>.txt:hover::before,
+.my_account_right .tab_order>ul>li>.txt:focus::before {
+    content: "";
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #ff5b6a;
+}
+
+.my_account_right .order_history_item>.order_history_empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.my_account_right .my_account_right .my_menu_content {
+    padding: 30px 10px 40px 35px;
+}
+
+.my_account_right .wrapper_my_menu_card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+.my_account_right .wrapper_my_menu_card > .my_menu_card {
+    flex: 0 0 calc(33.333% - 14px);
+    height: 260px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    border-radius: 10px;
+    margin: 0;
+    padding: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+.my_account_right .wrapper_my_menu_card>.my_menu_card>.my_menu_card_img {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.my_account_right .wrapper_my_menu_card .my_menu_card img {
+    width: 45%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_title_heart {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_title_heart>.title {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_title_heart>.heart {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_card_note {
+    margin-top: 10px;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0.7;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_card_price {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 25px;
+    margin-top: 10px;
+    color: #ff5b6a;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_card_discount .menu_price_old {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_card_discount .menu_price_old>i {
+    margin-right: 5px;
+    font-size: 20px;
+    padding: 0;
+}
+
+.my_account_right .wrapper_my_menu_card .menu_card_discount .menu_price_old>span {
+    font-family: 'Roboto', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    text-decoration: line-through;
+    opacity: 0.7;
+}
