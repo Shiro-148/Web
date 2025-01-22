@@ -10,10 +10,10 @@ public class HomeController {
     public String home() {
         return "index";
     }
-    @GetMapping("/product_list")
-    public String getMenuList() {
-        return "product_list";
-    }
+    // @GetMapping("/product_list")
+    // public String getMenuList() {
+    //     return "product_list";
+    // }
     @GetMapping("/product_detail")
     public String getProductDetail() {
         return "product_detail";
