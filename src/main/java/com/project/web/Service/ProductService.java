@@ -1,10 +1,11 @@
 package com.project.web.Service;
-import com.project.web.Repository.ProductRepository;
-import com.project.web.Entity.ProductEntity;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.project.web.Entity.ProductEntity;
+import com.project.web.Repository.ProductRepository;
 
 @Service
 public class ProductService {
@@ -19,6 +20,11 @@ public class ProductService {
     public ProductEntity getProductById(Integer id) {
         return productRepository.findById(id).orElse(null); // Lấy sản phẩm theo ID
     }
-
-    // Thêm các phương thức khác nếu cần (VD: thêm, sửa, xóa sản phẩm)
+    public ProductEntity updateFavouriteStatus(Integer id) {
+        return productRepository.findById(id)
+                .map(product -> {
+                    product.setFavouriteProduct(!product.getFavouriteProduct()); // Đảo trạng thái
+                    return productRepository.save(product);
+                }).orElse(null);
+    }
 }

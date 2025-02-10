@@ -153,13 +153,15 @@
                     <div class="card_title_heart">
                         <div class="card_title" th:text="${product.nameProduct}"></div>
                         <div class="card_heart">
-                            <i th:unless="${product.favouriteProduct == 1}" class='bx bx-heart'></i>
-                            <!-- Điều kiện hiện trái tim đầy màu nếu yêu thích -->
-                            <i th:if="${product.favouriteProduct == 1}" class='bx bxs-heart' style='color:#ef0a48'></i>
-                        </div>
+                        <i 
+                            class="bx bx-heart" 
+                            th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}" 
+                            onclick="toggleFavourite(this)">
+                        </i>
+                        </div>                        
                     </div>
                     <div class="card_note">
-                        <span th:text="${product.noteProduct}"></span>
+                        <span th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
                     </div>
                     <div class="card_bottom">
                         <div class="card_price_add">
@@ -229,4 +231,5 @@
     </div>
 
     <script src="/js/scripts.js"></script>
+    <script src="/js/product.js"></script>
 </body>

@@ -259,6 +259,12 @@ html body{
     font-size: 30px;
     cursor: pointer;
 }
+.card .card_heart .bx-heart{
+    color: #000000;
+}
+.card .card_heart .bxs-heart{
+    color:#ef0a48
+}
 .card .card_note{
     margin-top: 10px;
     font-family: 'Roboto',Arial ,sans-serif;

@@ -58,3 +58,4 @@ const swiper_products = new Swiper('.swiper_products', {
         $('.' + target).show();
     });
 });
+

@@ -23,7 +23,7 @@ public class ProductEntity {
     @Column(name="priceOldProduct", precision=10, scale=3)
     private BigDecimal priceOldProduct; // Ánh xạ với DECIMAL(10,3), có thể null
     @Column(name="favouriteProduct", columnDefinition="TINYINT(1)")
-    private Integer favouriteProduct; // Ánh xạ với TINYINT(1)
+    private Boolean favouriteProduct; // Ánh xạ với TINYINT(1)
     @Column(name="imgPathProduct")
     private String imgPathProduct; // Ánh xạ với TEXT
     @Column(name="noteProduct")
@@ -62,11 +62,11 @@ public class ProductEntity {
         this.priceOldProduct = priceOldProduct;
     }
 
-    public Integer getFavouriteProduct() {
+    public Boolean getFavouriteProduct() {
         return favouriteProduct;
     }
 
-    public void setFavouriteProduct(Integer favouriteProduct) {
+    public void setFavouriteProduct(Boolean favouriteProduct) {
         this.favouriteProduct = favouriteProduct;
     }
 
