@@ -18,4 +18,12 @@ public class HomeController {
     public String getProductDetail() {
         return "product_detail";
     }
+    @GetMapping("/account")
+    public String getAccount() {
+        return "account";
+    }
+    @GetMapping("/cart")
+    public String getCart() {
+        return "cart";
+    }
 }

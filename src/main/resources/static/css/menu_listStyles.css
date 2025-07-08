@@ -50,7 +50,7 @@
 }
 .my_card{
     width: 250px;
-    height: 350px;
+    min-height: 350px;
     background: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 10px;

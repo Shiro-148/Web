@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,114 +30,12 @@
             <div class="cate_menu_list">
                 <div class="swiper swiper_cate_menu_list">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        <div th:each="category : ${categories}" class="swiper-slide">
                             <div class="cart_menu_list">
                                 <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
+                                    <img th:src="@{${category.imgPath}}" alt="" />
                                 </span>
-                                <span class="txt">
-                                    Bestseller
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Promotion
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Side
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Bestseller
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Rice & Spaghetti
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Pack
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Value
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Combo
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Chicken Set
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/img/MENU_DAT_HANG_BESTSELLER.jpg" alt="">
-                                </span>
-                                <span class="txt">
-                                    Chicken
-                                </span>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img src="/image/product/KimchiRiceBeefBurger_1.png" alt="">
-                                </span>
-                                <span class="txt">
-                                    Burger
-                                </span>
+                                <span class="txt" th:text="${category.nameCategory}"></span>
                             </div>
                         </div>
                     </div>
@@ -153,12 +52,11 @@
                     <div class="card_title_heart">
                         <div class="card_title" th:text="${product.nameProduct}"></div>
                         <div class="card_heart">
-                        <i 
-                            class="bx bx-heart" 
-                            th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}" 
-                            onclick="toggleFavourite(this)">
-                        </i>
-                        </div>                        
+                            <i class="bx bx-heart"
+                                th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}"
+                                onclick="toggleFavourite(this)">
+                            </i>
+                        </div>
                     </div>
                     <div class="card_note">
                         <span th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
@@ -182,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
     <div class="footer">
@@ -229,7 +127,6 @@
             </div>
         </div>
     </div>
-
     <script src="/js/scripts.js"></script>
     <script src="/js/product.js"></script>
 </body>

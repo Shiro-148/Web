@@ -1,4 +1,5 @@
 package com.project.web.Controller;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,37 +12,46 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.web.Entity.CategoryEntity;
 import com.project.web.Entity.ProductEntity;
+import com.project.web.Service.CategoryService;
 import com.project.web.Service.ProductService;
+
 @Controller
 public class ProductController {
 
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     // Hiển thị danh sách sản phẩm
     @GetMapping("/product_list")
     public String getAllProducts(Model model) {
         List<ProductEntity> products = productService.getAllProducts();
-        model.addAttribute("products", products); // Truyền danh sách sản phẩm cho Thymeleaf
-        return "product_list"; // Tên file HTML (VD: product_list.html)
+        model.addAttribute("products", products);
+
+        List<CategoryEntity> categories = categoryService.getAllCategories(); // Lấy danh sách category
+        model.addAttribute("categories", categories); // Truyền sang view
+
+        return "product_list";
     }
 
-@PostMapping("/products/toggle-favourite/{id}")
-@ResponseBody
-public ResponseEntity<Boolean> toggleFavourite(@PathVariable Integer id) {
-    ProductEntity updatedProduct = productService.updateFavouriteStatus(id);
-    if (updatedProduct != null) {
-        return ResponseEntity.ok(updatedProduct.getFavouriteProduct());
+    @PostMapping("/products/toggle-favourite/{id}")
+    @ResponseBody
+    public ResponseEntity<Boolean> toggleFavourite(@PathVariable Integer id) {
+        ProductEntity updatedProduct = productService.updateFavouriteStatus(id);
+        if (updatedProduct != null) {
+            return ResponseEntity.ok(updatedProduct.getFavouriteProduct());
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
-    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-}
-
 
     // @GetMapping("/product_detail/{id}")
     // public String getProductDetail(@PathVariable("id") Long id, Model model) {
-    //     ProductEntity product = productService.getProductById(id);
-    //     model.addAttribute("product", product); // Truyền sản phẩm cho Thymeleaf
-    //     return "product_detail"; // Tên file HTML (VD: product_detail.html)
+    // ProductEntity product = productService.getProductById(id);
+    // model.addAttribute("product", product); // Truyền sản phẩm cho Thymeleaf
+    // return "product_detail"; // Tên file HTML (VD: product_detail.html)
     // }
 }

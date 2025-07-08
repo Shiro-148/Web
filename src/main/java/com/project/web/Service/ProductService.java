@@ -14,7 +14,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     public List<ProductEntity> getAllProducts() {
-        return productRepository.findAll(); // Lấy tất cả sản phẩm từ cơ sở dữ liệu
+        return productRepository.findAll(); 
     }
 
     public ProductEntity getProductById(Integer id) {
