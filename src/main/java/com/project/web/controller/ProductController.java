@@ -10,10 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.web.Entity.AddonTypeEntity;
 import com.project.web.Entity.CategoryEntity;
 import com.project.web.Entity.ProductEntity;
+import com.project.web.Service.AddonTypeService;
 import com.project.web.Service.CategoryService;
 import com.project.web.Service.ProductService;
 
@@ -26,14 +29,23 @@ public class ProductController {
     @Autowired
     private CategoryService categoryService;
 
-    // Hiển thị danh sách sản phẩm
+    @Autowired
+    private AddonTypeService addonTypeService;
+
     @GetMapping("/product_list")
-    public String getAllProducts(Model model) {
-        List<ProductEntity> products = productService.getAllProducts();
+    public String getAllProducts(@RequestParam(value = "categoryId", required = false) Integer selectedCategoryId,
+            Model model) {
+        List<ProductEntity> products;
+        if (selectedCategoryId != null) {
+            products = productService.getProductsByCategory(selectedCategoryId);
+        } else {
+            products = productService.getAllProducts();
+        }
         model.addAttribute("products", products);
 
-        List<CategoryEntity> categories = categoryService.getAllCategories(); // Lấy danh sách category
-        model.addAttribute("categories", categories); // Truyền sang view
+        List<CategoryEntity> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
+        model.addAttribute("selectedCategoryId", selectedCategoryId);
 
         return "product_list";
     }
@@ -48,10 +60,15 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
     }
 
-    // @GetMapping("/product_detail/{id}")
-    // public String getProductDetail(@PathVariable("id") Long id, Model model) {
-    // ProductEntity product = productService.getProductById(id);
-    // model.addAttribute("product", product); // Truyền sản phẩm cho Thymeleaf
-    // return "product_detail"; // Tên file HTML (VD: product_detail.html)
-    // }
+    @GetMapping("/product_detail/{id}")
+    public String getProductDetail(@PathVariable("id") Integer id, Model model) {
+        ProductEntity product = productService.getProductById(id);
+        model.addAttribute("product", product);
+
+        // Lấy tất cả loại addon (sốt, nước, đồ ăn kèm)
+        List<AddonTypeEntity> addonTypes = addonTypeService.getAllAddonTypes();
+        model.addAttribute("addonTypes", addonTypes);
+
+        return "product_detail";
+    }
 }

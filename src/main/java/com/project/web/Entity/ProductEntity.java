@@ -1,4 +1,3 @@
-
 package com.project.web.Entity;
 
 import java.math.BigDecimal;
@@ -20,6 +19,10 @@ public class ProductEntity {
     @ManyToMany
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "idProduct"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "idCategory"))
     private Set<CategoryEntity> categories;
+
+    @ManyToMany
+    @JoinTable(name = "product_addon", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "idProduct"), inverseJoinColumns = @JoinColumn(name = "addon_id", referencedColumnName = "id"))
+    private Set<AddonEntity> addons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -110,5 +113,19 @@ public class ProductEntity {
 
     public void setNoteProduct(String noteProduct) {
         this.noteProduct = noteProduct;
+    }
+
+    public BigDecimal getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(BigDecimal originalPrice) {
+        this.originalPrice = originalPrice;
+    }
+    public Set<AddonEntity> getAddons() {
+        return addons;
+    }
+    public void setAddons(Set<AddonEntity> addons) {
+        this.addons = addons;
     }
 }

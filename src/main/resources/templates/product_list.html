@@ -14,6 +14,7 @@
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/menu_listStyles.css">
+    <link rel="stylesheet" href="/css/product_list.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
@@ -30,13 +31,15 @@
             <div class="cate_menu_list">
                 <div class="swiper swiper_cate_menu_list">
                     <div class="swiper-wrapper">
-                        <div th:each="category : ${categories}" class="swiper-slide">
-                            <div class="cart_menu_list">
-                                <span class="img">
-                                    <img th:src="@{${category.imgPath}}" alt="" />
-                                </span>
-                                <span class="txt" th:text="${category.nameCategory}"></span>
-                            </div>
+                        <div th:each="category : ${categories}" th:classappend=" ${category.idCategory} == ${selectedCategoryId} ? 'active' : '' " class="swiper-slide">
+                            <a th:href="@{/product_list(categoryId=${category.idCategory})}">
+                                <div class="card_menu_list">
+                                    <span class="img">
+                                        <img th:src="@{${category.imgPath}}" alt="" />
+                                    </span>
+                                    <span class="txt" th:text="${category.nameCategory}"></span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
