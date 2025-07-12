@@ -11,8 +11,11 @@
     scrollbar-width: thin;
     scrollbar-color: #FF5B6A transparent;
 }
+
 .container {
     max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
 }
 a{
     text-decoration: none;
@@ -22,7 +25,71 @@ html body{
     height: 100vh;
     background-color: #FFFCFE;
 }
-
+.center{
+    margin-top: 100px;
+}
+.item>img{
+    max-width: 100%;
+    height: auto;
+}
+.btn-group{
+    display: flex;
+    min-height: 120px;
+    margin:45px 0;
+    color: #feeae3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
+}
+.btn-option{
+    background-color: #feeae3;
+    color: #ff5b6a;
+    font-weight: 700;
+    border: rgb(245, 194, 194) solid 0.01px;
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+}
+.btn-option:hover{
+    background-color: #ff5b6a;
+    color: #FFEAE3;
+}
+.btn > .icon_size {
+    font-size: 50px;
+    margin-right: 10px;
+}
+.section_head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.section_head >.section_head_title{
+    font-family: 'Roboto',Arial ,sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    text-transform: uppercase;
+    position: relative; 
+}
+.section_head > .section_head_title::before {
+    content: "";
+    position: absolute;
+    top: -15px; 
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: #ff5b6a;
+}
+.section_head > a{
+    text-decoration: none;
+    color: #ff5b6a;
+    font-family: 'Roboto',Arial ,sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 40px;
+    padding: 5px 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .15);
+    align-items: center;
+} 
 .swiper{
     width: 100%;
 }
@@ -35,6 +102,18 @@ html body{
 .my_products .swiper-wrapper,
 .my_news .swiper-wrapper{
     padding-left: 10px;
+}
+.page .btn-group-home{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100px;
+    margin-bottom: 50px;
+}
+.page .btn-group-home .btn-option{
+    flex: 1;
+    height: 100%;
+    cursor: pointer;
 }
 .my_products .swiper-wrapper{
     padding-top: 30px;

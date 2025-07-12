@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Toggle dropdown khi click vào nút
     btn.addEventListener('click', function (e) {
-        e.stopPropagation(); // Ngăn sự kiện lan ra ngoài
-        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        e.stopPropagation();
+        dropdown.style.display = (dropdown.style.display === 'block' || dropdown.style.display === '') ? 'none' : 'block';
     });
 
     // Ẩn dropdown khi click ra ngoài
