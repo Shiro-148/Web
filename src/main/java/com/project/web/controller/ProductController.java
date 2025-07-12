@@ -1,6 +1,10 @@
 package com.project.web.Controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.web.Entity.AddonEntity;
 import com.project.web.Entity.AddonTypeEntity;
 import com.project.web.Entity.CategoryEntity;
 import com.project.web.Entity.ProductEntity;
@@ -63,11 +68,23 @@ public class ProductController {
     @GetMapping("/product_detail/{id}")
     public String getProductDetail(@PathVariable("id") Integer id, Model model) {
         ProductEntity product = productService.getProductById(id);
+        if (product.getAddons() == null) {
+            product.setAddons(new HashSet<>());
+        }
+        List<AddonEntity> productAddonsList = new ArrayList<>(product.getAddons());
         model.addAttribute("product", product);
+        model.addAttribute("productAddonsList", productAddonsList);
 
-        // Lấy tất cả loại addon (sốt, nước, đồ ăn kèm)
+        // Lọc ra các addonType thực sự có addon liên kết với sản phẩm
         List<AddonTypeEntity> addonTypes = addonTypeService.getAllAddonTypes();
-        model.addAttribute("addonTypes", addonTypes);
+        Set<Integer> addonTypeIds = productAddonsList.stream()
+                .filter(a -> a.getType() != null)
+                .map(a -> a.getType().getId())
+                .collect(Collectors.toSet());
+        List<AddonTypeEntity> filteredAddonTypes = addonTypes.stream()
+                .filter(type -> addonTypeIds.contains(type.getId()))
+                .collect(Collectors.toList());
+        model.addAttribute("filteredAddonTypes", filteredAddonTypes);
 
         return "product_detail";
     }

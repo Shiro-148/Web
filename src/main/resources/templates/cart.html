@@ -13,7 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
         integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/css/cartStyles.css">
+    <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://kit.fontawesome.com/580f8cec38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -21,51 +22,160 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Document</title>
 </head>
+
 <body>
-    <div class="header" id="header"></div>
-    <div class="center" id="center">
-        <div class="container">
-            <div class="wrapper_cart">
-                <div class="content_left">
-                    <div class="header_cart">
-                        <div class="title_cart">
-                            <span>Your cart</span>
-                        </div>
-                        <div class="add_more">
-                            <a href="#">Add more</a>
-                        </div>
+    <div class="cart_page">
+        <div class="header_empty">dger</div>
+        <div class="header_cart" id="header_cart">
+            <div class="container">
+                <div class="content">
+                    <div class="logo">
+                        <a class="header_logo" title="Food" href="/">
+                            <img src="/image/img/logo.png" alt="">
+                        </a>
                     </div>
-                    <div class="cart_list">
-                        <div class="cart_item">
-                            <div class="info_cart">
-                                <div class="img">
-                                    <img src="/img/cart1.jpg" alt="">
-                                </div>
-                                <div class="info">
-                                    <p class="name">Cheese Stick </p>
-                                    <p class="price">36.000 ₫</p>
-                                </div>
-                            </div>
-                            <div class="quantity_cart">
-                                <div class="btn_count">
-                                    <button type="button" class="btn_minus">-</button>
-                                    <input class="txt_count" maxlength="2" value="1">
-                                    <button type="button" class="btn_plus">+</button>
-                                </div>
-                                <div class="btn_delete">
-                                    <button type="button" class="btn_delete_cart"><img src="/img/icon-delete.svg" alt=""></button>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="step_nav">
+                        <ul class="stepper">
+                            <li class="step active">
+                                <span class="step_num"></span>
+                                <span class="step_label">Giỏ hàng</span>
+                            </li>
+                            <li class="step">
+                                <span class="step_num"></span>
+                                <span class="step_label">Thanh toán</span>
+                            </li>
+                        </ul>
                     </div>
-                </div>
-                <div class="content_right">
-                    
                 </div>
             </div>
         </div>
+        <div class="w_cart_content">
+            <div class="container">
+                <div class="cart_content">
+                    <div class="cart_list">
+                        <div class="cart_list_top">
+                            <div class="title">
+                                <span class="text">Giỏ hàng của bạn</span>
+                                <span class="cart_list_quantity">(4 Sản phẩm)</span>
+                            </div>
+                            <div class="btn_add_prd">
+                                <a href="/product_list"><span class="btn_text">+ Thêm món ăn</span></a>
+                            </div>
+                        </div>
+                        <div class="cart_item">
+                            <div class="cart_img">
+                                <img src="/image/product/1_KimchiRiceBeefBurger.png" alt="">
+                            </div>
+                            <div class="cart_inf">
+                                <span class="name_cart_item">
+                                    Combo 99K Tiệc Hè
+                                </span>
+                                <span class="price_cart_item">
+                                    99.000 ₫
+                                </span>
+                            </div>
+                            <div class="btn_cart_item">
+                                <div class="btn_quantity">
+                                    <button class="button btn_minus"><i class='bx  bx-minus'></i> </button>
+                                    <span class="quantity">10</span>
+                                    <button class="button btn_plus"><i class='bx  bx-plus'></i></button>
+                                </div>
+                                <div class="btn_delete">
+                                    <i class='bx  bx-trash-alt'></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart_item">
+                            <div class="cart_img">
+                                <img src="/image/product/1_KimchiRiceBeefBurger.png" alt="">
+                            </div>
+                            <div class="cart_inf">
+                                <span class="name_cart_item">
+                                    Combo 99K Tiệc Hè
+                                </span>
+                                <span class="price_cart_item">
+                                    99.000 ₫
+                                </span>
+                            </div>
+                            <div class="btn_cart_item">
+                                <div class="btn_quantity">
+                                    <button class="button btn_minus"><i class='bx  bx-minus'></i> </button>
+                                    <span class="quantity">1</span>
+                                    <button class="button btn_plus"><i class='bx  bx-plus'></i></button>
+                                </div>
+                                <div class="btn_delete">
+                                    <i class='bx  bx-trash-alt'></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart_list_note">
+                            <span class="title">Ghi chú cho đơn hàng</span>
+                            <input type="text" class="note_cart" placeholder="Ghi chú cho món ăn của bạn...">
+                        </div>
+                    </div>
+                    <div class="cart_detail">
+                        <div class="address">
+                            <span class="txt">Giao hàng đến</span>
+                            <div class="address_content">
+                                <div class="address_inf">DA NANG DOWNTOWN, Đường 2 Tháng 9, Hòa Cường, Hòa Cường Bắc,
+                                    Hải Châu, Đà Nẵng, Việt Nam</div>
+                                <button class="btn_edit">
+                                    <i class='bx  bx-edit'></i>
+                                </button>
+                            </div>
+                            <div class="store_inf">
+                                <span class="title">Cửa hàng: </span>
+                                <span class="name">LOTTEMART DN</span>
+                            </div>
+                            <span class="address_noti">
+                                Thời gian tiếp nhận đơn hàng trực tuyến từ 08:00 đến 21:30 hằng ngày
+                            </span>
+                        </div>
+                        <div class="custom_extras">
+                            <div class="option">
+                                <span class="txt">Lấy dụng cụ ăn uống</span>
+                                <div class="btn_toggle">
+                                    <input type="checkbox" id="use_plastic" name="use_plastic">
+                                    <label for="use_plastic" class="button"></label>
+                                </div>
+                            </div>
+                            <div class="option">
+                                <span class="txt">Lấy tương cà</span>
+                                <div class="btn_toggle">
+                                    <input type="checkbox" id="use_ketchup" name="use_ketchup">
+                                    <label for="use_ketchup" class="button"></label>
+                                </div>
+                            </div>
+                            <div class="option">
+                                <span class="txt">Lấy tương ớt</span>
+                                <div class="btn_toggle">
+                                    <input type="checkbox" id="use_chilly_sauce" name="use_chilly_sauce">
+                                    <label for="use_chilly_sauce" class="button"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order">
+                            <div class="sub_total">
+                                <span class="txt">Tạm tính</span>
+                                <span class="price">99.000 ₫</span>
+                            </div>
+                            <div class="total">
+                                <span class="txt">Tổng cộng</span>
+                                <span class="price">99.000 ₫</span>
+                            </div>
+                            <div class="btn_payment">
+                                <a href="#" class="btn_payment_link">
+                                    <span class="btn_text">Thanh toán</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="footer"></div>
     </div>
-    <div class="footer" id="footer"></div>
     <script src="/scripts.js"></script>
 </body>
+
 </html>

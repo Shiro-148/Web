@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="/css/product_detailStyles.css">
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/header.css">
-
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://kit.fontawesome.com/580f8cec38.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
@@ -66,10 +65,11 @@
                             </div>
                             <div class="content_right">
                                 <div class="options_product">
-                                    <div th:each="type : ${addonTypes}">
+                                    <div th:each="type : ${filteredAddonTypes}">
                                         <div class="title" th:text="${type.name}"></div>
                                         <ul class="list_options">
-                                            <li th:each="addon : ${product.addons}">
+                                            <li th:each="addon : ${productAddonsList}"
+                                                th:if="${addon.type != null and addon.type.id == type.id}">
                                                 <div class="option">
                                                     <img th:src="@{${addon.imgPath}}" alt="">
                                                     <span class="txt" th:text="${addon.name}"></span>

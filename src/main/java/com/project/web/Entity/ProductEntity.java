@@ -28,10 +28,10 @@ public class ProductEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
 
-    @Column(name = "nameProduct", length = 255, nullable = false) // Ánh xạ với VARCHAR(200)
+    @Column(name = "nameProduct", length = 255, nullable = false) 
     private String nameProduct;
 
-    @Column(name = "priceProduct", precision = 10, scale = 3, nullable = false) // Ánh xạ với DECIMAL(10,3)
+    @Column(name = "priceProduct", precision = 10, scale = 3, nullable = false)
     private BigDecimal priceProduct;
 
     @Column(name = "priceOldProduct", precision = 10, scale = 3)

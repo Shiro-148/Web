@@ -14,10 +14,10 @@ public class HomeController {
     // public String getMenuList() {
     //     return "product_list";
     // }
-    @GetMapping("/product_detail")
-    public String getProductDetail() {
-        return "product_detail";
-    }
+    // @GetMapping("/product_detail")
+    // public String getProductDetail() {
+    //     return "product_detail";
+    // }
     @GetMapping("/account")
     public String getAccount() {
         return "account";
