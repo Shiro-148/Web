@@ -36,4 +36,55 @@ public class AddressServiceImpl implements AddressService {
         }
         return repo.save(address);
     }
+
+    @Override
+    public java.util.Optional<AddressEntity> getByIdAndAccount(Integer id, AccountEntity account) {
+        return repo.findByIdAndAccount(id, account);
+    }
+
+    @Override
+    @Transactional
+    public AddressEntity update(Integer id, AddressEntity updated, AccountEntity account) {
+        AddressEntity existing = repo.findByIdAndAccount(id, account)
+                .orElseThrow(() -> new RuntimeException("Address not found"));
+        if (updated.getReceiverName() != null)
+            existing.setReceiverName(updated.getReceiverName());
+        if (updated.getPhone() != null)
+            existing.setPhone(updated.getPhone());
+        if (updated.getStreet() != null)
+            existing.setStreet(updated.getStreet());
+        if (updated.getWard() != null)
+            existing.setWard(updated.getWard());
+        if (updated.getDistrict() != null)
+            existing.setDistrict(updated.getDistrict());
+        if (updated.getCity() != null)
+            existing.setCity(updated.getCity());
+        if (updated.getPostalCode() != null)
+            existing.setPostalCode(updated.getPostalCode());
+        if (Boolean.TRUE.equals(updated.getIsDefault())) {
+            repo.findByAccountAndIsDefaultTrue(account).ifPresent(a -> {
+                if (!a.getId().equals(existing.getId())) {
+                    a.setIsDefault(false);
+                    repo.save(a);
+                }
+            });
+            existing.setIsDefault(true);
+        } else {
+            if (updated.getIsDefault() != null) {
+                existing.setIsDefault(updated.getIsDefault());
+            }
+        }
+        return repo.save(existing);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer id, AccountEntity account) {
+        repo.findByIdAndAccount(id, account).ifPresent(a -> {
+            if (Boolean.TRUE.equals(a.getIsDefault())) {
+                throw new RuntimeException("Cannot delete default address");
+            }
+            repo.delete(a);
+        });
+    }
 }

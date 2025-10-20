@@ -57,5 +57,19 @@ const swiper_products = new Swiper('.swiper_products', {
         // Hiển thị div tương ứng với data-target
         $('.' + target).show();
     });
+  // On load, if a hash is present (e.g. #address), show that tab
+  const initialHash = window.location.hash;
+  if (initialHash && initialHash.length > 1) {
+    const target = initialHash.substring(1); // remove '#'
+    // hide all and show the target
+    $('.account_menu li').removeClass('active');
+    // find the matching anchor with data-target
+    const anchor = $('.account_menu a[data-target="' + target + '"]');
+    if (anchor && anchor.length > 0) {
+      anchor.addClass('active');
+    }
+    $('.my_account_right > div').hide();
+    $('.' + target).show();
+  }
 });
 

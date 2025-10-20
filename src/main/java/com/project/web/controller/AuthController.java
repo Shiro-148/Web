@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.web.Entity.AccountEntity;
 import com.project.web.Service.AccountService;
+import com.project.web.Service.AddressService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -71,11 +72,20 @@ public class AuthController {
         return "login";
     }
 
+    @Autowired
+    private AddressService addressService;
+
     @GetMapping("/account")
-    public String getAccount(HttpServletRequest request) {
+    public String getAccount(HttpServletRequest request, Model model) {
         String username = (String) request.getAttribute("username");
         if (username == null) {
             return "redirect:/login";
+        }
+        // load account and addresses for the logged-in user
+        AccountEntity account = accountService.getAccountByUsername(username);
+        if (account != null) {
+            model.addAttribute("addresses", addressService.listByAccount(account));
+            model.addAttribute("accountEntity", account);
         }
         return "account";
     }

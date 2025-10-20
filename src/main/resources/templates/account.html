@@ -120,64 +120,41 @@
                         <div class="address" style="display: none;">
                             <div class="head_title">
                                 Shipping Address
-                                <button class="btn_add_address">
+                                <button class="btn_add_address" id="openAddressDialogBtn">
                                     + Add
                                 </button>
                             </div>
                             <div class="wrapper_user_address">
                                 <h5>Address</h5>
-                                <div class="user_address">
-                                    <div class="contact_info">
-                                        <div class="user">
-                                            <div class="full_name">
-                                                <span>Shiiro</span>
-                                            </div>
-                                            <div class="split"></div>
-                                            <div class="phone">
-                                                <span>0123456789</span>
-                                            </div>
-                                        </div>
-                                        <div class="btn_group_address">
-                                            <button class="btn_address_update">Update</button>
-                                            <button class="btn_address_delete">Delete</button>
-                                        </div>
-                                    </div>
-                                    <div class="address_info">
-                                        <div class="details_address">
-                                            <div class="specific_address">Home</div>
-                                            <div class="address">Xã Vĩnh Lâm, Huyện Vĩnh Linh, Quảng Trị</div>
-                                        </div>
-                                        <button class="default_setting">Default setting</button>
-                                    </div>
-                                    <div class="setting_info">
-                                        <span>Default</span>
+                                <div th:if="${addresses.empty}">
+                                    <div class="order_history_empty">
+                                        <img src="/image/img/order-empty.png" alt="">
+                                        Bạn chưa có địa chỉ nào
                                     </div>
                                 </div>
-                                <div class="user_address">
-                                    <div class="contact_info">
-                                        <div class="user">
-                                            <div class="full_name">
-                                                <span>Shiiro</span>
+                                <div th:if="${!addresses.empty}">
+                                    <div th:each="addr : ${addresses}" class="user_address" th:attr="data-address-id=${addr.id},data-is-default=${addr.isDefault}">
+                                        <div class="contact_info">
+                                            <div class="user">
+                                                <div class="full_name"><span th:text="${addr.receiverName}"></span></div>
+                                                <div class="split"></div>
+                                                <div class="phone"><span th:text="${addr.phone}"></span></div>
                                             </div>
-                                            <div class="split"></div>
-                                            <div class="phone">
-                                                <span>0123456789</span>
+                                            <div class="btn_group_address">
+                                                <button class="btn_address_update" type="button" th:attr="data-id=${addr.id}">Update</button>
+                                                <button class="btn_address_delete" type="button" th:attr="data-id=${addr.id}" th:if="${!addr.isDefault}">Delete</button>
                                             </div>
                                         </div>
-                                        <div class="btn_group_address">
-                                            <button class="btn_address_update">Update</button>
-                                            <button class="btn_address_delete">Delete</button>
+                                        <div class="address_info">
+                                            <div class="details_address">
+                                                <div class="specific_address" th:text="${addr.street != null} ? ${addr.street} : 'Home'"></div>
+                                                <div class="address" th:text="${addr.ward} + ', ' + ${addr.city}"></div>
+                                            </div>
+                                            <button class="default_setting" th:if="${!addr.isDefault}" th:attr="data-id=${addr.id}">Default setting</button>
+                                            <div class="setting_info" th:if="${addr.isDefault}">
+                                                <span>Default</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="address_info">
-                                        <div class="details_address">
-                                            <div class="specific_address">Home</div>
-                                            <div class="address">Xã Vĩnh Lâm, Huyện Vĩnh Linh, Quảng Trị</div>
-                                        </div>
-                                        <button class="default_setting">Default setting</button>
-                                    </div>
-                                    <div class="setting_info">
-                                        <span>Default</span>
                                     </div>
                                 </div>
                             </div>
