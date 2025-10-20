@@ -4,15 +4,33 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="address_form">
-                        <form>
+                        <form id="addressForm" method="post">
                             <span>
                                 Vui lòng nhập địa chỉ của bạn (địa chỉ này sẽ được dùng làm địa chỉ giao hàng).
-                                Hệ thống sẽ tìm cửa hàng gần nơi bạn sinh sống.
                             </span>
                             <div class="home_address">
-                                <label for="address">Địa chỉ</label>
+                                <label for="address">Địa chỉ (Số nhà, đường)</label>
                                 <input type="text" id="address" placeholder="Vui lòng nhập" />
                             </div>
+
+                            <div class="location_selects">
+                                <div class="province_select">
+                                    <label for="provinceSelect">Tỉnh/Thành</label>
+                                    <select id="provinceSelect">
+                                        <option value="">-- Chọn tỉnh/thành --</option>
+                                    </select>
+                                </div>
+                                <div class="ward_select">
+                                    <label for="wardSelect">Quận/Huyện/Phường</label>
+                                    <select id="wardSelect">
+                                        <option value="">-- Chọn phường/xã --</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Hidden fields to be submitted with the address form -->
+                            <input type="hidden" id="selectedProvinceName" name="province" />
+                            <input type="hidden" id="selectedWardName" name="ward" />
                             <div class="home_address_detail">
                                 <div class="address_detail">
                                     <div class="name_address">
@@ -39,5 +57,6 @@
                 </div>
             </div>
         </div>
+        <script src="/js/vn-wards.js"></script>
     </div>
 </div>
