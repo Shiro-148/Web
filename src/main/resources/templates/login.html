@@ -8,8 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="newsStyles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/css/swiper.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.x.x/js/swiper.min.js"></script>
@@ -18,271 +19,92 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <title>Document</title>
 </head>
-<style>
-    .button {
-        position: fixed;
-        top: 30%;
-        left: 50%;
-        width: 50px;
-        height: 50px;
-        margin: 10px;
-        border-radius: 50%;
-        background-color: #df1d1d;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    .icon {
-        font-size: 25px;
-        color: #000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-    .modal_size {
-        max-width: 800px;
-        max-height: 500px;
-    }
-    .modal-body {
-        position: relative;
-        padding: 0;
-        display: flex;
-        align-items: flex-start;
-    }
-    .modal-body .btn_close {
-        display: flex;
-        width: 30px;
-        height: 30px;
-        border: none;
-        justify-content: center;
-        align-items: center;
-        background-color: #FF5B6A;
-        border-radius: 50%;
-        position: absolute;
-        right: 2%;
-        top: 5%;
-    }
-    .modal-body .btn_close:hover {
-        background-color: rgb(104, 103, 102);
-    }
-    .modal-body .btn_close span {
-        color: #fff;
-        font-size: 20px;
-    }
-    .modal-body .left_content {
-        width: 50%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        float: left;
-        padding: 20px;
-    }
-    .left_content>form>.form_group {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 10px;
-    }
-    .left_content>form>.form_group>label {
-        display: block;
-        font-size: 17px;
-        font-weight: 500;
-        margin-bottom: 5px;
-    }
-    .left_content>form>.form_group>.form_input {
-        width: 100%;
-        height: 40px;
-        border: 1px solid #FF5B6A;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-        border-radius: 5px;
-        padding: 0 10px;
-    }
-    .form_footer {
-        position: relative;
-    }
-    .form_footer .btn_continue {
-        width: 100%;
-        background-color: #FF5B6A;
-        color: #fff;
-        font-family: 'Roboto', Arial, sans-serif;
-        font-weight: 500;
-        font-size: 18px;
-    }
-    .form_footer .btn_continue:active {
-        background-color: #FF5B6A;
-        color: #fff;
-    }
-    .form_footer .btn_guest_group {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    .form_footer .btn_guest {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: #fff;
-        color: #FF5B6A;
-        font-family: 'Roboto', Arial, sans-serif;
-        font-weight: 500;
-        border: none;
-        font-size: 18px;
-        margin-top: 10px;
-        margin: 20px 0;
-    }
-    .form_footer .btn_guest:active {
-        background-color: #fff;
-        color: #FF5B6A;
-    }
-    .form_footer .btn_guest i {
-        color: rgb(112, 111, 111);
-        font-size: 20px;
-        margin-left: 5px;
-    }
-    .btn_guest {
-        position: relative;
-    }
-    .tooltip_text {
-        display: none;
-        width: 100%;
-        background-color: #ccaa9c;
-        color: #fff;
-        font-size: 14px;
-        padding: 5px;
-        border-radius: 6px;
-        box-shadow: 1px 1px 5px #ccc;
-        -webkit-box-shadow: 1px 1px 5px #ccc;
-        position: absolute;
-        z-index: 1;
-        top: 50px;
-        transition: opacity 0.3s;
-    }
-    .btn_guest_group i {
-        cursor: pointer;
-    }
-    .tooltip_text::after {
-        content: "";
-        position: absolute;
-        top: 100%;
-        left: 50%;
-    }
-    .btn_guest_group i:hover+.tooltip_text {
-        display: block;
-    }
-    .txt {
-        display: flex;
-        align-items: center;
-        text-align: center;
-        font-size: 14px;
-        font-family: 'Roboto', Arial, sans-serif;
-        font-weight: 500px;
-    }
-    .form_other .txt:before,
-    .form_other .txt::after {
-        content: "";
-        flex: 1;
-        border-bottom: 2px solid #ccc;
-        width: 100%;
-        height: 1px;
-        background-color: #1f1e1e;
-        margin: 0 10px;
-    }
-    .btn_login_other {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 30px 0;
-    }
-    .btn_login_fb,
-    .btn_login_gg {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin-right: 20px;
-        border-radius: 15px;
-        width: 75px;
-        height: 75px;
-        cursor: pointer;
-        background-color: #fff;
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    .btn_login_other img {
-        width: 30px;
-        height: 30px;
-        margin-bottom: 5px;
-    }
-    .btn_login_other span {
-        font-size: 12px;
-        font-weight: 500;
-        color: black;
-    }
-    .btn_login_other a {
-        text-decoration: none;
-    }
-    .right_content {
-        width: 50%;
-        float: right;
-    }
-    .right_content img {
-        width: 100%;
-        height: 100%;
-    }
-</style>
 
 <body>
-    <div class="button" data-bs-toggle="modal" data-bs-target="#login">
-        <div class="icon"><i class='bx bx-location-plus'></i></div>
-    </div>
-    <div role="dialog" aria-modal="true" class="fade modal-delivery-address modal" id="login" tabindex="-1"
-        style="overflow-y: scroll;">
-        <div class="modal-dialog modal_size modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="btn_close" data-bs-dismiss="modal">
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="login_page">
+            <div class="login" id="login" tabindex="-1">
+                <div class="modal-content">
+                    <button type="button" class="btn_close">
                         <span>x</span>
                     </button>
-                    <div class="left_content">
-                        <form action="">
-                            <h5>Đăng nhập hoặc tạo tài khoản</h5>
-                            <div class="form_group">
-                                <label for="form_label">Phone number/Email</label>
-                                <input class="form_input" type="text" placeholder="Enter your phone number/Email">
-                                <p class="invalid"><!--The field Phone number/Email is required.--></p>
-                            </div>
-                            <div class="form_footer">
-                                <button class="btn btn_continue" type="submit" title="Continue">Continue</button>
-                                <div class="btn_guest_group">
-                                    <button class="btn btn_guest" title="Checkout as guest">Checkout as guest</button>
-                                    <i class='bx bx-info-circle'></i>
-                                    <div class="tooltip_text">
-                                        Promotions and offers will not apply to purchases without an account.
+                    <div class="content">
+                        <div class="left_content">
+                            <form id="step1" class="step-form">
+                                <span class="title">Đăng nhập hoặc tạo tài khoản</span>
+                                <div class="login_info">
+                                    <div class="w-username">
+                                        <label for="username" class="label">Số điện thoại/Email</label>
+                                        <input class="username form_input" id="username" type="text"
+                                            placeholder="Nhập số điện thoại của bạn/Email" value="user1">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form_other">
-                                <span class="txt">hoặc Đăng nhập bằng</span>
-                                <div class="btn_login_other">
-                                    <a href="#" class="btn_login_fb">
-                                        <img src="img/icon-fb.svg" alt="">
-                                        <span>FACEBOOK</span>
-                                    </a>
-                                    <a href="#" class="btn_login_gg">
-                                        <img src="img/icon-google.svg" alt="">
-                                        <span>GOOGLE</span>
-                                    </a>
+                                <div class="form_footer">
+                                    <button class="btn btn_continue" id="btn-step1" type="submit" title="Continue">Tiếp
+                                        tục</button>
+                                    <div class="btn_guest_group">
+                                        <div class="w-btn_guest">
+                                            <button class="btn btn_guest" title="Checkout as guest">Mua hàng không
+                                                cần tài
+                                                khoản</button>
+                                            <i class='bx bx-info-circle'></i>
+                                        </div>
+                                        <div class="tooltip_text">
+                                            Promotions and offers will not apply to purchases without an account.
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="right_content">
-                        <img src="img/login-banner.jpg" alt="">
+                                <div class="form_other">
+                                    <span class="txt">hoặc Đăng nhập bằng</span>
+                                    <div class="btn_login_other">
+                                        <a href="#" class="btn_login_fb">
+                                            <img src="/image/img/icon-fb.svg" alt="">
+                                            <span>FACEBOOK</span>
+                                        </a>
+                                        <a href="#" class="btn_login_gg">
+                                            <img src="/image/img/icon-google.svg" alt="">
+                                            <span>GOOGLE</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="step2" class="step-form" style="display:none;" method="post" action="/login">
+                                <div class="btn_back">
+                                    <i class='bx  bx-reply'></i>
+                                    <span>Quay lại</span>
+                                </div>
+                                <span class="title">Nhập mật khẩu</span>
+                                <div class="login_info">
+                                    <div class="w-password">
+                                        <input class="password form_input" id="password" type="password" name="password"
+                                            placeholder="Vui lòng nhập mật khẩu" value="1">
+                                    </div>
+                                    <input type="hidden" id="username_hidden" name="username">
+                                </div>
+                                <div class="form_footer">
+                                    <div class="btn_other">
+                                        <a href="#" id="forgot-password">Quên mật khẩu?</a>
+                                        <a href="#" id="login-sms">Đăng nhập bằng SMS</a>
+                                    </div>
+                                    <button class="btn btn_continue" id="btn_login" type="submit">Đăng nhập</button>
+                                </div>
+                                <div class="register">
+                                    <span>Chưa có tài khoản? <a href="#">Tạo ngay</a></span>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="right_content">
+                            <img src="/image/img/login-banner.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="/js/modal-dialog.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/header.js"></script>
 </body>
+
 
 </html>

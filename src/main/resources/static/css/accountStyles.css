@@ -195,7 +195,10 @@
     background-color: #FF5B6A;
     color: #fff;
 }
-
+.my_account_right .social_network{
+    display: flex;
+    flex-direction: column;
+}
 .my_account_right .social_network li {
     list-style: none;
     display: flex;

@@ -85,47 +85,9 @@
     <div class="footer">
         <div th:insert="~{footer :: footer}"></div>
     </div>
-    <div role="dialog" aria-modal="true" class="fade modal-delivery-address modal" id="location" tabindex="-1"
-        style="overflow-y: scroll;">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="address_form">
-                        <form>
-                            <p>Vui lòng nhập địa chỉ của bạn (địa chỉ này sẽ được dùng làm địa chỉ giao hàng).
-                                Hệ thống sẽ tìm cửa hàng gần nơi bạn sinh sống.</p>
-                            <div class="home_address">
-                                <label for="address">Địa chỉ</label>
-                                <input type="text" placeholder="Vui lòng nhập" id="address">
-                            </div>
-                            <div class="detail_address">
-                                <div class="name_address">
-                                    <label for="name_address">Tên địa chỉ</label>
-                                    <br>
-                                    <input type="text" placeholder="Gym / Nhà riêng / cơ quan" id="name_address">
-                                </div>
-                                <div class="note">
-                                    <label for="note">Ghi chú</label>
-                                    <br>
-                                    <input type="text" placeholder="Vui lòng nhập" id="note">
-                                </div>
-                                <div class="btn_toggle">
-                                    <input type="checkbox" id="check">
-                                    <label for="check" class="button"></label>
-                                    <span>Đặt làm địa chỉ mặc định</span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn custom_btn_cancel" title="Hủy bỏ" data-bs-dismiss="modal">Hủy
-                        bỏ</button>
-                    <button type="button" class="btn custom_btn_submit" title="Thêm mới" disabled>Thêm mới</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:insert="~{modal_dialog}"></div>
     <script src="/js/scripts.js"></script>
     <script src="/js/product.js"></script>
+    <script src="/js/header.js"></script>
+    <script src="/js/modal-dialog.js"></script>
 </body>

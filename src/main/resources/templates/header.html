@@ -40,75 +40,42 @@
                 </div>
                 <div class="right-content">
                     <div class="wrapper">
-                        <div class="button" data-bs-toggle="modal" data-bs-target="#location">
+                        <div class="button btn_address" id="openModalBtn">
                             <div class="icon"><i class='bx bx-location-plus'></i></div>
                         </div>
-                        <div class="dropdown" id="menu-user" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown user-inf-dropdown" id="menu-user" data-bs-toggle="dropdown"
+                            aria-expanded="false">
                             <div class="button">
                                 <div class="icon"><i class='bx bx-user'></i></div>
                             </div>
-                            <!-- <ul class="dropdown-menu" aria-labelledby="menu-user">
-                                <li><a class="dropdown-item" href="/account"><i class='bx bxs-user'></i>Thông tin tài khoản</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-location-plus'></i>Địa chỉ giao hàng</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-food-menu'></i>Lịch sử đơn hàng</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-heart'></i>Thực đơn của tôi</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-message-rounded'></i>Hỗ trợ</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bx-power-off'></i>Đăng xuất</a>
+                            <ul class="dropdown-menu" aria-labelledby="menu-user">
+                <li><a class="dropdown-item need-auth" href="/account"><i class='bx bxs-user'></i>Thông tin tài
+                                        khoản</a></li>
+                                <li><a class="dropdown-item" href="#"><i class='bx bxs-location-plus'></i>Địa chỉ giao
+                                        hàng</a></li>
+                                <li><a class="dropdown-item" href="#"><i class='bx bxs-food-menu'></i>Lịch sử đơn
+                                        hàng</a></li>
+                                <li><a class="dropdown-item" href="#"><i class='bx bxs-heart'></i>Thực đơn của tôi</a>
                                 </li>
-                            </ul> -->
+                                <li><a class="dropdown-item" href="#"><i class='bx bxs-message-rounded'></i>Hỗ trợ</a>
+                                </li>
+                                <li><a class="dropdown-item" href="/logout"><i class='bx bx-power-off'></i>Đăng xuất</a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="button">
                             <div class="icon"><i class='bx bx-bell'></i></div>
                         </div>
                         <div class="button">
-                            <a href="/cart">
-                                <div class="icon"><i class='bx bx-shopping-bag'></i></div>
+                            <a href="/cart" class="need-auth">
+                                <div class="icon cart-btn" ><i class='bx bx-shopping-bag'></i></div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div role="dialog" aria-modal="true" class="fade modal-delivery-address modal" id="location" tabindex="-1"
-        style="overflow-y: scroll;">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="address_form">
-                        <form>
-                            <p>Vui lòng nhập địa chỉ của bạn (địa chỉ này sẽ được dùng làm địa chỉ giao hàng).
-                                Hệ thống sẽ tìm cửa hàng gần nơi bạn sinh sống.</p>
-                            <div class="home_address">
-                                <label for="address">Địa chỉ</label>
-                                <input type="text" placeholder="Vui lòng nhập" id="address">
-                            </div>
-                            <div class="detail_address">
-                                <div class="name_address">
-                                    <label for="name_address">Tên địa chỉ</label>
-                                    <br>
-                                    <input type="text" placeholder="Gym / Nhà riêng / cơ quan" id="name_address">
-                                </div>
-                                <div class="note">
-                                    <label for="note">Ghi chú</label>
-                                    <br>
-                                    <input type="text" placeholder="Vui lòng nhập" id="note">
-                                </div>
-                                <div class="btn_toggle">
-                                    <input type="checkbox" id="check">
-                                    <label for="check" class="button"></label>
-                                    <span>Đặt làm địa chỉ mặc định</span>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn custom_btn_cancel" title="Hủy bỏ" data-bs-dismiss="modal">Hủy
-                        bỏ</button>
-                    <button type="button" class="btn custom_btn_submit" title="Thêm mới" disabled>Thêm mới</button>
-                </div>
-            </div>
-        </div>
+    <!-- server-rendered auth flag so client JS can know auth state (jwt cookie is HttpOnly) -->
+    <div id="auth" th:attr="data-authenticated=${username != null}" style="display:none"></div>
     </div>
 </body>

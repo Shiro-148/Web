@@ -1,0 +1,43 @@
+<div class="modal-address">
+    <div id="modalOverlay" class="modal-overlay">
+        <div class="modal" id="location" tabindex="-1">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="address_form">
+                        <form>
+                            <span>
+                                Vui lòng nhập địa chỉ của bạn (địa chỉ này sẽ được dùng làm địa chỉ giao hàng).
+                                Hệ thống sẽ tìm cửa hàng gần nơi bạn sinh sống.
+                            </span>
+                            <div class="home_address">
+                                <label for="address">Địa chỉ</label>
+                                <input type="text" id="address" placeholder="Vui lòng nhập" />
+                            </div>
+                            <div class="home_address_detail">
+                                <div class="address_detail">
+                                    <div class="name_address">
+                                        <label for="name_address">Tên địa chỉ</label>
+                                        <input type="text" id="name_address" placeholder="Gym / Nhà riêng / cơ quan" />
+                                    </div>
+                                    <div class="note">
+                                        <label for="note">Ghi chú</label>
+                                        <input type="text" id="note" placeholder="Vui lòng nhập" />
+                                    </div>
+                                </div>
+                                <div class="btn_toggle">
+                                    <input type="checkbox" id="check" />
+                                    <label for="check" class="button"></label>
+                                    <span>Đặt làm địa chỉ mặc định</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-btn-group">
+                    <button type="button" class="btn custom_btn_cancel" id="cancelBtn">Hủy bỏ</button>
+                    <button type="button" class="btn custom_btn_submit" id="submitBtn" disabled>Thêm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
