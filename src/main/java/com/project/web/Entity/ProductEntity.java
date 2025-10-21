@@ -3,6 +3,8 @@ package com.project.web.Entity;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,17 +20,19 @@ import jakarta.persistence.Table;
 public class ProductEntity {
     @ManyToMany
     @JoinTable(name = "product_category", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "idProduct"), inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "idCategory"))
+    @JsonIgnore
     private Set<CategoryEntity> categories;
 
     @ManyToMany
     @JoinTable(name = "product_addon", joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "idProduct"), inverseJoinColumns = @JoinColumn(name = "addon_id", referencedColumnName = "id"))
+    @JsonIgnore
     private Set<AddonEntity> addons;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idProduct;
 
-    @Column(name = "nameProduct", length = 255, nullable = false) 
+    @Column(name = "nameProduct", length = 255, nullable = false)
     private String nameProduct;
 
     @Column(name = "priceProduct", precision = 10, scale = 3, nullable = false)
@@ -122,9 +126,11 @@ public class ProductEntity {
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
     }
+
     public Set<AddonEntity> getAddons() {
         return addons;
     }
+
     public void setAddons(Set<AddonEntity> addons) {
         this.addons = addons;
     }

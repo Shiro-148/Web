@@ -33,9 +33,12 @@
                         </div>
                         <div class="content">
                             <div class="content_left">
-                                <div class="img">
+                                    <div class="img">
                                     <div class="icon_heart">
-                                        <i class='bx bx-heart'></i>
+                                        <i class="bx"
+                                           th:classappend="${product.favouriteProduct} ? ' bxs-heart' : ' bx-heart'"
+                                           th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}"
+                                           onclick="toggleFavourite(this)"></i>
                                     </div>
                                     <img th:src="@{${product.imgPathProduct}}" alt="">
                                     <div class="title" th:text="${product.nameProduct}"></div>
@@ -81,7 +84,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="add_to_cart">
+                                    <div class="add_to_cart" th:attr="data-id=${product.idProduct}">
                                         <div class="quantity">
                                             <span class="txt">Quantity</span>
                                             <button type="button" class="btn_minus">-</button>
@@ -104,6 +107,7 @@
     <div th:insert="~{modal_dialog}"></div>
     <script src="/js/scripts.js"></script>
     <script src="/js/header.js"></script>
+    <script src="/js/product.js"></script>
     <script src="/js/modal-dialog.js"></script>
 </body>
 
