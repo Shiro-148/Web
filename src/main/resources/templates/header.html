@@ -49,16 +49,16 @@
                                 <div class="icon"><i class='bx bx-user'></i></div>
                             </div>
                             <ul class="dropdown-menu" aria-labelledby="menu-user">
-                <li><a class="dropdown-item need-auth" href="/account"><i class='bx bxs-user'></i>Thông tin tài
-                                        khoản</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-location-plus'></i>Địa chỉ giao
-                                        hàng</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-food-menu'></i>Lịch sử đơn
-                                        hàng</a></li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-heart'></i>Thực đơn của tôi</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#"><i class='bx bxs-message-rounded'></i>Hỗ trợ</a>
-                                </li>
+                                <li><a class="dropdown-item need-auth" href="/account#account_information"><i
+                                            class='bx bxs-user'></i>Thông tin tài khoản</a></li>
+                                <li><a class="dropdown-item need-auth" href="/account#address"><i
+                                            class='bx bxs-location-plus'></i>Địa chỉ giao hàng</a></li>
+                                <li><a class="dropdown-item need-auth" href="/account#order_history"><i
+                                            class='bx bxs-food-menu'></i>Lịch sử đơn hàng</a></li>
+                                <li><a class="dropdown-item need-auth" href="/account#my_menu"><i
+                                            class='bx bxs-heart'></i>Thực đơn của tôi</a></li>
+                                <li><a class="dropdown-item need-auth" href="/account#support"><i
+                                            class='bx bxs-message-rounded'></i>Hỗ trợ</a></li>
                                 <li><a class="dropdown-item" href="/logout"><i class='bx bx-power-off'></i>Đăng xuất</a>
                                 </li>
                             </ul>
@@ -68,14 +68,14 @@
                         </div>
                         <div class="button">
                             <a href="/cart" class="need-auth">
-                                <div class="icon cart-btn" ><i class='bx bx-shopping-bag'></i></div>
+                                <div class="icon cart-btn"><i class='bx bx-shopping-bag'></i></div>
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    <!-- server-rendered auth flag so client JS can know auth state (jwt cookie is HttpOnly) -->
-    <div id="auth" th:attr="data-authenticated=${username != null}" style="display:none"></div>
+        <!-- server-rendered auth flag so client JS can know auth state (jwt cookie is HttpOnly) -->
+        <div id="auth" th:attr="data-authenticated=${username != null}" style="display:none"></div>
     </div>
 </body>

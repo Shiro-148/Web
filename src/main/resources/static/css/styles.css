@@ -661,22 +661,6 @@ html body{
     opacity: 0.7;
 }
 
-.my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-}
-
-.my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address>button {
-    border: none;
-    background-color: #fff;
-    color: #FF5B6A;
-    font-size: 16px;
-    font-weight: 600;
-    margin-right: 15px;
-    cursor: pointer;
-}
-
 .my_account_right .wrapper_user_address .user_address>.address_info {
     width: 100%;
     display: flex;
@@ -687,16 +671,6 @@ html body{
 .my_account_right .wrapper_user_address .user_address>.address_info>.address {
     display: flex;
     flex-direction: column;
-}
-
-.my_account_right .wrapper_user_address .user_address>.address_info>button {
-    margin-right: 15px;
-    border-radius: 2px;
-    padding: 3px;
-    border: solid 1px;
-    background-color: #fff;
-    font-weight: 400;
-    opacity: 0.8;
 }
 
 .my_account_right .wrapper_user_address .user_address>.setting_info {

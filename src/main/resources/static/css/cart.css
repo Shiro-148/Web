@@ -227,6 +227,7 @@
     background-color: #ff5b6a;
     border: none;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .cart_content .cart_list .cart_item .btn_cart_item .btn_quantity i {

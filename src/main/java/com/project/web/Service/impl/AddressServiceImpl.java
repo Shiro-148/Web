@@ -43,6 +43,11 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public java.util.Optional<AddressEntity> getDefault(AccountEntity account) {
+        return repo.findByAccountAndIsDefaultTrue(account);
+    }
+
+    @Override
     @Transactional
     public AddressEntity update(Integer id, AddressEntity updated, AccountEntity account) {
         AddressEntity existing = repo.findByIdAndAccount(id, account)

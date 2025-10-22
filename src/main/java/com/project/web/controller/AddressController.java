@@ -52,6 +52,16 @@ public class AddressController {
                 .orElse(ResponseEntity.status(404).body((Object) "Not found"));
     }
 
+    @GetMapping("/default")
+    public ResponseEntity<?> getDefault(Principal principal) {
+        if (principal == null)
+            return ResponseEntity.status(401).body("Unauthorized");
+        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+        return addressService.getDefault(account)
+                .<ResponseEntity<?>>map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(404).body("No default address"));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AddressEntity updated, Principal principal) {
         if (principal == null)

@@ -273,6 +273,7 @@
     border: none;
     color: #FF5B6A;
     font-size: 17px;
+    cursor: pointer;
 }
 
 .my_account_right .wrapper_user_address {
@@ -331,34 +332,42 @@
 
 .my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address {
     display: flex;
-    justify-content: start;
+    justify-content: flex-end;
     align-items: center;
+    gap: 10px;
 }
 
 .my_account_right .wrapper_user_address .user_address>.contact_info>.btn_group_address>button {
     border: none;
     background-color: #fff;
     color: #FF5B6A;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
-    margin-right: 15px;
     cursor: pointer;
 }
-
+.my_account_right .wrapper_user_address .user_address>.contact_info .btn_address_update{
+    padding-top: 2px;
+}
 .my_account_right .wrapper_user_address .user_address>.address_info {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
+.my_account_right .wrapper_user_address .user_address>.address_info .default_setting{
+    color: #FF5B6A;
+    font-weight: 500;
+    font-size: 14px;
+    border: #FF5B6A solid 1px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    cursor: pointer;
+}
 .my_account_right .wrapper_user_address .user_address>.address_info>.address {
     display: flex;
     flex-direction: column;
 }
-
 .my_account_right .wrapper_user_address .user_address>.address_info>button {
-    margin-right: 15px;
     border-radius: 2px;
     padding: 3px;
     border: solid 1px;
@@ -366,8 +375,7 @@
     font-weight: 400;
     opacity: 0.8;
 }
-
-.my_account_right .wrapper_user_address .user_address>.setting_info {
+.my_account_right .wrapper_user_address .user_address .setting_info {
     border: #FF5B6A solid 1px;
     color: #FF5B6A;
     padding: 0 5px;

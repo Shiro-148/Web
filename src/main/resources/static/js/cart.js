@@ -8,6 +8,8 @@
     optPlastic: document.querySelector('#use_plastic'),
     optKetchup: document.querySelector('#use_ketchup'),
     optChilly: document.querySelector('#use_chilly_sauce'),
+    addressText: document.querySelector('.cart_detail .address .address_content .address_inf'),
+    addressEditBtn: document.querySelector('.cart_detail .address .address_content .btn_edit'),
   };
 
   // Match template formatting: e.g., 75 -> "75.000 ₫"
@@ -49,6 +51,32 @@
     });
     if (!res.ok) throw new Error(await res.text());
     return res.json();
+  }
+
+  async function loadDefaultAddress() {
+    if (!els.addressText) return;
+    try {
+      const res = await fetch('/api/address/default', { credentials: 'same-origin', cache: 'no-store' });
+      if (res.status === 404) {
+        els.addressText.textContent = 'Chưa có địa chỉ mặc định. Vui lòng thêm địa chỉ giao hàng.';
+        if (els.addressEditBtn) {
+          els.addressEditBtn.removeAttribute('data-id');
+        }
+        return;
+      }
+      if (!res.ok) throw new Error('Load default address failed');
+      const addr = await res.json();
+      const parts = [];
+      if (addr.street) parts.push(addr.street);
+      if (addr.ward) parts.push(addr.ward);
+      if (addr.city) parts.push(addr.city);
+      els.addressText.textContent = parts.join(', ');
+      if (els.addressEditBtn && addr.id != null) {
+        els.addressEditBtn.setAttribute('data-id', addr.id);
+      }
+    } catch (e) {
+      console.error('Could not load default address', e);
+    }
   }
 
   function renderItems(items) {
@@ -123,4 +151,5 @@
   if (els.optChilly) els.optChilly.addEventListener('change', () => updateOptions({ useChillySauce: els.optChilly.checked }));
 
   refresh();
+  loadDefaultAddress();
 })();

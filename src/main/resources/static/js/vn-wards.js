@@ -228,6 +228,65 @@
         });
       });
 
+      // Support edit button on cart page to reuse the same behavior
+      document.querySelectorAll('.btn_edit').forEach(btn => {
+        btn.addEventListener('click', async function () {
+          const id = btn.getAttribute('data-id');
+          try {
+            if (id) {
+              // If an id is provided, behave like update: load and prefill
+              const res = await fetch(`${addressApiBase}/${encodeURIComponent(id)}`);
+              if (!res.ok) throw new Error('Load address failed: ' + res.status);
+              const addr = await res.json();
+              if (addressInput) addressInput.value = addr.street || '';
+              if (nameInput) nameInput.value = addr.receiverName || '';
+              if (phoneInput) phoneInput.value = addr.phone || '';
+              if (provinceSelect) {
+                populateProvinces();
+                for (let i = 0; i < provinceSelect.options.length; i++) {
+                  if (provinceSelect.options[i].textContent.trim() === (addr.city || '').trim()) {
+                    provinceSelect.selectedIndex = i;
+                    break;
+                  }
+                }
+              }
+              if (provinceSelect && wardSelect) {
+                await onProvinceChange();
+                for (let i = 0; i < wardSelect.options.length; i++) {
+                  if (wardSelect.options[i].textContent.trim() === (addr.ward || '').trim()) {
+                    wardSelect.selectedIndex = i;
+                    break;
+                  }
+                }
+              }
+              if (defaultCheckbox) defaultCheckbox.checked = !!addr.isDefault;
+              submitBtn.textContent = 'Cập nhật';
+              submitBtn.dataset.editId = id;
+              openModal();
+            } else {
+              // No id -> open modal in create mode
+              if (provinces.length > 0) populateProvinces();
+              if (addressInput) addressInput.value = '';
+              if (nameInput) nameInput.value = '';
+              if (phoneInput) phoneInput.value = '';
+              if (provinceSelect) provinceSelect.selectedIndex = 0;
+              if (wardSelect) {
+                wardSelect.innerHTML = '<option value="">-- Chọn phường/xã --</option>';
+              }
+              if (defaultCheckbox) defaultCheckbox.checked = false;
+              if (submitBtn) {
+                submitBtn.textContent = 'Thêm mới';
+                delete submitBtn.dataset.editId;
+              }
+              openModal();
+            }
+          } catch (err) {
+            console.error('Open edit on cart failed', err);
+            await showMessage('Không thể mở form địa chỉ: ' + (err.message || ''));
+          }
+        });
+      });
+
       // default setting handler
       document.querySelectorAll('.default_setting').forEach(btn => {
         btn.addEventListener('click', async function (e) {

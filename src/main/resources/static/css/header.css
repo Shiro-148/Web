@@ -195,6 +195,27 @@
     top: 50%;
 }
 
+.modal-confirm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    background-color: #F5F5F5;
+    width: auto;
+    max-width: 92vw;
+    height: auto;
+    padding: 24px 28px 28px 28px;
+    border-radius: 12px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+}
+.modal-confirm .modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .modal-address .modal.show-modal {
     display: flex;
     align-items: center;
@@ -249,8 +270,11 @@
 }
 
 /* Modal content */
-.modal-content{ position: relative; }
-.modal-close{
+.modal-content {
+    position: relative;
+}
+
+.modal-close {
     position: absolute;
     right: 12px;
     top: 8px;
@@ -262,24 +286,50 @@
     color: #444;
 }
 
-.location_selects{ display:flex; gap:16px; margin-top:6px; }
-.location_selects .province_select, .location_selects .ward_select{ flex:1; display:flex; flex-direction:column; gap:6px; }
+.location_selects {
+    display: flex;
+    gap: 16px;
+    margin-top: 6px;
+}
 
-@media (max-width:600px){
-    .modal{ width: 96vw; padding:16px; }
-    .location_selects{ flex-direction:column; }
-    .address_form input{ height:36px; }
-    .modal-close{ font-size:24px; right:8px; top:6px; }
+.location_selects .province_select,
+.location_selects .ward_select {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+@media (max-width:600px) {
+    .modal {
+        width: 96vw;
+        padding: 16px;
+    }
+
+    .location_selects {
+        flex-direction: column;
+    }
+
+    .address_form input {
+        height: 36px;
+    }
+
+    .modal-close {
+        font-size: 24px;
+        right: 8px;
+        top: 6px;
+    }
 }
 
 /* Styled selects inside modal */
-.location_selects select{
+.location_selects select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 100%;
     height: 42px;
-    padding: 8px 38px 8px 12px; /* room for custom arrow */
+    padding: 8px 38px 8px 12px;
+    /* room for custom arrow */
     border-radius: 8px;
     border: 1px solid #e6a6a6;
     background-color: #fff;
@@ -287,32 +337,35 @@
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 12px 12px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.06);
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.06);
     font-size: 14px;
     color: #222;
 }
 
-.location_selects select:focus{
+.location_selects select:focus {
     outline: none;
     border-color: #ff5b6a;
-    box-shadow: 0 0 0 3px rgba(255,91,106,0.08);
+    box-shadow: 0 0 0 3px rgba(255, 91, 106, 0.08);
 }
 
 /* Options styling is limited across browsers but set base colors */
-.location_selects select option{
+.location_selects select option {
     padding: 6px 10px;
     color: #222;
     background: #fff;
 }
 
-.location_selects select:disabled{
+.location_selects select:disabled {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
 /* If you wrap select in a relative container and want custom arrow via pseudo-element */
-.select-wrapper{ position: relative; }
-.select-wrapper::after{
+.select-wrapper {
+    position: relative;
+}
+
+.select-wrapper::after {
     content: '';
     position: absolute;
     right: 12px;
@@ -335,12 +388,14 @@
     justify-content: center;
     z-index: 999;
 }
+
 .modal-overlay.show-modal {
     display: flex !important;
     align-items: center;
     justify-content: center;
     z-index: 9999;
 }
+
 .address_form form {
     display: flex;
     flex-direction: column;

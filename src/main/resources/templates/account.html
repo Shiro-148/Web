@@ -141,8 +141,12 @@
                                                 <div class="phone"><span th:text="${addr.phone}"></span></div>
                                             </div>
                                             <div class="btn_group_address">
-                                                <button class="btn_address_update" type="button" th:attr="data-id=${addr.id}">Update</button>
-                                                <button class="btn_address_delete" type="button" th:attr="data-id=${addr.id}" th:if="${!addr.isDefault}">Delete</button>
+                                                <button class="btn_address_update" type="button" th:attr="data-id=${addr.id}">
+                                                    <i class="bx  bx-edit"></i>
+                                                </button>
+                                                <button class="btn_address_delete" type="button" th:attr="data-id=${addr.id}" th:if="${!addr.isDefault}">
+                                                    <i class="bx bx-trash-alt"></i>
+                                                </button>
                                             </div>
                                         </div>
                                         <div class="address_info">

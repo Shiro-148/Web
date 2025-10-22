@@ -12,6 +12,8 @@ public interface AddressService {
 
     java.util.Optional<AddressEntity> getByIdAndAccount(Integer id, AccountEntity account);
 
+    java.util.Optional<AddressEntity> getDefault(AccountEntity account);
+
     AddressEntity update(Integer id, AddressEntity updated, AccountEntity account);
 
     void delete(Integer id, AccountEntity account);
