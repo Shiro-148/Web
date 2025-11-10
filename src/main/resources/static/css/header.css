@@ -128,7 +128,44 @@
     -webkit-box-shadow: 0 4px 8px rgba(0, 0, 0, .15);
 
 }
-
+.button_cart{
+    position: relative;
+}
+.cart_count{
+    display: flex;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #FF5B6A;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.btn_notification{
+    position: relative;
+}
+.notification_count{
+    display: flex;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #FF5B6A;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
 .wrapper .button .icon {
     display: inline-block;
     width: 40px;
@@ -195,29 +232,8 @@
     top: 50%;
 }
 
-.modal-confirm {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 999;
-    background-color: #F5F5F5;
-    width: auto;
-    max-width: 92vw;
-    height: auto;
-    padding: 24px 28px 28px 28px;
-    border-radius: 12px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-}
-.modal-confirm .modal-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 .modal-address .modal.show-modal {
-    display: flex;
+    display: flex !important;
     align-items: center;
     justify-content: center;
 }

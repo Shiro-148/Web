@@ -36,8 +36,8 @@
                                     <div class="img">
                                     <div class="icon_heart">
                                         <i class="bx"
-                                           th:classappend="${product.favouriteProduct} ? ' bxs-heart' : ' bx-heart'"
-                                           th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}"
+                                           th:classappend="${isFavorite} ? ' bxs-heart' : ' bx-heart'"
+                                           th:attr="data-id=${product.idProduct}, data-favourite=${isFavorite}"
                                            onclick="toggleFavourite(this)"></i>
                                     </div>
                                     <img th:src="@{${product.imgPathProduct}}" alt="">
@@ -104,7 +104,7 @@
     <div class="footer">
         <div th:insert="~{footer :: footer}"></div>
     </div>
-    <div th:insert="~{modal_dialog}"></div>
+    <div th:insert="~{dialog-noti}"></div>
     <script src="/js/scripts.js"></script>
     <script src="/js/header.js"></script>
     <script src="/js/product.js"></script>

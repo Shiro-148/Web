@@ -1,6 +1,6 @@
 <div class="modal-address">
-    <div id="modalOverlay" class="modal-overlay">
-    <div class="modal" id="location" tabindex="-1">
+    <div id="modalOverlay" class="modal-overlay" style="display:none">
+        <div class="modal" id="location" tabindex="-1">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="address_form">
@@ -57,41 +57,13 @@
                     </div>
                 </div>
                 <div class="modal-btn-group">
-                    <button type="button" class="btn custom_btn_cancel" id="cancelBtn">Hủy bỏ</button>
+                    <button type="button" class="btn custom_btn_cancel" data-close-modal="location" id="cancelBtn">Hủy
+                        bỏ</button>
                     <button type="button" class="btn custom_btn_submit" id="submitBtn" disabled>Thêm mới</button>
                 </div>
             </div>
         </div>
         <script src="/js/vn-wards.js"></script>
-    </div>
-
-    <!-- Confirm dialog (used for delete/confirm actions) - placed outside modalOverlay so it can show independently -->
-    <div id="confirmOverlay" class="modal-overlay" style="display:none">
-        <div class="modal-confirm" id="confirmDialog" tabindex="-1">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p id="confirmText"></p>
-                </div>
-                <div class="modal-btn-group">
-                    <button type="button" class="btn custom_btn_cancel" id="confirmCancel">Hủy bỏ</button>
-                    <button type="button" class="btn custom_btn_submit" id="confirmOk">Xác nhận</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Message dialog (used to show info/errors) -->
-    <div id="messageOverlay" class="modal-overlay" style="display:none">
-        <div class="modal" id="messageDialog" tabindex="-1">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <p id="messageText"></p>
-                </div>
-                <div class="modal-btn-group">
-                    <button type="button" class="btn custom_btn_submit" id="messageOk">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
+        <script src="/js/dialog-noti.js"></script>
     </div>
 </div>

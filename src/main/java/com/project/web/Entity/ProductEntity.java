@@ -1,12 +1,14 @@
 package com.project.web.Entity;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,9 +43,6 @@ public class ProductEntity {
     @Column(name = "priceOldProduct", precision = 10, scale = 3)
     private BigDecimal priceOldProduct;
 
-    @Column(name = "favouriteProduct", columnDefinition = "TINYINT(1) DEFAULT 0", nullable = false)
-    private Boolean favouriteProduct;
-
     @Column(name = "imgPathProduct", nullable = false)
     private String imgPathProduct;
 
@@ -52,6 +51,11 @@ public class ProductEntity {
 
     @Column(name = "original_price", precision = 10, scale = 3, nullable = false)
     private BigDecimal originalPrice;
+
+    // Danh sách các account đã favorite sản phẩm này (mappedBy từ AccountEntity)
+    @ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<AccountEntity> favoritedBy = new HashSet<>();
 
     // Getters và Setters
 
@@ -95,14 +99,6 @@ public class ProductEntity {
         this.priceOldProduct = priceOldProduct;
     }
 
-    public Boolean getFavouriteProduct() {
-        return favouriteProduct;
-    }
-
-    public void setFavouriteProduct(Boolean favouriteProduct) {
-        this.favouriteProduct = favouriteProduct;
-    }
-
     public String getImgPathProduct() {
         return imgPathProduct;
     }
@@ -133,5 +129,13 @@ public class ProductEntity {
 
     public void setAddons(Set<AddonEntity> addons) {
         this.addons = addons;
+    }
+
+    public Set<AccountEntity> getFavoritedBy() {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(Set<AccountEntity> favoritedBy) {
+        this.favoritedBy = favoritedBy;
     }
 }

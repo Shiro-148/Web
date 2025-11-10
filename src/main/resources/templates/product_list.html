@@ -51,9 +51,10 @@
                     <div class="card_title_heart">
                         <div class="card_title" th:text="${product.nameProduct}"></div>
                         <div class="card_heart">
-                            <i class="bx bx-heart"
-                                th:attr="data-id=${product.idProduct}, data-favourite=${product.favouriteProduct}"
-                                onclick="toggleFavourite(this)">
+                            <i class="bx"
+                               th:classappend="${favoriteIds.contains(product.idProduct)} ? ' bxs-heart' : ' bx-heart'"
+                               th:attr="data-id=${product.idProduct}, data-favourite=${favoriteIds.contains(product.idProduct)}"
+                               onclick="toggleFavourite(this)">
                             </i>
                         </div>
                     </div>
@@ -85,7 +86,7 @@
     <div class="footer">
         <div th:insert="~{footer :: footer}"></div>
     </div>
-    <div th:insert="~{modal_dialog}"></div>
+    <div th:insert="~{dialog-noti}"></div>
     <script src="/js/scripts.js"></script>
     <script src="/js/product.js"></script>
     <script src="/js/header.js"></script>

@@ -2,6 +2,8 @@ package com.project.web.Entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,8 @@ public class AddressEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", nullable = false)
+    @JsonIgnore // prevent serialization of the lazy Account relation (avoids
+                // LazyInitializationException)
     private AccountEntity account;
 
     private String receiverName;

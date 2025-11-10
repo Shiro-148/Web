@@ -40,7 +40,7 @@
                 </div>
                 <div class="right-content">
                     <div class="wrapper">
-                        <div class="button btn_address" id="openModalBtn">
+                        <div class="button btn_address" data-open-modal="location" id="openModalBtn">
                             <div class="icon"><i class='bx bx-location-plus'></i></div>
                         </div>
                         <div class="dropdown user-inf-dropdown" id="menu-user" data-bs-toggle="dropdown"
@@ -63,13 +63,15 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="button">
+                        <div class="button btn_notification">
                             <div class="icon"><i class='bx bx-bell'></i></div>
+                            <div class="notification_count" id="notificationCount" style="display:none">1</div>
                         </div>
-                        <div class="button">
+                        <div class="button button_cart">
                             <a href="/cart" class="need-auth">
                                 <div class="icon cart-btn"><i class='bx bx-shopping-bag'></i></div>
                             </a>
+                            <div class="cart_count" id="cartCount">0</div>
                         </div>
                     </div>
                 </div>

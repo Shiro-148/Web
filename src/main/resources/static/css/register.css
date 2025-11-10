@@ -1,31 +1,25 @@
-.login_page .login {
+.register_page .register {
     display: none;
-    position: fixed;
-    z-index: 999;
-    background-color: #ffffff;
-    width: 750px;
-    height: 500px;
-    border-radius: 15px;
-    transform: translate(-50%, -50%);
-    left: 50%;
-    top: 50%;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
-    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+}
+.register_page .login {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 
-.login_page form {
+.register_page form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.login_page .login .title {
+.register_page .register .title {
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 5px;
 }
 
-.login_page .button {
+.register_page .button {
     position: fixed;
     top: 30%;
     left: 50%;
@@ -37,7 +31,7 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.login_page .icon {
+.register_page .icon {
     font-size: 25px;
     color: #000;
     display: flex;
@@ -46,20 +40,19 @@
     height: 100%;
 }
 
-.login_page .modal-content {
+.register_page .modal-content {
     position: relative;
     padding: 0;
     display: flex;
     align-items: flex-start;
     width: 100%;
-    height: 100%;
 }
 
-.login_page .btn {
+.register_page .btn {
     cursor: pointer;
 }
 
-.login_page .modal-content .btn_close {
+.register_page .modal-content .btn_close {
     display: flex;
     width: 30px;
     height: 30px;
@@ -75,44 +68,45 @@
     top: 5%;
 }
 
-.login_page .modal-content .btn_close span {
+.register_page .modal-content .btn_close span {
     padding-bottom: 3px;
     color: #fff;
     font-size: 15px;
 }
 
-.login_page .modal-content .btn_close:hover {
+.register_page .modal-content .btn_close:hover {
     background-color: #944148;
 }
 
-.login_page .modal-content .btn_close span {
+.register_page .modal-content .btn_close span {
     color: #fff;
     font-size: 20px;
 }
 
-.login_page .modal-content .left_content {
-    flex: 1;
+.register_page .modal-content .left_content {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    float: left;
+    flex: 1;
     padding: 20px;
 }
 
-.login_page .left_content form .login_info {
+.register_page .left_content form .register_info {
     width: 100%;
     display: flex;
     flex-direction: column;
     gap: 18px;
 }
 
-.login_page .left_content form .label {
+.register_page .left_content form .label {
     display: block;
     font-size: 16px;
     font-weight: 500;
     margin-bottom: 8px;
 }
 
-.login_page .left_content form .login_info .form_input {
+.register_page .left_content form .register_info .form_input {
     width: 100%;
     border: 1px solid #FF5B6A;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
@@ -122,16 +116,16 @@
     display: block;
 }
 
-.login_page .left_content form .login_info .form_input:focus {
+.register_page .left_content form .register_info .form_input:focus {
     outline: none;
     border-color: #FF5B6A;
 }
 
-.login_page .form_footer {
+.register_page .form_footer {
     position: relative;
 }
 
-.login_page .form_footer .btn_continue {
+.register_page .form_footer .btn_continue {
     width: 100%;
     background-color: #FF5B6A;
     color: #fff;
@@ -144,14 +138,14 @@
     margin-top: 10px;
 }
 
-.login_page .form_footer .btn_guest_group {
+.register_page .form_footer .btn_guest_group {
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.login_page .form_footer .btn_guest {
+.register_page .form_footer .btn_guest {
     position: relative;
     display: flex;
     justify-content: center;
@@ -166,17 +160,17 @@
     margin: 20px 0;
 }
 
-.login_page .form_footer .btn_guest i {
+.register_page .form_footer .btn_guest i {
     color: rgb(112, 111, 111);
     font-size: 20px;
     margin-left: 5px;
 }
 
-.login_page .btn_guest {
+.register_page .btn_guest {
     position: relative;
 }
 
-.login_page .tooltip_text {
+.register_page .tooltip_text {
     display: none;
     width: 100%;
     background-color: #ccaa9c;
@@ -192,22 +186,22 @@
     transition: opacity 0.3s;
 }
 
-.login_page .btn_guest_group i {
+.register_page .btn_guest_group i {
     cursor: pointer;
 }
 
-.login_page .tooltip_text::after {
+.register_page .tooltip_text::after {
     content: "";
     position: absolute;
     top: 100%;
     left: 50%;
 }
 
-.login_page .btn_guest_group i:hover+.tooltip_text {
+.register_page .btn_guest_group i:hover+.tooltip_text {
     display: block;
 }
 
-.login_page .txt {
+.register_page .txt {
     display: flex;
     align-items: center;
     text-align: center;
@@ -216,8 +210,8 @@
     font-weight: 500px;
 }
 
-.login_page .form_other .txt:before,
-.login_page .form_other .txt::after {
+.register_page .form_other .txt:before,
+.register_page .form_other .txt::after {
     content: "";
     flex: 1;
     border-bottom: 2px solid #ccc;
@@ -227,15 +221,15 @@
     margin: 0 10px;
 }
 
-.login_page .btn_login_other {
+.register_page .btn_register_other {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 30px 0;
 }
 
-.login_page .btn_login_fb,
-.login_page .btn_login_gg {
+.register_page .btn_register_fb,
+.register_page .btn_register_gg {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -249,45 +243,67 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.login_page .btn_login_other img {
+.register_page .btn_register_other img {
     width: 30px;
     height: 30px;
     margin-bottom: 5px;
 }
 
-.login_page .btn_login_other span {
+.register_page .btn_register_other span {
     font-size: 12px;
     font-weight: 500;
     color: black;
 }
 
-.login_page .btn_login_other a {
+.register_page .btn_register_other a {
     text-decoration: none;
 }
 
-.login_page .right_content {
-    display: flex;
+.register_page .right_content {
     flex: 1;
+    display: flex;
 }
 
-.login_page .right_content img {
+.register_page .right_content img {
+    max-width: 100%;
     border-radius: 0 15px 15px 0;
+    max-height: 100%;
     object-fit: cover;
 }
 
-.login_page .login .content {
+.register_page .register .content {
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     width: 100%;
     gap: 10px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
 }
 
-.login_page .login.show-modal {
+.register_page .register.show-modal {
     display: flex;
 }
+#register.show-modal {
+    position: fixed;
+    z-index: 999;
+    background-color: #ffffff;
+    width: 750px;
+    border-radius: 15px;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+    -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
+}
 
-.login_page .form_footer .w-btn_guest {
+/* Ẩn modal khi không mở */
+#register {
+  display: none;
+}
+.register_page .form_footer .w-btn_guest {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -295,7 +311,7 @@
     gap: 5px;
 }
 
-.login_page .btn_other {
+.register_page .btn_other {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -304,7 +320,7 @@
     color: #FF5B6A;
 }
 
-.login_page .btn-register-dialog {
+.register_page .register {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -316,11 +332,11 @@
     font-size: 17px;
 }
 
-.login_page .btn-register-dialog a {
+.register_page .register a {
     color: #FF5B6A;
     text-decoration: none;
 }
-.login_page .btn_back {
+.register_page .btn_back {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -329,27 +345,6 @@
     margin-bottom: 5px;
     font-weight: 500;
 }
-.login_page .btn_back i {
+.register_page .btn_back i {
     font-size: 22px;
-}
-
-/* Hiệu ứng chuyển cảnh giữa các bước đăng nhập */
-.fade-in {
-  opacity: 0;
-  animation: fadeIn 0.3s forwards;
-}
-
-.fade-out {
-  opacity: 1;
-  animation: fadeOut 0.3s forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(10px); }
 }

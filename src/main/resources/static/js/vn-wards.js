@@ -86,6 +86,7 @@
     }
 
     addressInput && addressInput.addEventListener('input', updateSubmitState);
+    nameInput && nameInput.addEventListener('input', updateSubmitState);
     provinceSelect && provinceSelect.addEventListener('change', updateSubmitState);
     wardSelect && wardSelect.addEventListener('change', updateSubmitState);
 
@@ -101,64 +102,17 @@
       if (overlay) overlay.style.display = 'none';
     }
 
-      // Confirm/message dialog helpers (use custom modal elements)
-  const confirmOverlay = document.getElementById('confirmOverlay');
-  const confirmDialogEl = document.getElementById('confirmDialog');
-  const confirmTextEl = document.getElementById('confirmText');
-  const confirmOkBtn = document.getElementById('confirmOk');
-  const confirmCancelBtn = document.getElementById('confirmCancel');
-
-  const messageOverlay = document.getElementById('messageOverlay');
-  const messageDialogEl = document.getElementById('messageDialog');
-  const messageTextEl = document.getElementById('messageText');
-  const messageOkBtn = document.getElementById('messageOk');
-
+      // Dialog helpers: delegate to centralized dialog-noti.js if available.
       function showConfirm(text) {
-        return new Promise(resolve => {
-          if (!confirmOverlay) {
-            // fallback to native confirm
-            resolve(window.confirm(text));
-            return;
-          }
-          confirmTextEl && (confirmTextEl.textContent = text);
-          // show overlay and the inner dialog box (add class used by modal CSS)
-          confirmOverlay.style.display = 'flex';
-          if (confirmDialogEl) confirmDialogEl.classList.add('show-modal');
-
-          function clean(result) {
-            confirmOverlay.style.display = 'none';
-            if (confirmDialogEl) confirmDialogEl.classList.remove('show-modal');
-            confirmOkBtn.removeEventListener('click', ok);
-            confirmCancelBtn.removeEventListener('click', cancel);
-            resolve(result);
-          }
-          function ok() { clean(true); }
-          function cancel() { clean(false); }
-
-          confirmOkBtn.addEventListener('click', ok);
-          confirmCancelBtn.addEventListener('click', cancel);
-        });
+        if (typeof window.showConfirm === 'function') return window.showConfirm(text);
+        // fallback to native confirm
+        return Promise.resolve(window.confirm(text));
       }
 
       function showMessage(text) {
-        return new Promise(resolve => {
-          if (!messageOverlay) {
-            window.alert(text);
-            resolve();
-            return;
-          }
-          messageTextEl && (messageTextEl.textContent = text);
-          // show overlay and the inner dialog box
-          messageOverlay.style.display = 'flex';
-          if (messageDialogEl) messageDialogEl.classList.add('show-modal');
-          function finish() {
-            messageOverlay.style.display = 'none';
-            if (messageDialogEl) messageDialogEl.classList.remove('show-modal');
-            messageOkBtn.removeEventListener('click', finish);
-            resolve();
-          }
-          messageOkBtn.addEventListener('click', finish);
-        });
+        if (typeof window.showMessage === 'function') return window.showMessage(text);
+        try { console.info(text); } catch (e) { /* ignore */ }
+        return Promise.resolve();
       }
 
     // Edit/Delete handlers

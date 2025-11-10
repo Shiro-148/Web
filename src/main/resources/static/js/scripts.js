@@ -57,6 +57,34 @@ const swiper_products = new Swiper('.swiper_products', {
         // Hiển thị div tương ứng với data-target
         $('.' + target).show();
     });
+  
+  // Ensure header cart badge shows total quantity on page load (sum of item.quantity)
+  (function initCartBadge() {
+    function setBadge(count) {
+      try {
+        const el = document.getElementById('cartCount');
+        if (!el) return;
+        const n = Number(count) || 0;
+        el.textContent = n;
+        el.style.display = (n ? '' : 'none');
+      } catch (e) { /* ignore */ }
+    }
+
+    // fetch cart summary and compute total quantity
+    fetch('/api/cart', { credentials: 'same-origin', cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null)
+      .then(json => {
+        if (!json) return;
+        if (json.totalQuantity != null) return setBadge(Number(json.totalQuantity));
+        if (json.totalItems != null && json.items == null) return setBadge(Number(json.totalItems));
+        const items = json.items || (json.cart && json.cart.items) || [];
+        if (Array.isArray(items)) {
+          const total = items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+          setBadge(total);
+        }
+      }).catch(() => {});
+  })();
+
   // On load, if a hash is present (e.g. #address), show that tab
   const initialHash = window.location.hash;
   if (initialHash && initialHash.length > 1) {

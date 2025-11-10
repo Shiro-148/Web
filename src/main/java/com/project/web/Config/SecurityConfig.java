@@ -20,11 +20,11 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index", "/login", "/register", "/css/**", "/js/**", "/image/**",
-                                "/static/**")
+                        .requestMatchers("/", "/index", "/login", "/register", "/error",
+                                "/css/**", "/js/**", "/image/**", "/static/**", "/favicon.ico")
                         .permitAll()
                         .anyRequest().authenticated())
-                .formLogin(form -> form.disable()) // Tắt form login mặc định
+                .formLogin(form -> form.disable())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -40,4 +40,5 @@ public class SecurityConfig {
 
         return http.build();
     }
+
 }

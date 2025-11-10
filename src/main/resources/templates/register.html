@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/register.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <title>Đăng ký tài khoản</title>
+    <style>
+        body { background: #f7f7f7; }
+        .register_page_container { display: flex; justify-content: center; padding: 40px 12px; }
+        .register_page .register { position: relative; transform: none; left: auto; top: auto; display: block; }
+        .register_page .register .content { gap: 0; }
+        .register_page .modal-content .btn_close { display: none; }
+        .form_error { color: #d33; font-size: 14px; margin-top: 6px; }
+        .form_msg { color: #2e7d32; font-size: 14px; margin-top: 6px; }
+    </style>
+</head>
+
+<body>
+    <div class="register_page_container">
+        <div class="register_page">
+            <div class="register show-modal" id="register">
+                <div class="modal-content">
+                    <div class="content">
+                        <div class="left_content">
+                            <form class="step-form" method="post" action="/register" id="registerForm">
+                                <span class="title">Tạo tài khoản mới</span>
+                                <div th:if="${error}" class="form_error" th:text="${error}"></div>
+                                <div th:if="${msg}" class="form_msg" th:text="${msg}"></div>
+                                <div class="register_info">
+                                    <div class="w-fullname">
+                                        <label for="fullName" class="label">Họ và tên</label>
+                                        <input class="form_input" id="fullName" name="fullName" type="text" placeholder="Nguyễn Văn A" th:value="${fullName}">
+                                    </div>
+                                    <div class="w-sdt">
+                                        <label for="sdt" class="label">Số điện thoại</label>
+                                        <input class="form_input" id="sdt" name="sdt" type="tel" placeholder="0123456789" value="0123456789" required>
+                                    </div>
+                                    <div class="w-password">
+                                        <label for="re-password" class="label">Mật khẩu</label>
+                                        <input class="form_input" id="re-password" name="password" value="123456" type="password" placeholder="Tối thiểu 6 ký tự" minlength="4" required>
+                                    </div>
+                                    <div class="w-password">
+                                        <label for="confirmPassword" class="label">Xác nhận mật khẩu</label>
+                                        <input class="form_input" id="confirmPassword" name="confirmPassword" value="123456" type="password" placeholder="Nhập lại mật khẩu" minlength="4" required>
+                                        <div id="pwMismatch" class="form_error" style="display:none;">Mật khẩu xác nhận không khớp</div>
+                                    </div>
+                                </div>
+                                <div class="form_footer">
+                                    <button class="btn btn_continue" type="submit" id="btn_register">Đăng ký</button>
+                                    <div class="login" style="margin-top: 10px;">
+                                        <span>Đã có tài khoản? <a href="#" data-switch-modal="login">Đăng nhập</a></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="right_content">
+                            <img src="/image/img/login-banner.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    </script>
+    <script src="/js/register.js"></script>
+</body>
+
+</html>

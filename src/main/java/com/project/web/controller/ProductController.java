@@ -1,5 +1,6 @@
 package com.project.web.Controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,9 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
+    private com.project.web.Service.AccountService accountService;
+
+    @Autowired
     private CategoryService categoryService;
 
     @Autowired
@@ -39,7 +43,7 @@ public class ProductController {
 
     @GetMapping("/product_list")
     public String getAllProducts(@RequestParam(value = "categoryId", required = false) Integer selectedCategoryId,
-            Model model) {
+            Model model, Principal principal) {
         List<ProductEntity> products;
         if (selectedCategoryId != null) {
             products = productService.getProductsByCategory(selectedCategoryId);
@@ -47,6 +51,17 @@ public class ProductController {
             products = productService.getAllProducts();
         }
         model.addAttribute("products", products);
+
+        // favorite ids của user hiện tại (dùng để hiển thị trái tim)
+        java.util.Set<Integer> favoriteIds = new java.util.HashSet<>();
+        if (principal != null) {
+            com.project.web.Entity.AccountEntity account = accountService
+                    .getAccountByPhoneWithFavorites(principal.getName());
+            if (account != null && account.getFavorites() != null) {
+                account.getFavorites().forEach(p -> favoriteIds.add(p.getIdProduct()));
+            }
+        }
+        model.addAttribute("favoriteIds", favoriteIds);
 
         List<CategoryEntity> categories = categoryService.getAllCategories();
         model.addAttribute("categories", categories);
@@ -57,16 +72,20 @@ public class ProductController {
 
     @PostMapping("/products/toggle-favourite/{id}")
     @ResponseBody
-    public ResponseEntity<Boolean> toggleFavourite(@PathVariable Integer id) {
-        ProductEntity updatedProduct = productService.updateFavouriteStatus(id);
-        if (updatedProduct != null) {
-            return ResponseEntity.ok(updatedProduct.getFavouriteProduct());
+    public ResponseEntity<Boolean> toggleFavourite(@PathVariable Integer id, Principal principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        com.project.web.Entity.AccountEntity account = accountService.getAccountByPhone(principal.getName());
+        if (account == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+        }
+        boolean nowFav = accountService.toggleFavorite(account.getId(), id);
+        return ResponseEntity.ok(nowFav);
     }
 
     @GetMapping("/product_detail/{id}")
-    public String getProductDetail(@PathVariable("id") Integer id, Model model) {
+    public String getProductDetail(@PathVariable("id") Integer id, Model model, Principal principal) {
         ProductEntity product = productService.getProductById(id);
         if (product.getAddons() == null) {
             product.setAddons(new HashSet<>());
@@ -85,6 +104,17 @@ public class ProductController {
                 .filter(type -> addonTypeIds.contains(type.getId()))
                 .collect(Collectors.toList());
         model.addAttribute("filteredAddonTypes", filteredAddonTypes);
+
+        boolean isFavorite = false;
+        if (principal != null) {
+            com.project.web.Entity.AccountEntity account = accountService
+                    .getAccountByPhoneWithFavorites(principal.getName());
+            if (account != null && account.getFavorites() != null) {
+                isFavorite = account.getFavorites().stream()
+                        .anyMatch(p -> p.getIdProduct().equals(product.getIdProduct()));
+            }
+        }
+        model.addAttribute("isFavorite", isFavorite);
 
         return "product_detail";
     }

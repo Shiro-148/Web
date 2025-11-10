@@ -1,24 +1,72 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const btnStep1 = document.getElementById('btn-step1');
     const step1 = document.getElementById('step1');
     const step2 = document.getElementById('step2');
+    const btnStep1 = document.getElementById('btn-step1');
+    const btnBack = step2?.querySelector('.btn_back');
+    const inputUsername = document.getElementById('username');
+    const hiddenUsername = document.getElementById('username_hidden');
 
+    // Hàm chuyển bước có hiệu ứng mượt
+    function switchStep(from, to) {
+        from.classList.add('fade-out');
+        setTimeout(() => {
+            from.style.display = 'none';
+            from.classList.remove('fade-out');
+            to.style.display = 'flex';
+            to.classList.add('fade-in');
+            setTimeout(() => to.classList.remove('fade-in'), 300);
+        }, 300);
+    }
+
+    // Kiểm tra định dạng số điện thoại hoặc email
+    function isValidUsername(value) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^[0-9]{9,11}$/;
+        return emailRegex.test(value) || phoneRegex.test(value);
+    }
+
+    // Khi người dùng nhấn nút "Tiếp tục"
     if (btnStep1) {
         btnStep1.addEventListener('click', function (e) {
             e.preventDefault();
-            // Lấy username từ step1 và gán vào input ẩn ở step2
-            var username = document.getElementById('username').value;
-            document.getElementById('username_hidden').value = username;
-            step1.style.display = 'none';
-            step2.style.display = 'flex';
+            const username = inputUsername.value.trim();
+
+            if (!username) {
+                if (window.showMessage) window.showMessage('Vui lòng nhập số điện thoại hoặc email của bạn.');
+                else console.info('Vui lòng nhập số điện thoại hoặc email của bạn.');
+                inputUsername.focus();
+                return;
+            }
+
+            if (!isValidUsername(username)) {
+                if (window.showMessage) window.showMessage('Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại.');
+                else console.info('Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại.');
+                inputUsername.focus();
+                return;
+            }
+
+            hiddenUsername.value = username;
+            switchStep(step1, step2);
         });
     }
-    const btnBack = document.querySelector('#step2 .btn_back');
+
+    // Khi người dùng nhấn "Quay lại"
     if (btnBack) {
         btnBack.addEventListener('click', function (e) {
             e.preventDefault();
-            step2.style.display = 'none';
-            step1.style.display = 'flex';
+            switchStep(step2, step1);
         });
     }
+
+    // Cho phép nhấn Enter để chuyển bước
+    inputUsername.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            btnStep1.click();
+        }
+    });
+
+    // Đảm bảo hiển thị đúng khi load lại trang
+    step1.style.display = 'flex';
+    step2.style.display = 'none';
 });

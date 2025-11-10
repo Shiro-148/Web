@@ -1,0 +1,35 @@
+<div id="messageOverlay" class="modal-overlay" style="display:none;">
+  <div id="messageDialog" class="message-dialog dialog-noti" tabindex="-1" role="dialog" aria-modal="true">
+    <div class="modal-content">
+      <div class="message-body">
+        <div class="message-left">
+          <img id="messageThumb" src="" alt=""
+            style="display:none; width:64px; height:64px; object-fit:cover; border-radius:8px;" />
+        </div>
+        <div class="message-center">
+          <div class="message-icon" id="messageIcon" style="display:flex; align-items:center; justify-content:center;">
+            <div
+              style="width:64px;height:64px;border-radius:50%;background:#21c997;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;">
+              ✓</div>
+          </div>
+          <div id="messageText" class="message-text">Message</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="confirmOverlay" class="modal-overlay" style="display:none">
+  <div class="modal-confirm dialog-noti" id="confirmDialog" tabindex="-1">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p id="confirmText"></p>
+      </div>
+      <div class="modal-btn-group">
+        <button type="button" class="btn custom_btn_cancel" id="confirmCancel">Hủy bỏ</button>
+        <button type="button" class="btn custom_btn_submit" id="confirmOk">Xác nhận</button>
+      </div>
+    </div>
+  </div>
+</div>
+<link rel="stylesheet" href="/css/dialog-noti.css">
+<script src="/js/dialog-noti.js"></script>

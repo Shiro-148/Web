@@ -34,10 +34,13 @@ public class AddressController {
         if (principal == null) {
             return ResponseEntity.status(401).body("Unauthorized");
         }
-        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+
+        // principal.getName() chứa giá trị phone được lấy từ JWT
+        AccountEntity account = accountService.getAccountByPhone(principal.getName());
         if (account == null) {
             return ResponseEntity.status(401).body("Account not found");
         }
+
         AddressEntity saved = addressService.create(address, account);
         return ResponseEntity.ok(saved);
     }
@@ -46,7 +49,8 @@ public class AddressController {
     public ResponseEntity<Object> getAddress(@PathVariable Integer id, Principal principal) {
         if (principal == null)
             return ResponseEntity.status(401).body("Unauthorized");
-        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+
+        AccountEntity account = accountService.getAccountByPhone(principal.getName());
         return addressService.getByIdAndAccount(id, account)
                 .map(a -> ResponseEntity.ok((Object) a))
                 .orElse(ResponseEntity.status(404).body((Object) "Not found"));
@@ -56,7 +60,8 @@ public class AddressController {
     public ResponseEntity<?> getDefault(Principal principal) {
         if (principal == null)
             return ResponseEntity.status(401).body("Unauthorized");
-        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+
+        AccountEntity account = accountService.getAccountByPhone(principal.getName());
         return addressService.getDefault(account)
                 .<ResponseEntity<?>>map(ResponseEntity::ok)
                 .orElse(ResponseEntity.status(404).body("No default address"));
@@ -66,7 +71,8 @@ public class AddressController {
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody AddressEntity updated, Principal principal) {
         if (principal == null)
             return ResponseEntity.status(401).body("Unauthorized");
-        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+
+        AccountEntity account = accountService.getAccountByPhone(principal.getName());
         try {
             AddressEntity saved = addressService.update(id, updated, account);
             return ResponseEntity.ok(saved);
@@ -79,7 +85,8 @@ public class AddressController {
     public ResponseEntity<?> delete(@PathVariable Integer id, Principal principal) {
         if (principal == null)
             return ResponseEntity.status(401).body("Unauthorized");
-        AccountEntity account = accountService.getAccountByUsername(principal.getName());
+
+        AccountEntity account = accountService.getAccountByPhone(principal.getName());
         try {
             addressService.delete(id, account);
             return ResponseEntity.ok().build();

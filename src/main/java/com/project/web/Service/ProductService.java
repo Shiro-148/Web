@@ -19,16 +19,11 @@ public class ProductService {
     }
 
     public ProductEntity getProductById(Integer id) {
-        return productRepository.findById(id).orElse(null); // Lấy sản phẩm theo ID
+        // Sử dụng query có fetch join để load luôn collection `addons` và tránh
+        // LazyInitializationException
+        return productRepository.findByIdWithAddons(id).orElseGet(() -> productRepository.findById(id).orElse(null));
     }
 
-    public ProductEntity updateFavouriteStatus(Integer id) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setFavouriteProduct(!product.getFavouriteProduct()); // Đảo trạng thái
-                    return productRepository.save(product);
-                }).orElse(null);
-    }
     public List<ProductEntity> getProductsByCategory(Integer categoryId) {
         return productRepository.findByCategories_IdCategory(categoryId);
     }

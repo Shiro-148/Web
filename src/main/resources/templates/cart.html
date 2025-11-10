@@ -20,7 +20,7 @@
 
 <body>
     <div class="cart_page">
-        <div class="header_empty">dger</div>
+        <div class="header_empty"></div>
         <div class="header_cart" id="header_cart">
             <div class="container">
                 <div class="content">
@@ -47,7 +47,7 @@
         <div class="w_cart_content">
             <div class="container">
                 <div class="cart_content">
-                    <div class="cart_list">
+                    <div class="cart_list step1">
                         <div class="cart_list_top">
                             <div class="title">
                                 <span class="text">Giỏ hàng của bạn</span>
@@ -60,6 +60,35 @@
                         <div class="cart_list_note">
                             <span class="title">Ghi chú cho đơn hàng</span>
                             <input type="text" class="note_cart" placeholder="Ghi chú cho món ăn của bạn...">
+                        </div>
+                    </div>
+                    <div class="cart_payment step2">
+                        <div class="cart_payment_inner">
+                            <button class="btn_back" type="button">← Quay lại</button>
+                            <h3 class="payment_title">THANH TOÁN</h3>
+                            <div class="payment_methods">
+                                <div class="payment_card selected">
+                                    <div class="payment_card_left">
+                                        <div class="payment_check">✓</div>
+                                    </div>
+                                    <div class="payment_card_center">
+                                        <div class="payment_icon"><img width="48" height="48"
+                                                src="https://img.icons8.com/color/48/stack-of-money.png"
+                                                alt="stack-of-money" /></div>
+                                        <div class="payment_label">Tiền mặt</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="coupon_box">
+                                <h4 class="coupon_title">Coupon của tôi</h4>
+                                <div class="coupon_row">
+                                    <div class="coupon_label">Mã coupon</div>
+                                    <div class="coupon_input_wrap">
+                                        <input type="text" class="coupon_input" placeholder="Nhập mã khuyến mãi">
+                                        <button class="coupon_apply">Áp dụng</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="cart_detail">
@@ -80,7 +109,7 @@
                                 Thời gian tiếp nhận đơn hàng trực tuyến từ 08:00 đến 21:30 hằng ngày
                             </span>
                         </div>
-                        <div class="custom_extras">
+                        <div class="custom_extras step1">
                             <div class="option">
                                 <span class="txt">Lấy dụng cụ ăn uống</span>
                                 <div class="btn_toggle">
@@ -103,6 +132,24 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="payment_list_product step2">
+                            <div class="payment_info_box">
+                                <h4 class="payment_info_title">THÔNG TIN ĐƠN HÀNG</h4>
+                                <div class="payment_items step2" id="paymentItemsContainer">
+                                    <template id="tplPaymentItem">
+                                        <div class="payment_item">
+                                            <div class="payment_item_thumb"><img src="" alt="thumb" /></div>
+                                            <div class="payment_item_info">
+                                                <div class="payment_item_name">Tên sản phẩm</div>
+                                                <div class="payment_item_qty">x1</div>
+                                            </div>
+                                            <div class="payment_item_price">0 ₫</div>
+                                        </div>
+                                    </template>
+                                    <div class="payment_empty">Chưa có sản phẩm</div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="order">
                             <div class="sub_total">
                                 <span class="txt">Tạm tính</span>
@@ -112,9 +159,14 @@
                                 <span class="txt">Tổng cộng</span>
                                 <span class="price">99.000 ₫</span>
                             </div>
-                            <div class="btn_payment">
+                            <div class="btn_payment step1">
                                 <a href="#" class="btn_payment_link">
                                     <span class="btn_text">Thanh toán</span>
+                                </a>
+                            </div>
+                            <div class="confirmation_payment step2">
+                                <a href="#" class="btn_payment_link">
+                                    <span class="btn_text">Xác nhận</span>
                                 </a>
                             </div>
                         </div>
@@ -124,11 +176,12 @@
         </div>
         <div class="footer" id="footer"></div>
     </div>
-    <!-- Reuse the same address modal used on Account page -->
-    <div th:insert="~{modal_dialog}"></div>
-    <div th:insert="~{login}"></div>
-    <script src="/js/scripts.js"></script>
-    <script src="/js/cart.js"></script>
+        <div th:insert="~{location}"></div>
+        <div th:insert="~{login}"></div>
+        <!-- Insert centralized dialog fragment so showMessage is available and dialog-noti.js is loaded -->
+        <div th:insert="~{dialog-noti}"></div>
+        <script src="/js/scripts.js"></script>
+        <script src="/js/cart.js"></script>
 </body>
 
 </html>

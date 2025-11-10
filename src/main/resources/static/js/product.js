@@ -8,7 +8,7 @@ function toggleFavourite(element) {
         $(element).toggleClass("bx-heart", !isFavourite);
         $(element).toggleClass("bxs-heart", isFavourite); 
     }).fail(function() {
-        alert("Có lỗi xảy ra!");
+        if (window.showMessage) window.showMessage('Có lỗi xảy ra!'); else console.error('Có lỗi xảy ra!');
     });
 }
 
@@ -17,29 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const authEl = document.getElementById('auth');
     const isAuthenticated = authEl && authEl.getAttribute('data-authenticated') === 'true';
 
-    // Simple message dialog helper using elements from modal_dialog.html
+    // Use centralized dialog utilities when available
     function showMessage(text) {
-        return new Promise((resolve) => {
-            const overlay = document.getElementById('messageOverlay');
-            const dlg = document.getElementById('messageDialog');
-            const txt = document.getElementById('messageText');
-            const ok = document.getElementById('messageOk');
-            if (!overlay || !dlg || !ok) {
-                alert(text);
-                resolve();
-                return;
-            }
-            if (txt) txt.textContent = text;
-            overlay.style.display = 'flex';
-            dlg.classList.add('show-modal');
-            function finish() {
-                overlay.style.display = 'none';
-                dlg.classList.remove('show-modal');
-                ok.removeEventListener('click', finish);
-                resolve();
-            }
-            ok.addEventListener('click', finish);
-        });
+        if (typeof window.showMessage === 'function') return window.showMessage(text);
+        // fallback: use console to avoid blocking native alert
+        try { console.info(text); } catch (e) { /* ignore */ }
+        return Promise.resolve();
     }
 
     function showLoginModalIfNeeded() {
@@ -69,9 +52,68 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.error('Add to cart failed:', msg);
                 return;
             }
-            // success message
-            showMessage('Đã thêm vào giỏ hàng thành công.');
-            // Optionally, give a tiny UI feedback
+            // Try to parse response JSON to extract new cart count
+            let resJson = null;
+            try {
+                // some backends return an empty body; guard against parse errors
+                resJson = await res.json();
+            } catch (e) {
+                resJson = null;
+            }
+
+            (function updateCartCount(data) {
+                try {
+                    const el = document.getElementById('cartCount');
+                    if (!el) return;
+                    let qty = null;
+                    if (data) {
+                        if (data.totalQuantity != null) qty = Number(data.totalQuantity);
+                        else if (data.totalItems != null && data.totalQuantity == null) {
+                            qty = Number(data.totalItems);
+                        } else if (Array.isArray(data.items)) {
+                            qty = data.items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+                        } else if (data.cart && Array.isArray(data.cart.items)) {
+                            qty = data.cart.items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+                        } else if (data.cart && data.cart.totalQuantity != null) {
+                            qty = Number(data.cart.totalQuantity);
+                        }
+                    }
+                    if (qty == null) {
+                        fetch('/api/cart', { credentials: 'same-origin' }).then(r => r.ok ? r.json() : null).then(json => {
+                            if (!json) return;
+                            const items = json.items || (json.cart && json.cart.items) || [];
+                            let c = 0;
+                            if (Array.isArray(items)) c = items.reduce((s, it) => s + (Number(it.quantity) || 0), 0);
+                            else c = Number(json.totalQuantity || json.totalItems || 0);
+                                el.textContent = c;
+                                el.style.display = (c ? '' : 'none');
+                        }).catch(() => {});
+                        return;
+                    }
+                    el.textContent = qty;
+                        el.style.display = (qty ? '' : 'none');
+                } catch (e) {
+                }
+            })(resJson);
+
+            // success notification (rich dialog with thumbnail if available)
+            try {
+                let imgSrc = null;
+                const cardBtn = document.querySelector(`.button_card_add[data-id="${productId}"]`);
+                if (cardBtn) {
+                    const card = cardBtn.closest('.product-card') || cardBtn.closest('.product-item') || cardBtn.parentElement;
+                    const img = card ? card.querySelector('img') : null;
+                    if (img && img.src) imgSrc = img.src;
+                }
+                if (!imgSrc) {
+                    const detailImg = document.querySelector('.product-image img') || document.querySelector('.product-detail img') || document.querySelector('.product_img img');
+                    if (detailImg && detailImg.src) imgSrc = detailImg.src;
+                }
+                showMessage({ message: 'Sản phẩm đã được thêm vào Giỏ hàng', thumb: imgSrc, autoClose: 2000 });
+            } catch (e) {
+                showMessage('Sản phẩm đã được thêm vào Giỏ hàng');
+            }
+            // Optionally, give a tiny UI feedback on the source button
             const btn = document.querySelector(`.button_card_add[data-id="${productId}"]`);
             if (btn) {
                 btn.classList.add('added');
