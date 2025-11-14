@@ -66,19 +66,23 @@
                                     <h5>User Information</h5>
                                     <div class="custom_user_information">
                                         <label for="full_name">Fullname </label>
-                                        <input type="text" id="full_name" placeholder="Fullname" th:value="${accountEntity != null} ? ${accountEntity.fullName} : ''">
+                                        <input type="text" id="full_name" placeholder="Fullname"
+                                            th:value="${accountEntity != null} ? ${accountEntity.fullName} : ''">
                                     </div>
                                     <div class="custom_user_information">
                                         <label for="birthday">Date of birth</label>
-                                        <input type="date" id="birthday" th:value="${accountEntity != null} ? ${accountEntity.birthDate} : ''">
+                                        <input type="date" id="birthday"
+                                            th:value="${accountEntity != null} ? ${accountEntity.birthDate} : ''">
                                     </div>
                                     <div class="custom_user_information">
                                         <label for="phone_number">Phone number</label>
-                                        <input type="text" placeholder="Phone number" id="phone_number" readonly th:value="${accountEntity != null} ? ${accountEntity.phone} : ''">
+                                        <input type="text" placeholder="Phone number" id="phone_number" readonly
+                                            th:value="${accountEntity != null} ? ${accountEntity.phone} : ''">
                                     </div>
                                     <div class="custom_user_information">
                                         <label for="email">Email</label>
-                                        <input type="email" id="email" placeholder="Email" th:value="${accountEntity != null} ? ${accountEntity.email} : ''">
+                                        <input type="email" id="email" placeholder="Email"
+                                            th:value="${accountEntity != null} ? ${accountEntity.email} : ''">
                                     </div>
                                 </form>
                                 <div class="btn_group">
@@ -133,28 +137,34 @@
                                     </div>
                                 </div>
                                 <div th:if="${!addresses.empty}">
-                                    <div th:each="addr : ${addresses}" class="user_address" th:attr="data-address-id=${addr.id},data-is-default=${addr.isDefault}">
+                                    <div th:each="addr : ${addresses}" class="user_address"
+                                        th:attr="data-address-id=${addr.id},data-is-default=${addr.isDefault}">
                                         <div class="contact_info">
                                             <div class="user">
-                                                <div class="full_name"><span th:text="${addr.receiverName}"></span></div>
+                                                <div class="full_name"><span th:text="${addr.receiverName}"></span>
+                                                </div>
                                                 <div class="split"></div>
                                                 <div class="phone"><span th:text="${addr.phone}"></span></div>
                                             </div>
                                             <div class="btn_group_address">
-                                                <button class="btn_address_update" type="button" th:attr="data-id=${addr.id}">
+                                                <button class="btn_address_update" type="button"
+                                                    th:attr="data-id=${addr.id}">
                                                     <i class="bx  bx-edit"></i>
                                                 </button>
-                                                <button class="btn_address_delete" type="button" th:attr="data-id=${addr.id}" th:if="${!addr.isDefault}">
+                                                <button class="btn_address_delete" type="button"
+                                                    th:attr="data-id=${addr.id}" th:if="${!addr.isDefault}">
                                                     <i class="bx bx-trash-alt"></i>
                                                 </button>
                                             </div>
                                         </div>
                                         <div class="address_info">
                                             <div class="details_address">
-                                                <div class="specific_address" th:text="${addr.street != null} ? ${addr.street} : 'Home'"></div>
+                                                <div class="specific_address"
+                                                    th:text="${addr.street != null} ? ${addr.street} : 'Home'"></div>
                                                 <div class="address" th:text="${addr.ward} + ', ' + ${addr.city}"></div>
                                             </div>
-                                            <button class="default_setting" th:if="${!addr.isDefault}" th:attr="data-id=${addr.id}">Default setting</button>
+                                            <button class="default_setting" th:if="${!addr.isDefault}"
+                                                th:attr="data-id=${addr.id}">Default setting</button>
                                             <div class="setting_info" th:if="${addr.isDefault}">
                                                 <span>Default</span>
                                             </div>
@@ -178,12 +188,53 @@
                                 </ul>
                             </div>
                             <div class="order_history_item">
-                                <div class="order_history_empty">
-                                    <img src="image/img/order-empty.png" alt="">
-                                    Bạn chưa có lịch sử đặt hàng nào
+
+                                <!-- Trạng thái rỗng: khi không có đơn hàng -->
+                                <div class="order_history_empty" th:if="${orders == null or #lists.isEmpty(orders)}">
+                                    <img src="@{/image/img/order-empty.png}" alt="order empty">
+                                    <p>Bạn chưa có lịch sử đặt hàng nào</p>
                                 </div>
-                                <div class="order_history_list" style="display: none;">
+
+                                <!-- Danh sách đơn hàng -->
+                                <div class="order_history_list" th:if="${orders != null and !#lists.isEmpty(orders)}">
+
+                                    <div th:each="order : ${orders}" class="order_item">
+                                        <div class="order_info">
+
+                                            <div class="order_info_child">
+                                                <span class="order_id" th:text="${'#' + order.id}">#123456789</span>
+                                                <span class="order_story" th:text="${order.status}">Canceled</span>
+                                            </div>
+
+                                            <div class="order_address order_info_child">
+                                                <span>Ship to: </span>
+                                                <!-- OrderEntity has no shippingAddress field. Show account name or fallback '-' -->
+                                                <span th:text="${order.account != null ? order.account.fullName : '-'}">123 Main St, City, Country</span>
+
+                                            </div>
+
+                                            <div class="order_date order_info_child">
+                                                <span
+                                                    th:text="${order.createdAt != null ? #temporals.format(order.createdAt, 'dd/MM/yyyy') : ''}">
+                                                    01/01/2024
+                                                </span>
+                                            </div>
+
+                                            <div class="order_price order_info_child">
+                                                <span th:text="${order.total != null ? order.total + '₫' : ''}">
+                                                    150,000₫
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
                                 </div>
+                            </div>
+
+
+                            <div class="order_history_item_detail">
+
                             </div>
                         </div>
                         <div class="my_coupons" style="display: none;">
@@ -196,13 +247,15 @@
                                 my menu / wishlist
                             </div>
                             <div class="my_menu_content">
-                                <div th:if="${accountEntity == null or accountEntity.favorites.empty}" class="wrapper_my_menu_card_empty">
+                                <div th:if="${accountEntity == null or accountEntity.favorites.empty}"
+                                    class="wrapper_my_menu_card_empty">
                                     <div class="my_menu_empty">
                                         <img src="/image/img/order-empty.png" alt="">
                                         Bạn chưa có sản phẩm yêu thích nào
                                     </div>
                                 </div>
-                                <div th:if="${accountEntity != null and !accountEntity.favorites.empty}" class="wrapper_my_menu_card">
+                                <div th:if="${accountEntity != null and !accountEntity.favorites.empty}"
+                                    class="wrapper_my_menu_card">
                                     <div th:each="product : ${accountEntity.favorites}" class="my_menu_card">
                                         <a th:href="@{/product_detail/{id}(id=${product.idProduct})}">
                                             <div class="my_menu_card_img">
@@ -216,7 +269,8 @@
                                             </div>
                                         </div>
                                         <div class="menu_card_note">
-                                            <span th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
+                                            <span
+                                                th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
                                         </div>
                                         <div class="menu_card_price">
                                             <span th:text="${product.priceProduct} + '₫'"></span>
@@ -234,15 +288,14 @@
                     </div>
                 </div>
             </div>
+            <div class="footer">
+                <div th:insert="~{footer :: footer}"></div>
+            </div>
         </div>
-        <div class="footer">
-            <div th:insert="~{footer :: footer}"></div>
-        </div>
-    </div>
-    <div th:insert="~{location}"></div>
-    <div th:insert="~{dialog-noti}"></div>
-    <div th:insert="~{login}"></div>
-    <script src="/js/scripts.js"></script>
+        <div th:insert="~{location}"></div>
+        <div th:insert="~{dialog-noti}"></div>
+        <div th:insert="~{login}"></div>
+        <script src="/js/scripts.js"></script>
 </body>
 
 </html>
