@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const inputUsername = document.getElementById('username');
     const hiddenUsername = document.getElementById('username_hidden');
 
-    // Hàm chuyển bước có hiệu ứng mượt
     function switchStep(from, to) {
         from.classList.add('fade-out');
         setTimeout(() => {
@@ -18,14 +17,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }, 300);
     }
 
-    // Kiểm tra định dạng số điện thoại hoặc email
     function isValidUsername(value) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9]{9,11}$/;
         return emailRegex.test(value) || phoneRegex.test(value);
     }
 
-    // Khi người dùng nhấn nút "Tiếp tục"
     if (btnStep1) {
         btnStep1.addEventListener('click', function (e) {
             e.preventDefault();
@@ -50,7 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Khi người dùng nhấn "Quay lại"
     if (btnBack) {
         btnBack.addEventListener('click', function (e) {
             e.preventDefault();
@@ -58,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Cho phép nhấn Enter để chuyển bước
     inputUsername.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -66,7 +61,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Đảm bảo hiển thị đúng khi load lại trang
     step1.style.display = 'flex';
     step2.style.display = 'none';
 });

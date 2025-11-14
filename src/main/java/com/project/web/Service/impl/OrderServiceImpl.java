@@ -63,15 +63,12 @@ public class OrderServiceImpl implements OrderService {
     @Transactional(readOnly = true)
     public List<OrderEntity> listOrdersByAccount(AccountEntity account) {
         List<OrderEntity> orders = orderRepository.findByAccountOrderByCreatedAtDesc(account);
-        // initialize lazy associations that the view needs (account.fullName)
         if (orders != null) {
             for (OrderEntity o : orders) {
                 if (o.getAccount() != null) {
-                    // touch a safe property to initialize the proxy while session is open
                     try {
                         o.getAccount().getFullName();
                     } catch (Exception ex) {
-                        // ignore initialization problems here; view will show fallback
                     }
                 }
             }

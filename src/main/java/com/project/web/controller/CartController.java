@@ -35,10 +35,7 @@ public class CartController {
         this.orderService = orderService;
     }
 
-    /**
-     * Lấy thông tin tài khoản từ Principal (số điện thoại).
-     * Nếu chưa đăng nhập thì trả về null.
-     */
+
     private AccountEntity requireAccount(Principal principal) {
         if (principal == null)
             return null;
@@ -51,10 +48,8 @@ public class CartController {
         if (account == null)
             return ResponseEntity.status(401).body("Unauthorized");
         Map<String, Object> res = new HashMap<>();
-        // Build DTOs to avoid serializing Hibernate proxies / lazy entities
         com.project.web.Entity.CartEntity cartEntity = cartService.getOrCreateCart(account);
         CartDTO cartDto = CartDTO.fromEntity(cartEntity);
-        // map items
         java.util.List<com.project.web.Entity.CartItemEntity> items = cartService.listItems(account);
         java.util.List<CartItemDTO> itemDtos = items.stream().map(CartItemDTO::fromEntity)
                 .collect(java.util.stream.Collectors.toList());
@@ -142,7 +137,6 @@ public class CartController {
         com.project.web.Entity.CartEntity updated = cartService.updateOptions(account, note, usePlastic, useKetchup,
                 useChillySauce);
         com.project.web.dto.CartDTO dto = com.project.web.dto.CartDTO.fromEntity(updated);
-        // fetch items and set
         java.util.List<com.project.web.Entity.CartItemEntity> items = cartService.listItems(account);
         java.util.List<com.project.web.dto.CartItemDTO> itemDtos = items.stream()
                 .map(com.project.web.dto.CartItemDTO::fromEntity)

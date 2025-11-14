@@ -134,8 +134,6 @@
       const itemsWrap = container.querySelector('#paymentItemsContainer') || container.querySelector('.payment_items');
       const tpl = document.getElementById('tplPaymentItem');
       if (!itemsWrap) return;
-      // Clear existing items (preserve template element)
-      // Remove any existing .payment_item nodes (but keep the <template> and payment_empty placeholder)
       Array.from(itemsWrap.querySelectorAll('.payment_item')).forEach(n => n.remove());
       const emptyEl = itemsWrap.querySelector('.payment_empty');
       if (!items || items.length === 0) {
@@ -148,7 +146,6 @@
         if (tpl && tpl.content) {
           node = tpl.content.firstElementChild.cloneNode(true);
         } else {
-          // fallback: build minimal node
           node = document.createElement('div');
           node.className = 'payment_item';
           node.innerHTML = `\n            <div class="payment_item_thumb"><img src="" alt=""/></div>\n            <div class="payment_item_info">\n              <div class="payment_item_name"></div>\n              <div class="payment_item_qty"></div>\n            </div>\n            <div class="payment_item_price"></div>`;
@@ -172,7 +169,6 @@
     try {
       const data = await getCart();
       const items = data.items || [];
-      // cache items for other handlers
       currentCartItems = items;
       els.listTopQty && (els.listTopQty.textContent = `(${items.length} Sản phẩm)`);
       renderItems(items);
@@ -186,7 +182,6 @@
         if (els.optKetchup) els.optKetchup.checked = !!data.cart.useKetchup;
         if (els.optChilly) els.optChilly.checked = !!data.cart.useChillySauce;
       }
-      // Update global header cart badge to show total quantity (sum of item.quantity)
       try {
         const headerBadge = document.getElementById('cartCount');
         if (headerBadge) {
@@ -202,7 +197,6 @@
     }
   }
 
-  // Wire options
   if (els.note) els.note.addEventListener('change', () => updateOptions({ note: els.note.value }));
   if (els.optPlastic) els.optPlastic.addEventListener('change', () => updateOptions({ usePlastic: els.optPlastic.checked }));
   if (els.optKetchup) els.optKetchup.addEventListener('change', () => updateOptions({ useKetchup: els.optKetchup.checked }));
@@ -210,7 +204,6 @@
 
   refresh();
   loadDefaultAddress();
-  // Show step1 by default and hide step2 when entering cart
   function showStep(stepNumber) {
     try {
       const shouldShow1 = stepNumber === 1;
@@ -219,14 +212,11 @@
       const toShow = shouldShow1 ? s1 : s2;
       const toHide = shouldShow1 ? s2 : s1;
 
-      // Show targets: set display then add visible class for animation
       toShow.forEach(el => {
         el.style.display = '';
-        // ensure a reflow before adding class
         requestAnimationFrame(() => el.classList.add('is-visible'));
       });
 
-      // Hide other targets: remove visible class then set display:none after transition
       toHide.forEach(el => {
         el.classList.remove('is-visible');
         const onEnd = (ev) => {
@@ -238,7 +228,6 @@
         setTimeout(() => onEnd(), STEP_TRANS_MS + 50);
       });
 
-      // update stepper active class if present
       const stepperSteps = document.querySelectorAll('.stepper .step');
       if (stepperSteps && stepperSteps.length) {
         stepperSteps.forEach((el, idx) => {
@@ -248,16 +237,13 @@
     } catch (e) { console.error('showStep error', e); }
   }
 
-  // Initialize to step 1 on page load
   showStep(1);
 
-  // Wire payment button to switch to step 2
   try {
     const payLink = document.querySelector('.btn_payment .btn_payment_link') || document.querySelector('.btn_payment');
     if (payLink) {
       payLink.addEventListener('click', (ev) => {
         ev && ev.preventDefault && ev.preventDefault();
-        // Prevent moving to payment if cart empty
         try {
           if (!currentCartItems || currentCartItems.length === 0) {
             if (window.showMessage) window.showMessage({ message: 'Giỏ hàng đang rỗng. Vui lòng thêm sản phẩm trước khi thanh toán.', type: 'error', autoClose: 3000 });
@@ -266,24 +252,20 @@
           }
         } catch (e) { /* ignore */ }
         showStep(2);
-  // no automatic scrolling (user requested no auto-scroll)
       });
     }
   } catch (e) { /* ignore */ }
 
-  // Wire Back button in payment area
   try {
     const backBtn = document.querySelector('.cart_payment .btn_back');
     if (backBtn) {
       backBtn.addEventListener('click', (ev) => {
         ev && ev.preventDefault && ev.preventDefault();
   showStep(1);
-  // do not auto-scroll when returning to step1 (user requested)
       });
     }
   } catch (e) { /* ignore */ }
 
-  // Wire confirmation button to create order
   try {
     const confirmBtn = document.querySelector('.confirmation_payment .btn_payment_link');
     if (confirmBtn) {
@@ -293,22 +275,18 @@
           const res = await fetch('/api/cart/confirm', { method: 'POST', credentials: 'same-origin' });
           if (!res.ok) {
             const text = await res.text();
-            // Use dialog for errors as well (avoid alert for success; errors use dialog too)
             if (window.showMessage) await window.showMessage({ message: text || 'Đặt hàng thất bại', autoClose: 2500 });
             else console.error(text || 'Đặt hàng thất bại');
             return;
           }
           const data = await res.json();
-          // show success using dialog-noti; do NOT use alert
           const orderId = data && data.orderId ? data.orderId : null;
           const msgHtml = orderId ? `Đặt hàng thành công\nMã đơn: #${orderId}` : 'Đặt hàng thành công';
           if (window.showMessage) {
             await window.showMessage({ message: msgHtml, autoClose: 1800 });
           } else {
-            // fallback: log only (explicitly avoid alert)
             console.log('Đặt hàng thành công', data);
           }
-          // Redirect to account order history after dialog closed
           window.location.href = '/account#order_history';
         } catch (e) {
           console.error(e);

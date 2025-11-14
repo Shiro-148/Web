@@ -27,7 +27,6 @@ public class VnDataController {
         try (InputStream in = new ClassPathResource("static/js/vn-wards.json").getInputStream()) {
             List<Map<String, Object>> all = mapper.readValue(in, new TypeReference<List<Map<String, Object>>>() {
             });
-            // return provinces only (without full wards) to keep payload small
             List<Map<String, Object>> provinces = all.stream().map(p -> {
                 return Map.of(
                         "province_code", p.get("province_code"),

@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const registerModal = document.getElementById("register");
   if (!registerModal) return;
 
-  // ====== KHỞI TẠO OVERLAY ======
   let overlay = document.getElementById("modalOverlay");
   if (!overlay) {
     overlay = document.createElement("div");
@@ -18,16 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
       alignItems: "center",
       justifyContent: "center",
       backgroundColor: "rgba(0, 0, 0, 0.45)",
-      zIndex: "998"
+      zIndex: "998",
     });
     document.body.appendChild(overlay);
   }
 
-  // Modal ban đầu ẩn
   registerModal.style.display = "none";
   registerModal.style.zIndex = "999";
 
-  // ====== HÀM MỞ / ĐÓNG MODAL ======
   function openModal() {
     overlay.style.display = "flex";
     registerModal.style.display = "block";
@@ -42,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
   }
 
-  // ====== MỞ MODAL KHI NHẤN "ĐĂNG KÝ" ======
   const openRegister = document.querySelector('[data-switch-modal="register"]');
   if (openRegister) {
     openRegister.addEventListener("click", (e) => {
@@ -51,7 +47,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ====== GỬI FORM ĐĂNG KÝ ======
   const form = document.getElementById("registerForm");
   if (form) {
     form.addEventListener("submit", async (e) => {
@@ -69,7 +64,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (errBox) errBox.textContent = "";
       if (msgBox) msgBox.textContent = "";
 
-      // Kiểm tra đầu vào
       if (!fullName || !sdt || !pw || !pw2) {
         errBox.textContent = "Vui lòng nhập đầy đủ thông tin!";
         return;
@@ -83,12 +77,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const res = await fetch("/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ fullName, sdt, password: pw })
+          body: JSON.stringify({ fullName, sdt, password: pw }),
         });
 
         const text = await res.text();
         if (res.ok) {
-          if (msgBox) msgBox.textContent = "🎉 " + (text || "Đăng ký thành công!");
+          if (msgBox)
+            msgBox.textContent = "🎉 " + (text || "Đăng ký thành công!");
           form.reset();
           setTimeout(() => {
             closeModal();

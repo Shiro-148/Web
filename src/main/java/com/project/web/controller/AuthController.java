@@ -42,10 +42,6 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // ==========================
-    // ======== ĐĂNG NHẬP =====
-    // ==========================
-
     @PostMapping(value = "/login", consumes = "application/json")
     @ResponseBody
     public ResponseEntity<String> login(@RequestBody Map<String, String> body,
@@ -65,11 +61,9 @@ public class AuthController {
         String stored = account.getPassword();
         boolean ok = false;
         if (stored != null) {
-            // detect bcrypt hash
             if (stored.startsWith("$2a$") || stored.startsWith("$2b$") || stored.startsWith("$2y$")) {
                 ok = passwordEncoder.matches(password, stored);
             } else {
-                // legacy plain-text password in DB: allow login and upgrade to bcrypt
                 ok = stored.equals(password);
                 if (ok) {
                     String encoded = passwordEncoder.encode(password);
@@ -92,8 +86,6 @@ public class AuthController {
         return ResponseEntity.ok("Đăng nhập thành công");
     }
 
-    // Handle form-based login from the HTML page
-    // (application/x-www-form-urlencoded)
     @PostMapping(value = "/login", consumes = "application/x-www-form-urlencoded")
     public String loginFormSubmit(@RequestParam Map<String, String> params,
             HttpServletResponse response,
@@ -106,7 +98,6 @@ public class AuthController {
             return "login";
         }
 
-        // Try phone first, then email
         AccountEntity account = accountService.getAccountByPhone(username);
         if (account == null)
             account = accountService.getAccountByEmail(username);
@@ -142,7 +133,6 @@ public class AuthController {
         cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
 
-        // Redirect to home after successful login
         return "redirect:/";
     }
 
@@ -153,10 +143,6 @@ public class AuthController {
         }
         return "login";
     }
-
-    // ==========================
-    // ======== ĐĂNG KÝ =======
-    // ==========================
 
     @PostMapping(value = "/register", consumes = "application/json")
     @ResponseBody
@@ -198,23 +184,16 @@ public class AuthController {
         return "register";
     }
 
-    // ==========================
-    // ========= ACCOUNT =========
-    // ==========================
-
     @GetMapping("/account")
     public String getAccount(HttpServletRequest request, Model model) {
         String phone = (String) request.getAttribute("username");
         if (phone == null)
             return "redirect:/login";
 
-        // load account and initialize favorites to avoid LazyInitializationException in
-        // Thymeleaf
         AccountEntity account = accountService.getAccountByPhoneWithFavorites(phone);
         if (account != null) {
             model.addAttribute("addresses", addressService.listByAccount(account));
             model.addAttribute("accountEntity", account);
-            // load orders for account page
             model.addAttribute("orders", orderService.listOrdersByAccount(account));
         }
         return "account";
@@ -254,10 +233,6 @@ public class AuthController {
         }
     }
 
-    // ==========================
-    // ========= CART ============
-    // ==========================
-
     @GetMapping("/cart")
     public String getCart(HttpServletRequest request) {
         String phone = (String) request.getAttribute("username");
@@ -265,10 +240,6 @@ public class AuthController {
             return "redirect:/login";
         return "cart";
     }
-
-    // ==========================
-    // ======== ĐĂNG XUẤT =====
-    // ==========================
 
     @PostMapping("/logout")
     @ResponseBody

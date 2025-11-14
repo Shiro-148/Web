@@ -34,8 +34,6 @@ public class AddressController {
         if (principal == null) {
             return ResponseEntity.status(401).body("Unauthorized");
         }
-
-        // principal.getName() chứa giá trị phone được lấy từ JWT
         AccountEntity account = accountService.getAccountByPhone(principal.getName());
         if (account == null) {
             return ResponseEntity.status(401).body("Account not found");
