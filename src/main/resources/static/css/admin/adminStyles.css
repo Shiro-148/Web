@@ -1,0 +1,29 @@
+/* Shared administrative palette for reuse across templates */
+:root {
+    --admin-primary: #19c3e6;
+    --admin-background-light: #f6f8f8;
+    --admin-background-dark: #111e21;
+    --admin-card-light: #ffffff;
+    --admin-card-dark: #1a2a2e;
+}
+
+body.admin-shell {
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-color: var(--admin-background-light);
+    color: #111718;
+}
+
+html.dark body.admin-shell {
+    background-color: var(--admin-background-dark);
+    color: #ffffff;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.admin-avatar {
+    border-radius: 9999px;
+    object-fit: cover;
+    display: block;
+}

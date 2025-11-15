@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quản lý Danh mục - FoodAdmin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/admin/adminStyles.css" th:href="@{/css/admin/adminStyles.css}" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#19c3e6",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#111e21",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a2a2e",
+                        "text-light-primary": "#111718",
+                        "text-dark-primary": "#ffffff",
+                        "text-light-secondary": "#638288",
+                        "text-dark-secondary": "#a0b1b4",
+                        "border-light": "#dce4e5",
+                        "border-dark": "#334144",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="admin-shell font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary">
+    <div class="flex min-h-screen">
+        <aside th:insert="~{admin/fragments/sidebar :: sidebar('categories')}"></aside>
+        <main class="flex-1 flex flex-col">
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-3 bg-card-light dark:bg-card-dark sticky top-0 z-10">
+                <h2
+                    class="text-text-light-primary dark:text-text-dark-primary text-lg font-bold leading-tight tracking-[-0.015em]">
+                    Quản lý Danh mục</h2>
+                <div class="flex items-center gap-4">
+                    <button
+                        class="flex items-center justify-center rounded-lg h-10 w-10 bg-background-light dark:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDubHmll98IHR2ePlBjOGABPAKn3Di_tQWH06s_9Nszocq3x6zxfolkVoI8TR3EfYARjNyKLQvJ5cMvTF3q2oq2RbDOymn4LnnqFii7-ACIB0U7W7f_RXUvMTU-orfAUSXuU50wtICdRpYOffJxAxk8m49nRgcUwy_ah8YiSqjv83-fT2VYSMBI3RPIvA96F7Y_uiD-jo2ViYOKsBrZ9wDQiwFf4l9xYHCE66mhSAlLXbVGKOuNakVfq2LoLxN8-6AaloO8FkxyHGQ"
+                        alt="Admin User Avatar" class="admin-avatar aspect-square rounded-full size-10 object-cover" />
+                </div>
+            </header>
+            <div class="flex-1 p-6 lg:p-10 overflow-y-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-6 items-start">
+                    <div class="md:col-span-1 xl:col-span-1 flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-base font-semibold">Danh mục</h3>
+                        </div>
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-2 flex flex-col gap-1">
+                            <p class="text-sm text-text-light-secondary dark:text-text-dark-secondary px-2"
+                                th:if="${categories == null || #lists.isEmpty(categories)}">
+                                Chưa có danh mục nào.
+                            </p>
+                            <a th:each="category : ${categories}"
+                                class="flex items-center justify-between p-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-colors"
+                                th:classappend="${selectedCategory != null and selectedCategory.idCategory == category.idCategory} ? ' bg-primary/20 text-primary' : ''"
+                                th:href="@{/admin/categories(categoryId=${category.idCategory})}">
+                                <span class="font-medium text-sm"
+                                    th:text="${category.nameCategory}">Danh mục</span>
+                                <span
+                                    class="text-xs text-text-light-secondary dark:text-text-dark-secondary bg-background-light dark:bg-background-dark py-1 px-2 rounded-full"
+                                    th:text="${category.products != null ? category.products.size() : 0}">0</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="md:col-span-2 xl:col-span-3 flex flex-col gap-4">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div class="flex-1">
+                                <h3 class="text-base font-semibold"
+                                    th:if="${selectedCategory != null}"
+                                    th:text="|Sản phẩm trong '${selectedCategory.nameCategory}'|">
+                                    Sản phẩm
+                                </h3>
+                                <h3 class="text-base font-semibold" th:unless="${selectedCategory != null}">
+                                    Chưa có danh mục được chọn
+                                </h3>
+                                <p class="text-sm text-text-light-secondary dark:text-text-dark-secondary"
+                                    th:text="${selectedCategory != null ? selectedCategoryProducts.size() + ' sản phẩm' : '0 sản phẩm'}">
+                                    0 sản phẩm
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto flex-shrink-0">
+                                <button
+                                    class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors">
+                                    <span class="material-symbols-outlined">add</span>
+                                    <span>Thêm Danh Mục Mới</span>
+                                </button>
+                                <button
+                                    class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
+                                    <span class="material-symbols-outlined">add</span>
+                                    <span>Thêm Sản Phẩm</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead
+                                        class="bg-background-light dark:bg-background-dark text-xs text-text-light-secondary dark:text-text-dark-secondary uppercase">
+                                        <tr>
+                                            <th class="px-6 py-3 font-medium" scope="col">Tên Sản Phẩm</th>
+                                            <th class="px-6 py-3 font-medium" scope="col">Giá Bán</th>
+                                            <th class="px-6 py-3 font-medium" scope="col">Ghi chú</th>
+                                            <th class="px-6 py-3 font-medium" scope="col">Trạng Thái</th>
+                                            <th class="px-6 py-3 font-medium text-center" scope="col">Thao Tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody th:if="${selectedCategoryProducts == null || #lists.isEmpty(selectedCategoryProducts)}">
+                                        <tr>
+                                            <td class="px-6 py-6 text-center text-text-light-secondary dark:text-text-dark-secondary" colspan="5">
+                                                Chưa có sản phẩm nào thuộc danh mục này.
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody th:if="${selectedCategoryProducts != null && !#lists.isEmpty(selectedCategoryProducts)}">
+                                        <tr th:each="product : ${selectedCategoryProducts}"
+                                            class="border-b border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                                            <td class="px-6 py-4 font-semibold text-text-light-primary dark:text-text-dark-primary">
+                                                <div class="flex items-center gap-3">
+                                                    <img th:if="${product.imgPathProduct != null}" th:src="${product.imgPathProduct}"
+                                                        alt="Ảnh sản phẩm"
+                                                        class="w-10 h-10 rounded-lg object-cover hidden sm:block" />
+                                                    <div>
+                                                        <p th:text="${product.nameProduct}">Tên sản phẩm</p>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="px-6 py-4" th:text="${product.priceProduct != null ? product.priceProduct + ' đ' : '—'}">
+                                                0 đ
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary whitespace-pre-line"
+                                                    th:if="${product.noteProduct != null}"
+                                                    th:utext="${#strings.replace(product.noteProduct, '\n', '<br/>')}"></p>
+                                                <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary" th:if="${product.noteProduct == null}">—</p>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <span
+                                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
+                                                    Còn hàng
+                                                </span>
+                                            </td>
+                                            <td class="px-6 py-4 text-center">
+                                                <div class="flex items-center justify-center gap-2">
+                                                    <button
+                                                        class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors">
+                                                        <span class="material-symbols-outlined text-base">edit</span>
+                                                    </button>
+                                                    <button
+                                                        class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-red-500 transition-colors">
+                                                        <span class="material-symbols-outlined text-base">delete</span>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

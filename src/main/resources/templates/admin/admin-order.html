@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>FoodAdmin | Đơn hàng</title>
+	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+	<link rel="stylesheet" href="/css/admin/adminStyles.css" th:href="@{/css/admin/adminStyles.css}" />
+	<script>
+		tailwind.config = {
+			darkMode: "class",
+			theme: {
+				extend: {
+					colors: {
+						"primary": "#19c3e6",
+						"background-light": "#f6f8f8",
+						"background-dark": "#111e21",
+						"card-light": "#ffffff",
+						"card-dark": "#1a2a2e",
+						"text-light-primary": "#111718",
+						"text-dark-primary": "#ffffff",
+						"text-light-secondary": "#638288",
+						"text-dark-secondary": "#a0b1b4",
+						"border-light": "#dce4e5",
+						"border-dark": "#334144"
+					},
+					fontFamily: {
+						"display": ["Inter"]
+					},
+					borderRadius: {
+						"DEFAULT": "0.25rem",
+						"lg": "0.5rem",
+						"xl": "0.75rem",
+						"full": "9999px"
+					}
+				}
+			}
+		}
+	</script>
+</head>
+
+<body class="admin-shell font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary">
+	<div class="flex min-h-screen">
+		<aside th:insert="~{admin/fragments/sidebar :: sidebar('orders')}"></aside>
+		<main class="flex-1 flex flex-col">
+			<header class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-4 bg-card-light dark:bg-card-dark sticky top-0 z-10">
+				<div>
+					<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Quản lý</p>
+					<h1 class="text-2xl font-bold">Đơn hàng</h1>
+				</div>
+				<button class="flex items-center gap-2 rounded-lg bg-primary/90 hover:bg-primary text-white px-4 py-2 text-sm font-medium transition-colors">
+					<span class="material-symbols-outlined text-base">download</span>
+					Xuất báo cáo
+				</button>
+			</header>
+
+			<section class="flex-1 p-6 lg:p-10 overflow-y-auto">
+				<div class="mb-6 flex flex-col gap-4 rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6">
+					<div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+						<div class="grid gap-2 sm:grid-cols-3 w-full md:max-w-3xl">
+							<input type="text" placeholder="Tìm theo mã đơn" class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" />
+							<select class="form-select w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+								<option>Tất cả trạng thái</option>
+								<option>Chờ xử lý</option>
+								<option>Đang giao</option>
+								<option>Hoàn thành</option>
+								<option>Đã hủy</option>
+							</select>
+							<select class="form-select w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+								<option>7 ngày gần nhất</option>
+								<option>30 ngày gần nhất</option>
+								<option>Tùy chỉnh</option>
+							</select>
+						</div>
+						<div class="flex gap-3">
+							<button class="rounded-lg border border-border-light dark:border-border-dark px-4 py-2 text-sm">Làm mới</button>
+							<button class="rounded-lg bg-primary/90 hover:bg-primary text-white px-4 py-2 text-sm font-semibold">Lọc</button>
+						</div>
+					</div>
+					<div class="grid grid-cols-1 gap-4 sm:grid-cols-4">
+						<div class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4">
+							<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Tổng đơn</p>
+							<p class="text-2xl font-bold">320</p>
+							<p class="text-xs text-green-500">+8% so với tuần trước</p>
+						</div>
+						<div class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4">
+							<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Đang giao</p>
+							<p class="text-2xl font-bold">45</p>
+							<p class="text-xs text-blue-500">+3 đơn</p>
+						</div>
+						<div class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4">
+							<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Hoàn thành</p>
+							<p class="text-2xl font-bold">250</p>
+							<p class="text-xs text-green-500">+11 đơn</p>
+						</div>
+						<div class="rounded-xl border border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark p-4">
+							<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Đã hủy</p>
+							<p class="text-2xl font-bold">25</p>
+							<p class="text-xs text-red-500">-4 đơn</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+					<div class="flex items-center justify-between px-6 py-4 border-b border-border-light dark:border-border-dark">
+						<p class="font-semibold">Danh sách đơn hàng</p>
+						<span class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Cập nhật 2 phút trước</span>
+					</div>
+					<div class="overflow-x-auto">
+						<table class="w-full text-left text-sm">
+							<thead>
+								<tr class="border-b border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary">
+									<th class="px-6 py-3">Mã</th>
+									<th class="px-6 py-3">Khách hàng</th>
+									<th class="px-6 py-3">Thời gian</th>
+									<th class="px-6 py-3">Tổng tiền</th>
+									<th class="px-6 py-3">Hình thức</th>
+									<th class="px-6 py-3">Trạng thái</th>
+									<th class="px-6 py-3 text-right">Thao tác</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="border-b border-border-light dark:border-border-dark">
+									<td class="px-6 py-4 font-semibold">#FO-2301</td>
+									<td class="px-6 py-4">
+										<p class="font-medium">Nguyễn Văn A</p>
+										<p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">0901 234 567</p>
+									</td>
+									<td class="px-6 py-4">17/07/2024<br><span class="text-xs text-text-light-secondary dark:text-text-dark-secondary">11:30</span></td>
+									<td class="px-6 py-4 font-semibold">325.000đ</td>
+									<td class="px-6 py-4">VNPay</td>
+									<td class="px-6 py-4"><span class="rounded-full bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold">Hoàn thành</span></td>
+									<td class="px-6 py-4 text-right">
+										<button class="inline-flex items-center gap-2 rounded-lg border border-border-light dark:border-border-dark px-3 py-1 text-xs">Chi tiết<span class="material-symbols-outlined text-sm">chevron_right</span></button>
+									</td>
+								</tr>
+								<tr class="border-b border-border-light dark:border-border-dark">
+									<td class="px-6 py-4 font-semibold">#FO-2298</td>
+									<td class="px-6 py-4">
+										<p class="font-medium">Trần Thị B</p>
+										<p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">0982 222 333</p>
+									</td>
+									<td class="px-6 py-4">17/07/2024<br><span class="text-xs text-text-light-secondary dark:text-text-dark-secondary">09:15</span></td>
+									<td class="px-6 py-4 font-semibold">215.000đ</td>
+									<td class="px-6 py-4">Tiền mặt</td>
+									<td class="px-6 py-4"><span class="rounded-full bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold">Đang giao</span></td>
+									<td class="px-6 py-4 text-right">
+										<button class="inline-flex items-center gap-2 rounded-lg border border-border-light dark:border-border-dark px-3 py-1 text-xs">Chi tiết<span class="material-symbols-outlined text-sm">chevron_right</span></button>
+									</td>
+								</tr>
+								<tr>
+									<td class="px-6 py-4 font-semibold">#FO-2295</td>
+									<td class="px-6 py-4">
+										<p class="font-medium">Lê Văn C</p>
+										<p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">0917 111 222</p>
+									</td>
+									<td class="px-6 py-4">16/07/2024<br><span class="text-xs text-text-light-secondary dark:text-text-dark-secondary">20:05</span></td>
+									<td class="px-6 py-4 font-semibold">720.000đ</td>
+									<td class="px-6 py-4">Momo</td>
+									<td class="px-6 py-4"><span class="rounded-full bg-orange-100 text-orange-700 px-3 py-1 text-xs font-semibold">Chờ xử lý</span></td>
+									<td class="px-6 py-4 text-right">
+										<button class="inline-flex items-center gap-2 rounded-lg border border-border-light dark:border-border-dark px-3 py-1 text-xs">Chi tiết<span class="material-symbols-outlined text-sm">chevron_right</span></button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+</body>
+
+</html>

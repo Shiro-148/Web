@@ -18,6 +18,10 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<ProductEntity> getAllProductsWithCategories() {
+        return productRepository.findAllWithCategories();
+    }
+
     public ProductEntity getProductById(Integer id) {
         // Sử dụng query có fetch join để load luôn collection `addons` và tránh
         // LazyInitializationException

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+	<title>FoodAdmin | Cài đặt</title>
+	<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+	<link rel="stylesheet" href="/css/admin/adminStyles.css" th:href="@{/css/admin/adminStyles.css}" />
+	<script>
+		tailwind.config = {
+			darkMode: "class",
+			theme: {
+				extend: {
+					colors: {
+						"primary": "#19c3e6",
+						"background-light": "#f6f8f8",
+						"background-dark": "#111e21",
+						"card-light": "#ffffff",
+						"card-dark": "#1a2a2e",
+						"text-light-primary": "#111718",
+						"text-dark-primary": "#ffffff",
+						"text-light-secondary": "#638288",
+						"text-dark-secondary": "#a0b1b4",
+						"border-light": "#dce4e5",
+						"border-dark": "#334144"
+					},
+					fontFamily: {
+						"display": ["Inter"]
+					},
+					borderRadius: {
+						"DEFAULT": "0.25rem",
+						"lg": "0.5rem",
+						"xl": "0.75rem",
+						"full": "9999px"
+					}
+				}
+			}
+		}
+	</script>
+</head>
+
+<body class="admin-shell font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary">
+	<div class="flex min-h-screen">
+		<aside th:insert="~{admin/fragments/sidebar :: sidebar('settings')}"></aside>
+		<main class="flex-1 flex flex-col">
+			<header class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-4 bg-card-light dark:bg-card-dark sticky top-0 z-10">
+				<div>
+					<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Tuỳ chỉnh hệ thống</p>
+					<h1 class="text-2xl font-bold">Cài đặt</h1>
+				</div>
+				<div class="flex gap-3">
+					<button class="rounded-lg border border-border-light dark:border-border-dark px-4 py-2 text-sm">Khôi phục mặc định</button>
+					<button class="rounded-lg bg-primary/90 hover:bg-primary text-white px-4 py-2 text-sm font-semibold">Lưu thay đổi</button>
+				</div>
+			</header>
+
+			<section class="flex-1 p-6 lg:p-10 overflow-y-auto space-y-8">
+				<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 space-y-6">
+					<div>
+						<h2 class="text-lg font-semibold">Thông tin cửa hàng</h2>
+						<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Thông tin hiển thị trên website và email</p>
+					</div>
+					<div class="grid gap-6 md:grid-cols-2">
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Tên cửa hàng</span>
+							<input type="text" class="form-input rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" placeholder="Food Admin" />
+						</label>
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Email hỗ trợ</span>
+							<input type="email" class="form-input rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" placeholder="support@foodadmin.vn" />
+						</label>
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Hotline</span>
+							<input type="text" class="form-input rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" placeholder="0900 000 000" />
+						</label>
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Địa chỉ</span>
+							<input type="text" class="form-input rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" placeholder="123 Nguyễn Văn Linh, Quận 7" />
+						</label>
+					</div>
+				</div>
+
+				<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 space-y-6">
+					<div>
+						<h2 class="text-lg font-semibold">Thông báo</h2>
+						<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Bật/tắt các loại thông báo hệ thống</p>
+					</div>
+					<div class="space-y-4">
+						<label class="flex items-start gap-3">
+							<input type="checkbox" class="mt-1 rounded border-border-light dark:border-border-dark" checked />
+							<div>
+								<p class="font-medium">Thông báo đơn hàng mới</p>
+								<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Gửi thông báo ngay khi có đơn mới trên hệ thống</p>
+							</div>
+						</label>
+						<label class="flex items-start gap-3">
+							<input type="checkbox" class="mt-1 rounded border-border-light dark:border-border-dark" checked />
+							<div>
+								<p class="font-medium">Báo cáo email hằng ngày</p>
+								<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Tổng hợp doanh thu, đơn hàng và khách hàng</p>
+							</div>
+						</label>
+						<label class="flex items-start gap-3">
+							<input type="checkbox" class="mt-1 rounded border-border-light dark:border-border-dark" />
+							<div>
+								<p class="font-medium">Tin nhắn SMS</p>
+								<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Gửi SMS đến quản trị viên khi có sự cố</p>
+							</div>
+						</label>
+					</div>
+				</div>
+
+				<div class="rounded-xl border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark p-6 space-y-6">
+					<div>
+						<h2 class="text-lg font-semibold">Bảo mật</h2>
+						<p class="text-sm text-text-light-secondary dark:text-text-dark-secondary">Các thiết lập xác thực và đăng nhập</p>
+					</div>
+					<div class="grid gap-6 md:grid-cols-2">
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Giới hạn phiên đăng nhập</span>
+							<select class="form-select rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+								<option>30 phút</option>
+								<option>60 phút</option>
+								<option>120 phút</option>
+							</select>
+						</label>
+						<label class="flex flex-col gap-2">
+							<span class="text-sm font-medium">Xác thực hai bước</span>
+							<select class="form-select rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark">
+								<option>Không dùng</option>
+								<option>Email OTP</option>
+								<option>Ứng dụng Authenticator</option>
+							</select>
+						</label>
+						<label class="flex flex-col gap-2 md:col-span-2">
+							<span class="text-sm font-medium">Danh sách truy cập API</span>
+							<textarea rows="3" class="form-textarea rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark" placeholder="api.foodadmin.vn, webhook.foodadmin.vn"></textarea>
+						</label>
+					</div>
+				</div>
+			</section>
+		</main>
+	</div>
+</body>
+
+</html>

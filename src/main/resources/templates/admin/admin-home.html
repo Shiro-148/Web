@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="light" lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>FoodAdmin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/admin/adminStyles.css" th:href="@{/css/admin/adminStyles.css}" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#19c3e6",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#111e21",
+                        "card-light": "#ffffff",
+                        "card-dark": "#1a2a2e",
+                        "text-light-primary": "#111718",
+                        "text-dark-primary": "#ffffff",
+                        "text-light-secondary": "#638288",
+                        "text-dark-secondary": "#a0b1b4",
+                        "border-light": "#dce4e5",
+                        "border-dark": "#334144",
+                    },
+                    fontFamily: {
+                        "display": ["Inter"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="admin-shell font-display bg-background-light dark:bg-background-dark text-text-light-primary dark:text-text-dark-primary">
+    <div class="flex min-h-screen">
+        <!-- SideNavBar -->
+        <aside th:insert="~{admin/fragments/sidebar :: sidebar('dashboard')}"></aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col">
+            <!-- TopNavBar -->
+            <header
+                class="flex items-center justify-between whitespace-nowrap border-b border-border-light dark:border-border-dark px-10 py-3 bg-card-light dark:bg-card-dark sticky top-0 z-10">
+                <div class="flex items-center gap-8">
+                    <h2
+                        class="text-text-light-primary dark:text-text-dark-primary text-lg font-bold leading-tight tracking-[-0.015em]">
+                        Dashboard Overview</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <label class="relative flex-1 max-w-sm">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary dark:text-text-dark-secondary">search</span>
+                        <input
+                            class="form-input w-full rounded-lg border-none bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary h-10 placeholder:text-text-light-secondary dark:placeholder:text-text-dark-secondary pl-10 text-base font-normal"
+                            placeholder="Search..." type="search" />
+                    </label>
+                    <button
+                        class="flex items-center justify-center rounded-lg h-10 w-10 bg-background-light dark:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </button>
+                    <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDubHmll98IHR2ePlBjOGABPAKn3Di_tQWH06s_9Nszocq3x6zxfolkVoI8TR3EfYARjNyKLQvJ5cMvTF3q2oq2RbDOymn4LnnqFii7-ACIB0U7W7f_RXUvMTU-orfAUSXuU50wtICdRpYOffJxAxk8m49nRgcUwy_ah8YiSqjv83-fT2VYSMBI3RPIvA96F7Y_uiD-jo2ViYOKsBrZ9wDQiwFf4l9xYHCE66mhSAlLXbVGKOuNakVfq2LoLxN8-6AaloO8FkxyHGQ"
+                        alt="Admin User Avatar" class="admin-avatar aspect-square rounded-full size-10 object-cover" />
+                </div>
+            </header>
+            <div class="flex-1 p-6 lg:p-10 overflow-y-auto">
+                <!-- Stats -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                            Doanh thu hôm nay</p>
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary tracking-light text-2xl font-bold leading-tight">
+                            15.000.000đ</p>
+                        <p class="text-green-500 text-base font-medium leading-normal">+5.2%</p>
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                            Đơn hàng mới</p>
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary tracking-light text-2xl font-bold leading-tight">
+                            120</p>
+                        <p class="text-green-500 text-base font-medium leading-normal">+10%</p>
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                            Người dùng mới</p>
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary tracking-light text-2xl font-bold leading-tight">
+                            35</p>
+                        <p class="text-green-500 text-base font-medium leading-normal">+2.1%</p>
+                    </div>
+                    <div
+                        class="flex flex-col gap-2 rounded-xl p-6 border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark">
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                            Sản phẩm đã bán</p>
+                        <p
+                            class="text-text-light-primary dark:text-text-dark-primary tracking-light text-2xl font-bold leading-tight">
+                            540</p>
+                        <p class="text-red-500 text-base font-medium leading-normal">-1.5%</p>
+                    </div>
+                </div>
+                <!-- Charts and Top Products -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+                    <div
+                        class="lg:col-span-2 flex flex-col gap-2 rounded-xl border border-border-light dark:border-border-dark p-6 bg-card-light dark:bg-card-dark">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p
+                                    class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                                    Biểu đồ doanh thu</p>
+                                <p
+                                    class="text-text-light-primary dark:text-text-dark-primary tracking-light text-[32px] font-bold leading-tight truncate">
+                                    250.000.000đ</p>
+                                <div class="flex gap-1">
+                                    <p
+                                        class="text-text-light-secondary dark:text-text-dark-secondary text-base font-normal leading-normal">
+                                        Tháng này</p>
+                                    <p class="text-green-500 text-base font-medium leading-normal">+12.5%</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button class="px-3 py-1 text-sm rounded-lg bg-primary/20 text-primary">Tuần</button>
+                                <button
+                                    class="px-3 py-1 text-sm rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10">Tháng</button>
+                                <button
+                                    class="px-3 py-1 text-sm rounded-lg text-text-light-secondary dark:text-text-dark-secondary hover:bg-primary/10">Năm</button>
+                            </div>
+                        </div>
+                        <div class="flex min-h-[220px] flex-1 flex-col gap-8 py-4">
+                            <svg fill="none" height="100%" preserveaspectratio="none" viewbox="-3 0 478 150"
+                                width="100%" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25V149H326.769H0V109Z"
+                                    fill="url(#paint0_linear_chart)"></path>
+                                <path
+                                    d="M0 109C18.1538 109 18.1538 21 36.3077 21C54.4615 21 54.4615 41 72.6154 41C90.7692 41 90.7692 93 108.923 93C127.077 93 127.077 33 145.231 33C163.385 33 163.385 101 181.538 101C199.692 101 199.692 61 217.846 61C236 61 236 45 254.154 45C272.308 45 272.308 121 290.462 121C308.615 121 308.615 149 326.769 149C344.923 149 344.923 1 363.077 1C381.231 1 381.231 81 399.385 81C417.538 81 417.538 129 435.692 129C453.846 129 453.846 25 472 25"
+                                    stroke="#19c3e6" stroke-linecap="round" stroke-width="3"></path>
+                                <defs>
+                                    <lineargradient gradientunits="userSpaceOnUse" id="paint0_linear_chart" x1="236"
+                                        x2="236" y1="1" y2="149">
+                                        <stop stop-color="#19c3e6" stop-opacity="0.3"></stop>
+                                        <stop offset="1" stop-color="#19c3e6" stop-opacity="0"></stop>
+                                    </lineargradient>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col gap-4 rounded-xl border border-border-light dark:border-border-dark p-6 bg-card-light dark:bg-card-dark">
+                        <h3
+                            class="text-text-light-primary dark:text-text-dark-primary text-base font-medium leading-normal">
+                            Sản phẩm bán chạy</h3>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZKY_uPhpJXeWQ26eP9a78aFHMRM7xFo2vTR-SyB3WzEdG9TsuuUkj7bTaHc9p4TZvT7FzUNUUqk_Nw79yjhWEoFoXeDwm8l5QH_curYKH1uHuO9_2wgo9E2mMJ5Cj_RvGSsxoFInaGMQxmTPU-u4nStUDA6Z1BRQI4hPQXtBt1dk07MktXuu5QsbPK4tRybuyKsVh2qpP9JhvZvF--OZYGwKhTYU8YYBtsEf3o80ybmwHF5L6pH10dykL8XZlklHPR0Y6vngnVIo"
+                                    alt="Pizza Hải Sản" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Pizza Hải Sản</p>
+                                    <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">Đã bán:
+                                        120</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0JG9YUL6ZW2R1N4EPuke7nLYtpxAvVHu0k89lZVbO5HGCbKX654nbUtYpFO3YPFFzxgzG6QjtfNYlddDiOZ1hmZL3FV_FBMjtUWnBq7SLs-8xqDCmeqdwvFeMkKQGAuALtej06dapHZJQmWUBiMUTvrIeFJ0FFtk9M-tGqpw48MVSNTzy52qBKcJwVxvJZIuiDQjnOjQejea66pqPKKJ6w0M2rXsn3S8xlT2m6MzuvXDlvQnyqH-bicmxFglvOa5uC11INBfW7is"
+                                    alt="Salad Trái Cây" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Salad Trái Cây</p>
+                                    <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">Đã bán:
+                                        95</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuANTFD8f_I8xqqyhqtkBxUxQJsJlRFn2EFjOD7gE96kJ2uddpIvLyLa3BKEP4YjDDJTEh25nbHKNHWLX9ivIyFQ3f9dGCDiMlrM7w5z7QPT1VxFFCc3TVMpQciCcs5y35C8BwWBlj6bXs3YnCzRnGb9vnSkzaU_x4Dv5EG5e6TpgzoyLsZQpm2042kAvDrIFRPsYZ9lnJlYKo5_m4htb0eNKKOpwANfDjfodZrsEIYFYlBrBQT6DdKj9XPXrXH2rpTsf3hgGipBHT4"
+                                    alt="Pancake Mật Ong" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Pancake Mật Ong</p>
+                                    <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">Đã bán:
+                                        82</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQdUYT3mXTZDDmog7GAN_IgKvHGpOVbHI72lsvvIvJroPoeCT2p1wNSjAL_edniYMhuRh7zjjtC09gMBb-zy617Ct3JOW3lS-P3mWoQSEx-fz6VKkTPTYU1w0E5DGDZvujni6s_LJS97zCVoTwqvbMoefFloZW6GjmhcOr1exY7gfcQv25yoFStE5qcspeBveSolXDCRb5vumFHb5vs_kIqnJm8rvordf43Wg95tJVQ933au4pK8nKfQBiQz5zscVfJgHPWtedzEc"
+                                    alt="Mì Ý Sốt Bò Bằm" class="w-16 h-16 rounded-lg object-cover flex-shrink-0" />
+                                <div class="flex-1">
+                                    <p class="font-medium text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Mì Ý Sốt Bò Bằm</p>
+                                    <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">Đã bán:
+                                        76</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recent Orders Table -->
+                <div
+                    class="mt-6 flex flex-col gap-4 rounded-xl border border-border-light dark:border-border-dark p-6 bg-card-light dark:bg-card-dark">
+                    <h2
+                        class="text-text-light-primary dark:text-text-dark-primary text-[22px] font-bold leading-tight tracking-[-0.015em]">
+                        Đơn hàng gần đây</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead>
+                                <tr class="border-b border-border-light dark:border-border-dark">
+                                    <th
+                                        class="py-3 px-4 text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary">
+                                        Mã Đơn Hàng</th>
+                                    <th
+                                        class="py-3 px-4 text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary">
+                                        Khách Hàng</th>
+                                    <th
+                                        class="py-3 px-4 text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary">
+                                        Ngày Đặt</th>
+                                    <th
+                                        class="py-3 px-4 text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary">
+                                        Tổng Tiền</th>
+                                    <th
+                                        class="py-3 px-4 text-sm font-medium text-text-light-secondary dark:text-text-dark-secondary">
+                                        Trạng Thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    class="border-b border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                                    <td
+                                        class="py-3 px-4 text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
+                                        #FOOD123</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Nguyễn Văn A</td>
+                                    <td
+                                        class="py-3 px-4 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                        15/07/2024</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        250.000đ</td>
+                                    <td class="py-3 px-4"><span
+                                            class="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Hoàn
+                                            thành</span></td>
+                                </tr>
+                                <tr
+                                    class="border-b border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                                    <td
+                                        class="py-3 px-4 text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
+                                        #FOOD122</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Trần Thị B</td>
+                                    <td
+                                        class="py-3 px-4 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                        15/07/2024</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        120.000đ</td>
+                                    <td class="py-3 px-4"><span
+                                            class="text-xs font-medium px-2 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Đang
+                                            giao</span></td>
+                                </tr>
+                                <tr
+                                    class="border-b border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                                    <td
+                                        class="py-3 px-4 text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
+                                        #FOOD121</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">Lê
+                                        Văn C</td>
+                                    <td
+                                        class="py-3 px-4 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                        14/07/2024</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        350.000đ</td>
+                                    <td class="py-3 px-4"><span
+                                            class="text-xs font-medium px-2 py-1 rounded-full bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Chờ
+                                            xử lý</span></td>
+                                </tr>
+                                <tr
+                                    class="border-b border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                                    <td
+                                        class="py-3 px-4 text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
+                                        #FOOD120</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Phạm Thị D</td>
+                                    <td
+                                        class="py-3 px-4 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                        14/07/2024</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        85.000đ</td>
+                                    <td class="py-3 px-4"><span
+                                            class="text-xs font-medium px-2 py-1 rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Đã
+                                            hủy</span></td>
+                                </tr>
+                                <tr class="hover:bg-background-light dark:hover:bg-background-dark">
+                                    <td
+                                        class="py-3 px-4 text-sm font-medium text-text-light-primary dark:text-text-dark-primary">
+                                        #FOOD119</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        Hoàng Văn E</td>
+                                    <td
+                                        class="py-3 px-4 text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                        13/07/2024</td>
+                                    <td class="py-3 px-4 text-sm text-text-light-primary dark:text-text-dark-primary">
+                                        500.000đ</td>
+                                    <td class="py-3 px-4"><span
+                                            class="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Hoàn
+                                            thành</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>
