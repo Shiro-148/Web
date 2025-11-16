@@ -6,14 +6,17 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.web.Entity.AccountEntity;
 import com.project.web.Entity.ProductEntity;
+import com.project.web.Entity.RoleEntity;
 import com.project.web.Repository.AccountRepository;
 import com.project.web.Repository.ProductRepository;
+import com.project.web.Repository.RoleRepository;
 
 @Service
 public class AccountService {
@@ -27,9 +30,12 @@ public class AccountService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     // Lấy toàn bộ tài khoản
     public List<AccountEntity> getAllAccounts() {
-        return accountRepository.findAll();
+        return accountRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
     }
 
     // Lấy tài khoản theo số điện thoại (dùng cho login)
@@ -75,7 +81,7 @@ public class AccountService {
         } else {
             entity.setPassword(null);
         }
-        entity.setRole("USER");
+        entity.addRole(requireRole("USER"));
         entity.setStatus(1);
         entity.setCreatedAt(LocalDateTime.now());
         entity.setUpdatedAt(LocalDateTime.now());
@@ -162,5 +168,22 @@ public class AccountService {
                 .orElseThrow(() -> new IllegalArgumentException("Product not found"));
         account.removeFavorite(product);
         accountRepository.save(account);
+    }
+
+    @Transactional
+    public void deleteAccountById(Integer accountId) {
+        if (accountId == null) {
+            throw new IllegalArgumentException("ID tài khoản không hợp lệ.");
+        }
+        boolean exists = accountRepository.existsById(accountId);
+        if (!exists) {
+            throw new IllegalArgumentException("Không tìm thấy người dùng cần xoá.");
+        }
+        accountRepository.deleteById(accountId);
+    }
+
+    private RoleEntity requireRole(String name) {
+        return roleRepository.findByNameIgnoreCase(name)
+                .orElseThrow(() -> new IllegalStateException("Role '" + name + "' chưa được cấu hình trong hệ thống."));
     }
 }

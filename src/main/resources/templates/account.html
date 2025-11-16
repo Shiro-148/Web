@@ -221,7 +221,8 @@
                                             </div>
 
                                             <div class="order_price order_info_child">
-                                                <span th:text="${order.total != null ? order.total + '₫' : ''}">
+                                                <span
+                                                    th:text="${order.total != null ? #numbers.formatDecimal(order.total, 0, 'POINT', 0, 'NONE') + ' ₫' : ''}">
                                                     150,000₫
                                                 </span>
                                             </div>
@@ -273,12 +274,14 @@
                                                 th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
                                         </div>
                                         <div class="menu_card_price">
-                                            <span th:text="${product.priceProduct} + '₫'"></span>
+                                            <span
+                                                th:text="${#numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                                         </div>
                                         <div class="menu_card_discount">
                                             <div class="menu_price_old" th:if="${product.priceOldProduct != null}">
                                                 <i class='bx bxs-discount' style='color:#ff5b6a'></i>
-                                                <span th:text="${product.priceOldProduct} + '₫'"></span>
+                                                <span
+                                                    th:text="${#numbers.formatDecimal(product.priceOldProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                                             </div>
                                         </div>
                                     </div>

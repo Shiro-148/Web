@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "accounts")
@@ -42,9 +43,6 @@ public class AccountEntity {
     private String password;
 
     @Column(nullable = false)
-    private String role = "USER";
-
-    @Column(nullable = false)
     private Integer status = 1;
 
     private LocalDateTime createdAt;
@@ -55,6 +53,10 @@ public class AccountEntity {
     @JoinTable(name = "account_favorite", joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "product_id", referencedColumnName = "idProduct"))
     @JsonIgnore
     private Set<ProductEntity> favorites = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<RoleEntity> roles = new HashSet<>();
 
     // --- GETTER & SETTER ---
 
@@ -106,14 +108,6 @@ public class AccountEntity {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -152,6 +146,42 @@ public class AccountEntity {
 
     public void removeFavorite(ProductEntity product) {
         this.favorites.remove(product);
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(RoleEntity role) {
+        if (role != null) {
+            this.roles.add(role);
+        }
+    }
+
+    public void removeRole(RoleEntity role) {
+        if (role != null) {
+            this.roles.remove(role);
+        }
+    }
+
+    @Transient
+    public boolean hasRole(String roleName) {
+        if (roleName == null || roles == null) {
+            return false;
+        }
+        return roles.stream().anyMatch(role -> roleName.equalsIgnoreCase(role.getName()));
+    }
+
+    @Transient
+    public String getPrimaryRoleName() {
+        if (roles == null || roles.isEmpty()) {
+            return null;
+        }
+        return roles.iterator().next().getName();
     }
 
 }

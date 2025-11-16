@@ -64,7 +64,8 @@
                     <div class="card_bottom">
                         <div class="card_price_add">
                             <div class="card_price">
-                                <span th:text="${product.priceProduct} + '₫'"></span>
+                                <span
+                                    th:text="${#numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                             </div>
                             <div class="card_add">
                                 <div class="button_card_add" th:attr="data-id=${product.idProduct}">
@@ -75,7 +76,8 @@
                         <div class="card_discount">
                             <div class="price_old" th:if="${product.priceOldProduct != null}">
                                 <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                <span th:text="${product.priceOldProduct} + '₫'"></span>
+                                <span
+                                    th:text="${#numbers.formatDecimal(product.priceOldProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                             </div>
                         </div>
                     </div>
@@ -86,9 +88,11 @@
     <div class="footer">
         <div th:insert="~{footer :: footer}"></div>
     </div>
+    <div th:insert="~{location}"></div>
+    <div th:insert="~{login}"></div>
     <div th:insert="~{dialog-noti}"></div>
     <script src="/js/scripts.js"></script>
     <script src="/js/product.js"></script>
     <script src="/js/header.js"></script>
-    <script src="/js/modal-dialog.js"></script>
+    <script src="/js/modal-dialog.js"></script> 
 </body>

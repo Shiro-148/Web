@@ -85,276 +85,58 @@
                         <div class="my_products">
                             <div class="swiper swiper_products">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide" th:each="product : ${bestsellerProducts}">
                                         <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
+                                            <a th:href="@{/product_detail/{id}(id=${product.idProduct})}">
+                                                <div class="card_img">
+                                                    <img th:src="@{${product.imgPathProduct}}"
+                                                        th:alt="${product.nameProduct}" alt="">
+                                                </div>
+                                            </a>
                                             <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
+                                                <div class="card_title" th:text="${product.nameProduct}">
                                                 </div>
                                                 <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
+                                                    <i class="bx"
+                                                        th:classappend="${favoriteIds.contains(product.idProduct)} ? ' bxs-heart' : ' bx-heart'"
+                                                        th:attr="data-id=${product.idProduct}, data-favourite=${favoriteIds.contains(product.idProduct)}"
+                                                        onclick="toggleFavourite(this)">
+                                                    </i>
                                                 </div>
                                             </div>
                                             <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
+                                                <span th:if="${product.noteProduct != null}"
+                                                    th:utext="${#strings.replace(product.noteProduct, '\n', '<br>')}"></span>
+                                                <span th:if="${product.noteProduct == null}">Đang cập nhật
+                                                    mô tả</span>
                                             </div>
                                             <div class="card_bottom">
                                                 <div class="card_price_add">
                                                     <div class="card_price">
-                                                        <span>99.000₫</span>
+                                                        <span
+                                                            th:text="${#numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                                                     </div>
                                                     <div class="card_add">
-                                                        <div class="button_card_add">
+                                                        <div class="button_card_add"
+                                                            th:attr="data-id=${product.idProduct}">
                                                             <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="card_discount">
+                                                <div class="card_discount" th:if="${product.priceOldProduct != null}">
                                                     <div class="price_old">
                                                         <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
+                                                        <span
+                                                            th:text="${#numbers.formatDecimal(product.priceOldProduct, 0, 'POINT', 0, 'NONE')} + ' ₫'"></span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
+                                    <div class="swiper-slide" th:if="${#lists.isEmpty(bestsellerProducts)}">
+                                        <div class="my_card_home card empty_state">
                                             <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
-                                            <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
-                                            <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
-                                            <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
-                                            <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="swiper-slide">
-                                        <div class="my_card_home card">
-                                            <div class="card_img">
-                                                <img src="/image/img/burger.png" alt="">
-                                            </div>
-                                            <div class="card_title_heart">
-                                                <div class="card_title">
-                                                    Value Burger Bulgogi
-                                                </div>
-                                                <div class="card_heart">
-                                                    <i class='bx bx-heart'></i>
-                                                    <!-- <i class='bx bxs-heart' style='color:#ef0a48'  ></i> -->
-                                                </div>
-                                            </div>
-                                            <div class="card_note">
-                                                <span>01 Burger Bulgogi</span>
-                                                <br>
-                                                <span>01 Gà rán</span>
-                                            </div>
-                                            <div class="card_bottom">
-                                                <div class="card_price_add">
-                                                    <div class="card_price">
-                                                        <span>99.000₫</span>
-                                                    </div>
-                                                    <div class="card_add">
-                                                        <div class="button_card_add">
-                                                            <i class='bx bx-plus icon_size' style='color:#ffffff'></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="card_discount">
-                                                    <div class="price_old">
-                                                        <i class='bx bxs-discount' style='color:#ef0b49'></i>
-                                                        <span>120.000₫</span>
-                                                    </div>
-                                                </div>
+                                                <span>Hiện chưa có sản phẩm BESTSELLER khả dụng.</span>
                                             </div>
                                         </div>
                                     </div>
@@ -448,6 +230,7 @@
     <div th:insert="~{login}"></div>
     <div th:insert="~{register}"></div>
     <script src="/js/scripts.js"></script>
+    <script src="/js/product.js"></script>
 </body>
 
 </html>

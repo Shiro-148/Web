@@ -61,7 +61,7 @@
                         <span class="material-symbols-outlined">notifications</span>
                     </button>
                     <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDubHmll98IHR2ePlBjOGABPAKn3Di_tQWH06s_9Nszocq3x6zxfolkVoI8TR3EfYARjNyKLQvJ5cMvTF3q2oq2RbDOymn4LnnqFii7-ACIB0U7W7f_RXUvMTU-orfAUSXuU50wtICdRpYOffJxAxk8m49nRgcUwy_ah8YiSqjv83-fT2VYSMBI3RPIvA96F7Y_uiD-jo2ViYOKsBrZ9wDQiwFf4l9xYHCE66mhSAlLXbVGKOuNakVfq2LoLxN8-6AaloO8FkxyHGQ"
+                        src="https://res.cloudinary.com/dhpe3eg2o/image/upload/v1763273370/logo_qyyx8x.png"
                         alt="Admin User Avatar" class="admin-avatar aspect-square rounded-full size-10 object-cover" />
                 </div>
             </header>
@@ -104,128 +104,76 @@
                                         <th class="px-6 py-3 text-right" scope="col">Thao tác</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr
-                                        class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark">
-                                        <td class="px-6 py-4 font-medium">#1021</td>
-                                        <td class="px-6 py-4 flex items-center gap-3">
-                                            <img
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zM_C8jYZ0hxVa-48iOsDhrHEzmszGcz9UZ5zrsvmsqCm6Ov_WqhNBUTJxX_XBK0mOn0RBCP1COE8Tq92ZRn6fKm025QkMcABTDFDjMHGwGUtjQtScUZQfzleFev7PRU2PMJ4XVuZksSEWFAuG4Dy-oBFK2Q8mEK9NX5iV1UTXW6f7smZNPo43DByg--8yXhtEEFuD2Q_B-wwm2PVMrd1Z1muDMVAsCw92ewF53xpeKmMl5UwyzAX4Ns_wIJGaM0U72PJ766Dqkg"
-                                                alt="Nguyễn Văn An" class="admin-avatar size-8 aspect-square rounded-full object-cover" />
-                                            <span>Nguyễn Văn An</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            nguyenvana@email.com</td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            0901234567</td>
-                                        <td class="px-6 py-4">
-                                            <span
-                                                class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300">Quản
-                                                trị viên</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex justify-end items-center gap-2">
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">edit</span></button>
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">lock_open</span></button>
-                                                <button class="p-1.5 rounded-md hover:bg-red-500/10 text-red-500"><span
-                                                        class="material-symbols-outlined text-base">delete</span></button>
-                                            </div>
+                                <tbody th:if="${accounts == null || #lists.isEmpty(accounts)}">
+                                    <tr class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark">
+                                        <td class="px-6 py-6 text-center text-text-light-secondary dark:text-text-dark-secondary" colspan="6">
+                                            Chưa có người dùng nào trong hệ thống.
                                         </td>
                                     </tr>
-                                    <tr
+                                </tbody>
+                                <tbody th:if="${accounts != null && !#lists.isEmpty(accounts)}">
+                                    <tr th:each="account : ${accounts}"
                                         class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark">
-                                        <td class="px-6 py-4 font-medium">#1022</td>
-                                        <td class="px-6 py-4 flex items-center gap-3">
-                                            <img
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zM_C8jYZ0hxVa-48iOsDhrHEzmszGcz9UZ5zrsvmsqCm6Ov_WqhNBUTJxX_XBK0mOn0RBCP1COE8Tq92ZRn6fKm025QkMcABTDFDjMHGwGUtjQtScUZQfzleFev7PRU2PMJ4XVuZksSEWFAuG4Dy-oBFK2Q8mEK9NX5iV1UTXW6f7smZNPo43DByg--8yXhtEEFuD2Q_B-wwm2PVMrd1Z1muDMVAsCw92ewF53xpeKmMl5UwyzAX4Ns_wIJGaM0U72PJ766Dqkg"
-                                                alt="Trần Thị Bích" class="admin-avatar size-8 aspect-square rounded-full object-cover" />
-                                            <span>Trần Thị Bích</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            tranbich@email.com</td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            0987654321</td>
+                                        <td class="px-6 py-4 font-medium" th:text="|#${account.id}|">#0</td>
                                         <td class="px-6 py-4">
-                                            <span
-                                                class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">Khách
-                                                hàng</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex justify-end items-center gap-2">
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">edit</span></button>
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">lock_open</span></button>
-                                                <button class="p-1.5 rounded-md hover:bg-red-500/10 text-red-500"><span
-                                                        class="material-symbols-outlined text-base">delete</span></button>
+                                            <div class="flex items-center gap-3">
+                                                <div
+                                                    class="admin-avatar size-8 aspect-square rounded-full bg-background-light dark:bg-background-dark flex items-center justify-center font-semibold text-sm uppercase">
+                                                    <span th:text="${#strings.substring((account.fullName != null && !#strings.isEmpty(account.fullName) ? account.fullName : account.phone), 0, 1)}">A</span>
+                                                </div>
+                                                <div class="flex flex-col">
+                                                    <span class="font-medium"
+                                                        th:text="${account.fullName != null && !#strings.isEmpty(account.fullName) ? account.fullName : 'Chưa cập nhật'}">Tên người dùng</span>
+                                                    <span class="text-xs text-text-light-secondary dark:text-text-dark-secondary" th:text="${account.createdAt != null ? #temporals.format(account.createdAt, 'dd/MM/yyyy HH:mm') : ''}"></span>
+                                                </div>
                                             </div>
                                         </td>
-                                    </tr>
-                                    <tr
-                                        class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark">
-                                        <td class="px-6 py-4 font-medium">#1023</td>
-                                        <td class="px-6 py-4 flex items-center gap-3">
-                                            <img
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zM_C8jYZ0hxVa-48iOsDhrHEzmszGcz9UZ5zrsvmsqCm6Ov_WqhNBUTJxX_XBK0mOn0RBCP1COE8Tq92ZRn6fKm025QkMcABTDFDjMHGwGUtjQtScUZQfzleFev7PRU2PMJ4XVuZksSEWFAuG4Dy-oBFK2Q8mEK9NX5iV1UTXW6f7smZNPo43DByg--8yXhtEEFuD2Q_B-wwm2PVMrd1Z1muDMVAsCw92ewF53xpeKmMl5UwyzAX4Ns_wIJGaM0U72PJ766Dqkg"
-                                                alt="Lê Hoàng Cường" class="admin-avatar size-8 aspect-square rounded-full object-cover" />
-                                            <span>Lê Hoàng Cường</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            lecuong@email.com</td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            0912345678</td>
+                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary"
+                                            th:text="${account.email != null && !#strings.isEmpty(account.email) ? account.email : 'Chưa cung cấp'}">email</td>
+                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary"
+                                            th:text="${account.phone}">phone</td>
                                         <td class="px-6 py-4">
-                                            <span
-                                                class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">Khách
-                                                hàng</span>
+                                            <span class="px-2 py-1 text-xs font-medium rounded-full"
+                                                th:text="${account.hasRole('ADMIN') ? 'Quản trị viên' : 'Khách hàng'}"
+                                                th:classappend="${account.hasRole('ADMIN')} ? ' bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-300' : ' bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300'">
+                                            </span>
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <div class="flex justify-end items-center gap-2">
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">edit</span></button>
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">lock</span></button>
-                                                <button class="p-1.5 rounded-md hover:bg-red-500/10 text-red-500"><span
-                                                        class="material-symbols-outlined text-base">delete</span></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="bg-card-light dark:bg-card-dark border-b border-border-light dark:border-border-dark">
-                                        <td class="px-6 py-4 font-medium">#1024</td>
-                                        <td class="px-6 py-4 flex items-center gap-3">
-                                            <img
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5zM_C8jYZ0hxVa-48iOsDhrHEzmszGcz9UZ5zrsvmsqCm6Ov_WqhNBUTJxX_XBK0mOn0RBCP1COE8Tq92ZRn6fKm025QkMcABTDFDjMHGwGUtjQtScUZQfzleFev7PRU2PMJ4XVuZksSEWFAuG4Dy-oBFK2Q8mEK9NX5iV1UTXW6f7smZNPo43DByg--8yXhtEEFuD2Q_B-wwm2PVMrd1Z1muDMVAsCw92ewF53xpeKmMl5UwyzAX4Ns_wIJGaM0U72PJ766Dqkg"
-                                                alt="Phạm Thị Dung" class="admin-avatar size-8 aspect-square rounded-full object-cover" />
-                                            <span>Phạm Thị Dung</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            phamthidung@email.com</td>
-                                        <td class="px-6 py-4 text-text-light-secondary dark:text-text-dark-secondary">
-                                            0978123456</td>
-                                        <td class="px-6 py-4">
-                                            <span
-                                                class="px-2 py-1 text-xs font-medium rounded-full bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">Khách
-                                                hàng</span>
-                                        </td>
-                                        <td class="px-6 py-4 text-right">
-                                            <div class="flex justify-end items-center gap-2">
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">edit</span></button>
-                                                <button
-                                                    class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"><span
-                                                        class="material-symbols-outlined text-base">lock_open</span></button>
-                                                <button class="p-1.5 rounded-md hover:bg-red-500/10 text-red-500"><span
-                                                        class="material-symbols-outlined text-base">delete</span></button>
+                                            <div class="flex justify-end items-center gap-2 text-text-light-secondary dark:text-text-dark-secondary">
+                                                <span class="inline-flex items-center gap-1 text-sm"
+                                                    th:text="${account.status != null && account.status == 1 ? 'Hoạt động' : 'Bị khóa'}"></span>
+                                                <div class="relative" data-user-actions>
+                                                    <button type="button"
+                                                        class="p-1.5 rounded-md hover:bg-background-light dark:hover:bg-background-dark"
+                                                        data-user-actions-toggle>
+                                                        <span class="material-symbols-outlined text-base">more_vert</span>
+                                                    </button>
+                                                    <div
+                                                        class="hidden absolute right-0 mt-2 w-40 rounded-lg border border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark shadow-lg z-10"
+                                                        data-user-actions-menu>
+                                                        <button type="button"
+                                                            class="w-full flex items-center gap-2 px-4 py-2 text-sm hover:bg-background-light dark:hover:bg-background-dark text-left"
+                                                            th:attr="data-edit-url=@{|/admin/users/${account.id}|}"
+                                                            data-user-edit>
+                                                            <span class="material-symbols-outlined text-base">edit</span>
+                                                            <span>Chỉnh sửa</span>
+                                                        </button>
+                                                        <button type="button"
+                                                            class="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 text-left"
+                                                            th:attr="data-account-id=${account.id}, data-account-name=${account.fullName != null && !#strings.isEmpty(account.fullName) ? account.fullName : account.phone}"
+                                                            data-user-delete>
+                                                            <span class="material-symbols-outlined text-base">delete</span>
+                                                            <span>Xoá</span>
+                                                        </button>
+                                                    </div>
+                                                    <form method="post" th:action="@{/admin/users/delete}"
+                                                        class="hidden" data-user-delete-form>
+                                                        <input type="hidden" name="id" th:value="${account.id}" />
+                                                        <input th:if="${_csrf != null}" type="hidden"
+                                                            th:name="${_csrf.parameterName}"
+                                                            th:value="${_csrf.token}" />
+                                                    </form>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -234,16 +182,18 @@
                         </div>
                         <div class="flex items-center justify-between pt-4">
                             <span class="text-sm text-text-light-secondary dark:text-text-dark-secondary">
-                                Hiển thị <span
-                                    class="font-semibold text-text-light-primary dark:text-text-dark-primary">1-4</span>
-                                trên <span
-                                    class="font-semibold text-text-light-primary dark:text-text-dark-primary">4</span>
+                                Hiển thị <span class="font-semibold text-text-light-primary dark:text-text-dark-primary"
+                                    th:text="${accounts != null ? accounts.size() : 0}">0</span>
+                                trên <span class="font-semibold text-text-light-primary dark:text-text-dark-primary"
+                                    th:text="${totalUsers != null ? totalUsers : 0}">0</span>
                             </span>
                             <div class="inline-flex items-center -space-x-px text-sm">
-                                <a class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-text-light-secondary bg-card-light border border-border-light rounded-l-lg hover:bg-background-light dark:bg-card-dark dark:border-border-dark dark:text-text-dark-secondary dark:hover:bg-background-dark"
-                                    href="#">Trước</a>
-                                <a class="flex items-center justify-center px-3 h-8 leading-tight text-text-light-secondary bg-card-light border border-border-light hover:bg-background-light dark:bg-card-dark dark:border-border-dark dark:text-text-dark-secondary dark:hover:bg-background-dark"
-                                    href="#">Sau</a>
+                                <button
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-text-light-secondary bg-card-light border border-border-light rounded-l-lg dark:bg-card-dark dark:border-border-dark dark:text-text-dark-secondary"
+                                    disabled>Trước</button>
+                                <button
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-text-light-secondary bg-card-light border border-border-light rounded-r-lg dark:bg-card-dark dark:border-border-dark dark:text-text-dark-secondary"
+                                    disabled>Sau</button>
                             </div>
                         </div>
                     </div>
@@ -251,6 +201,80 @@
             </div>
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const wrappers = document.querySelectorAll('[data-user-actions]');
+            let openedMenu = null;
+
+            const closeMenu = () => {
+                if (openedMenu) {
+                    openedMenu.classList.add('hidden');
+                    openedMenu = null;
+                }
+            };
+
+            wrappers.forEach((wrapper) => {
+                const toggleBtn = wrapper.querySelector('[data-user-actions-toggle]');
+                const menu = wrapper.querySelector('[data-user-actions-menu]');
+                const deleteBtn = wrapper.querySelector('[data-user-delete]');
+                const editBtn = wrapper.querySelector('[data-user-edit]');
+
+                if (toggleBtn && menu) {
+                    toggleBtn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        if (openedMenu && openedMenu !== menu) {
+                            closeMenu();
+                        }
+                        if (menu.classList.contains('hidden')) {
+                            menu.classList.remove('hidden');
+                            openedMenu = menu;
+                        } else {
+                            closeMenu();
+                        }
+                    });
+                }
+
+                if (deleteBtn) {
+                    deleteBtn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const targetName = deleteBtn.dataset.accountName || 'người dùng';
+                        const confirmation = confirm(`Bạn có chắc muốn xoá ${targetName}?`);
+                        if (!confirmation) {
+                            closeMenu();
+                            return;
+                        }
+                        const form = wrapper.querySelector('[data-user-delete-form]');
+                        if (form) {
+                            form.submit();
+                        }
+                    });
+                }
+
+                if (editBtn) {
+                    editBtn.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const url = editBtn.dataset.editUrl;
+                        if (url) {
+                            window.location.href = url;
+                        }
+                    });
+                }
+            });
+
+            document.addEventListener('click', (event) => {
+                if (openedMenu && !openedMenu.contains(event.target)) {
+                    closeMenu();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeMenu();
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

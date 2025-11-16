@@ -756,7 +756,7 @@ html body{
     -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
 }
 
-.my_account_right .wrapper_my_menu_card>.my_menu_card>.my_menu_card_img {
+.my_account_right .wrapper_my_menu_card>.my_menu_card .my_menu_card_img {
     width: 100%;
     display: flex;
     justify-content: center;

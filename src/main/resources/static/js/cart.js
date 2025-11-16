@@ -12,8 +12,8 @@
     addressEditBtn: document.querySelector('.cart_detail .address .address_content .btn_edit'),
   };
 
-  // Match template formatting: e.g., 75 -> "75.000 ₫"
-  const currency = v => `${new Intl.NumberFormat('vi-VN').format(Number(v))}.000 ₫`;
+  // Match template formatting directly from DB value (avoid appending bogus .000)
+  const currency = v => `${new Intl.NumberFormat('vi-VN').format(Number(v))} ₫`;
   // Current items cache (used to prevent checkout when empty)
   let currentCartItems = [];
   const STEP_TRANS_MS = 300;

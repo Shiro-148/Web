@@ -59,7 +59,7 @@
                         <span class="material-symbols-outlined">notifications</span>
                     </button>
                     <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDubHmll98IHR2ePlBjOGABPAKn3Di_tQWH06s_9Nszocq3x6zxfolkVoI8TR3EfYARjNyKLQvJ5cMvTF3q2oq2RbDOymn4LnnqFii7-ACIB0U7W7f_RXUvMTU-orfAUSXuU50wtICdRpYOffJxAxk8m49nRgcUwy_ah8YiSqjv83-fT2VYSMBI3RPIvA96F7Y_uiD-jo2ViYOKsBrZ9wDQiwFf4l9xYHCE66mhSAlLXbVGKOuNakVfq2LoLxN8-6AaloO8FkxyHGQ"
+                        src="https://res.cloudinary.com/dhpe3eg2o/image/upload/v1763273370/logo_qyyx8x.png"
                         alt="Admin User Avatar" class="admin-avatar aspect-square rounded-full size-10 object-cover" />
                 </div>
             </header>
@@ -70,7 +70,7 @@
                             <h3 class="text-base font-semibold">Danh mục</h3>
                         </div>
                         <div
-                            class="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-2 flex flex-col gap-1">
+                            class="bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark p-2 flex flex-col gap-1 w-admin-list-category">
                             <p class="text-sm text-text-light-secondary dark:text-text-dark-secondary px-2"
                                 th:if="${categories == null || #lists.isEmpty(categories)}">
                                 Chưa có danh mục nào.
@@ -150,7 +150,8 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="px-6 py-4" th:text="${product.priceProduct != null ? product.priceProduct + ' đ' : '—'}">
+                                            <td class="px-6 py-4"
+                                                th:text="${product.priceProduct != null ? #numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE') + ' ₫' : '—'}">
                                                 0 đ
                                             </td>
                                             <td class="px-6 py-4">

@@ -28,4 +28,11 @@ public class CategoryService {
         }
         return categoryRepository.findByIdWithProducts(categoryId);
     }
+
+    public CategoryEntity getCategoryById(Integer categoryId) {
+        if (categoryId == null) {
+            return null;
+        }
+        return categoryRepository.findById(categoryId).orElse(null);
+    }
 }

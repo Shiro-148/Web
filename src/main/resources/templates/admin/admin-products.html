@@ -59,47 +59,67 @@
                         <span class="material-symbols-outlined">notifications</span>
                     </button>
                     <img
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDubHmll98IHR2ePlBjOGABPAKn3Di_tQWH06s_9Nszocq3x6zxfolkVoI8TR3EfYARjNyKLQvJ5cMvTF3q2oq2RbDOymn4LnnqFii7-ACIB0U7W7f_RXUvMTU-orfAUSXuU50wtICdRpYOffJxAxk8m49nRgcUwy_ah8YiSqjv83-fT2VYSMBI3RPIvA96F7Y_uiD-jo2ViYOKsBrZ9wDQiwFf4l9xYHCE66mhSAlLXbVGKOuNakVfq2LoLxN8-6AaloO8FkxyHGQ"
+                        src="https://res.cloudinary.com/dhpe3eg2o/image/upload/v1763273370/logo_qyyx8x.png"
                         alt="Admin User Avatar" class="admin-avatar aspect-square rounded-full size-10 object-cover" />
                 </div>
             </header>
             <div class="flex-1 p-6 lg:p-10 overflow-y-auto">
                 <div class="max-w-7xl mx-auto">
-                    <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-                        <div class="flex flex-col sm:flex-row items-center gap-4 w-full md:w-auto flex-wrap">
-                            <div class="relative w-full sm:w-auto">
-                                <span
-                                    class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary dark:text-text-dark-secondary">search</span>
-                                <input
-                                    class="form-input w-full sm:w-64 rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm pl-10"
-                                    placeholder="Tìm theo mã hoặc tên" type="text" />
+                    <div class="flex flex-col lg:flex-row items-start justify-between gap-4 mb-6 bg-card-light dark:bg-card-dark border border-border-light dark:border-border-dark rounded-xl p-4">
+                        <form method="get" th:action="@{/admin/products}"
+                            class="w-full flex flex-col gap-3">
+                            <div class="flex flex-col xl:flex-row gap-3">
+                                <div class="relative w-full xl:max-w-xs">
+                                    <span
+                                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-text-light-secondary dark:text-text-dark-secondary">search</span>
+                                    <input
+                                        class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary text-sm pl-10"
+                                        placeholder="Tìm theo mã hoặc tên" type="text" name="searchKeyword"
+                                        th:value="${filterSearchKeyword}" />
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-3 w-full">
+                                    <select name="categoryId"
+                                        class="form-select w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary text-sm">
+                                        <option value="" th:selected="${filterCategoryId == null}">Tất cả danh mục</option>
+                                        <option th:each="category : ${categories}"
+                                            th:value="${category.idCategory}"
+                                            th:selected="${filterCategoryId != null and filterCategoryId == category.idCategory}"
+                                            th:text="${category.nameCategory}">
+                                        </option>
+                                    </select>
+                                    <select name="status"
+                                        class="form-select w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary text-sm">
+                                        <option value="" th:selected="${#strings.isEmpty(filterStatus)}">Tất cả trạng thái</option>
+                                        <option value="in-stock" th:selected="${filterStatus == 'in-stock'}">Còn hàng</option>
+                                        <option value="out-of-stock" th:selected="${filterStatus == 'out-of-stock'}">Hết hàng</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center gap-2 w-full">
+                                    <input name="minPrice"
+                                        class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary text-sm"
+                                        placeholder="Giá từ" type="text" inputmode="decimal" th:value="${filterMinPrice}" />
+                                    <span class="text-text-light-secondary dark:text-text-dark-secondary">-</span>
+                                    <input name="maxPrice"
+                                        class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-background-light dark:bg-background-dark focus:ring-2 focus:ring-primary text-sm"
+                                        placeholder="Giá đến" type="text" inputmode="decimal" th:value="${filterMaxPrice}" />
+                                </div>
                             </div>
-                            <select
-                                class="form-select w-full sm:w-auto rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm">
-                                <option value="">Tất cả danh mục</option>
-                                <option th:each="category : ${categories}"
-                                    th:value="${category.idCategory}"
-                                    th:text="${category.nameCategory}">
-                                </option>
-                            </select>
-                            <select
-                                class="form-select w-full sm:w-auto rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm">
-                                <option>Tất cả trạng thái</option>
-                                <option>Còn hàng</option>
-                                <option>Hết hàng</option>
-                            </select>
-                            <div class="flex items-center gap-2 w-full sm:w-auto">
-                                <input
-                                    class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
-                                    placeholder="Giá từ" type="number" />
-                                <span class="text-text-light-secondary dark:text-text-dark-secondary">-</span>
-                                <input
-                                    class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
-                                    placeholder="Giá đến" type="number" />
+                            <div class="flex flex-col sm:flex-row gap-3">
+                                <button type="submit"
+                                    class="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
+                                    Áp dụng lọc
+                                </button>
+                                <a href="/admin/products" th:href="@{/admin/products}"
+                                    class="px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark text-text-light-secondary dark:text-text-dark-secondary hover:text-text-light-primary hover:border-primary transition-colors text-center">
+                                    Xoá lọc
+                                </a>
                             </div>
-                        </div>
+                        </form>
                         <button
-                            class="flex items-center justify-center gap-2 w-full md:w-auto px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors flex-shrink-0">
+                            class="flex items-center justify-center gap-2 w-full lg:w-auto px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors flex-shrink-0"
+                            data-dialog-open="product"
+                            data-dialog-title="Thêm sản phẩm mới"
+                            data-dialog-mode="create">
                             <span class="material-symbols-outlined">add</span>
                             <span>Thêm Sản Phẩm Mới</span>
                         </button>
@@ -144,18 +164,22 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-6 py-4" th:text="${product.originalPrice != null ? product.originalPrice + ' đ' : '—'}">
+                                        <td class="px-6 py-4"
+                                            th:text="${product.originalPrice != null ? #numbers.formatDecimal(product.originalPrice, 0, 'POINT', 0, 'NONE') + ' ₫' : '—'}">
                                             0 đ
                                         </td>
-                                        <td class="px-6 py-4" th:text="${product.priceProduct != null ? product.priceProduct + ' đ' : '—'}">
+                                        <td class="px-4 py-4"
+                                            th:text="${product.priceProduct != null ? #numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE') + ' ₫' : '—'}">
                                             0 đ
                                         </td>
-                                        <td class="px-6 py-4">
+                                        <td class="px-4 py-4">
                                             <div class="flex flex-wrap gap-2">
                                                 <span th:if="${product.categories == null || #sets.isEmpty(product.categories)}"
                                                     class="text-xs text-text-light-secondary dark:text-text-dark-secondary">Chưa phân loại</span>
                                                 <span th:each="category : ${product.categories}"
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-background-light dark:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary border border-border-light dark:border-border-dark"
+                                                    data-product-category-tag
+                                                    th:attr="data-category-id=${category.idCategory}"
                                                     th:text="${category.nameCategory}">
                                                     Danh mục
                                                 </span>
@@ -168,21 +192,39 @@
                                             <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary" th:if="${product.noteProduct == null}">—</p>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300">
-                                                Còn hàng
-                                            </span>
+                                            <span th:with="stock=${product.stockQuantity != null ? product.stockQuantity : 0}"
+                                                th:class="${stock > 0} ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-300' : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/50 text-red-800 dark:text-red-300'"
+                                                th:text="${stock > 0} ? 'Còn hàng' : 'Hết hàng'"></span>
                                         </td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex items-center justify-center gap-2">
                                                 <button
-                                                    class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors">
+                                                    class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-primary transition-colors"
+                                                    data-dialog-open="product"
+                                                    data-dialog-title="Chỉnh sửa thông tin sản phẩm"
+                                                    data-dialog-mode="edit"
+                                                    th:attr="
+                                                        data-product-id=${product.idProduct},
+                                                        data-product-name=${product.nameProduct},
+                                                        data-product-note=${product.noteProduct},
+                                                        data-product-original-price=${product.originalPrice},
+                                                        data-product-selling-price=${product.priceProduct},
+                                                        data-product-discount=${product.priceOldProduct},
+                                                        data-product-image=${product.imgPathProduct},
+                                                        data-product-quantity=${product.stockQuantity}">
                                                     <span class="material-symbols-outlined text-base">edit</span>
                                                 </button>
-                                                <button
-                                                    class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-red-500 transition-colors">
-                                                    <span class="material-symbols-outlined text-base">delete</span>
-                                                </button>
+                                                <form method="post" th:action="@{/admin/products/delete}"
+                                                    onsubmit="return confirm('Bạn có chắc muốn xoá sản phẩm này?');">
+                                                    <input type="hidden" name="id" th:value="${product.idProduct}" />
+                                                    <input th:if="${_csrf != null}" type="hidden"
+                                                        th:name="${_csrf.parameterName}"
+                                                        th:value="${_csrf.token}" />
+                                                    <button type="submit"
+                                                        class="p-2 text-text-light-secondary dark:text-text-dark-secondary hover:text-red-500 transition-colors">
+                                                        <span class="material-symbols-outlined text-base">delete</span>
+                                                    </button>
+                                                </form>
                                             </div>
                                         </td>
                                     </tr>
@@ -194,6 +236,370 @@
             </div>
         </main>
     </div>
+    <div th:insert="~{admin/fragments/dialog :: product-dialog(${categories})}"></div>
+    <script th:inline="javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const overlay = document.getElementById('product-dialog-overlay');
+            if (!overlay) {
+                return;
+            }
+
+            const openButtons = document.querySelectorAll('[data-dialog-open="product"]');
+            const closeButtons = overlay.querySelectorAll('[data-dialog-close]');
+            const titleEl = document.getElementById('product-dialog-title');
+            const dialogForm = overlay.querySelector('form');
+            const defaultTitle = titleEl ? (titleEl.dataset.defaultTitle || titleEl.textContent.trim()) : '';
+            const imagePreviewEl = document.getElementById('product-image-preview');
+            const imageFileInput = dialogForm ? dialogForm.querySelector('#product-image-file') : null;
+            const imageTriggerButton = dialogForm ? dialogForm.querySelector('[data-image-trigger="file"]') : null;
+            const imageUrlInput = dialogForm ? dialogForm.querySelector('#product-image-url') : null;
+            const categorySelect = dialogForm ? dialogForm.querySelector('#product-categories') : null;
+            const categoryChipsContainer = dialogForm ? dialogForm.querySelector('#selected-category-chips') : null;
+            const categoryHiddenInputs = dialogForm ? dialogForm.querySelector('#category-hidden-inputs') : null;
+            const categoryPickerOverlay = document.getElementById('category-picker-overlay');
+            const categoryPickerOpenBtn = dialogForm ? dialogForm.querySelector('[data-open-category-picker]') : null;
+            const categoryPickerClearBtn = dialogForm ? dialogForm.querySelector('[data-clear-category-picker]') : null;
+            const categoryPickerApplyBtn = categoryPickerOverlay ? categoryPickerOverlay.querySelector('[data-apply-category-picker]') : null;
+            const categoryPickerCloseButtons = categoryPickerOverlay ? categoryPickerOverlay.querySelectorAll('[data-close-category-picker]') : [];
+            const categoryPickerList = categoryPickerOverlay ? categoryPickerOverlay.querySelector('[data-category-picker-list]') : null;
+            let previewObjectUrl = null;
+
+            const normalizeMoneyValue = (value) => {
+                if (value == null || value === '') {
+                    return '';
+                }
+                const numeric = Number(value);
+                if (Number.isFinite(numeric)) {
+                    return numeric.toString();
+                }
+                return value;
+            };
+
+            function renderCategoryChips() {
+                if (!categorySelect || !categoryChipsContainer) {
+                    return;
+                }
+                const selectedOptions = Array.from(categorySelect.selectedOptions || []);
+                categoryChipsContainer.innerHTML = '';
+                if (selectedOptions.length === 0) {
+                    const paragraph = document.createElement('p');
+                    paragraph.className = 'text-xs text-text-light-secondary dark:text-text-dark-secondary';
+                    paragraph.textContent = 'Chưa chọn danh mục nào';
+                    categoryChipsContainer.appendChild(paragraph);
+                    return;
+                }
+                selectedOptions.forEach((option) => {
+                    const chip = document.createElement('span');
+                    chip.className = 'inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium';
+                    chip.textContent = option.textContent || option.value;
+                    categoryChipsContainer.appendChild(chip);
+                });
+            }
+
+            function toggleCategoryPicker(show) {
+                if (!categoryPickerOverlay) {
+                    return;
+                }
+                if (show) {
+                    categoryPickerOverlay.classList.remove('hidden');
+                    categoryPickerOverlay.classList.add('flex');
+                } else {
+                    categoryPickerOverlay.classList.add('hidden');
+                    categoryPickerOverlay.classList.remove('flex');
+                }
+            }
+
+            function syncPickerFromSelect() {
+                if (!categorySelect || !categoryPickerOverlay) {
+                    return;
+                }
+                const selectedValues = new Set(Array.from(categorySelect.selectedOptions).map((option) => option.value));
+                categoryPickerOverlay.querySelectorAll('[data-category-checkbox]').forEach((checkbox) => {
+                    checkbox.checked = selectedValues.has(checkbox.value);
+                });
+            }
+
+            function applyPickerSelection() {
+                if (!categorySelect || !categoryPickerOverlay) {
+                    return;
+                }
+                const selectedValues = new Set();
+                categoryPickerOverlay.querySelectorAll('[data-category-checkbox]:checked').forEach((checkbox) => {
+                    selectedValues.add(checkbox.value);
+                });
+                Array.from(categorySelect.options).forEach((option) => {
+                    option.selected = selectedValues.has(option.value);
+                });
+                updateHiddenCategoryInputs(selectedValues);
+                renderCategoryChips();
+            }
+
+            function clearCategorySelection() {
+                if (!categorySelect || !categoryPickerOverlay) {
+                    return;
+                }
+                categoryPickerOverlay.querySelectorAll('[data-category-checkbox]').forEach((checkbox) => {
+                    checkbox.checked = false;
+                });
+                Array.from(categorySelect.options).forEach((option) => {
+                    option.selected = false;
+                });
+                updateHiddenCategoryInputs(new Set());
+                renderCategoryChips();
+            }
+
+            function updateHiddenCategoryInputs(selectedValues) {
+                if (!categoryHiddenInputs) {
+                    return;
+                }
+                categoryHiddenInputs.innerHTML = '';
+                selectedValues.forEach((value) => {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = 'categoryIds';
+                    input.value = value;
+                    categoryHiddenInputs.appendChild(input);
+                });
+            }
+
+            const setDialogTitle = (value) => {
+                if (!titleEl) {
+                    return;
+                }
+                titleEl.textContent = value && value.trim().length > 0 ? value : defaultTitle;
+            };
+
+            const cleanupPreviewUrl = () => {
+                if (previewObjectUrl) {
+                    URL.revokeObjectURL(previewObjectUrl);
+                    previewObjectUrl = null;
+                }
+            };
+
+            const setPreviewImage = (src) => {
+                if (!imagePreviewEl) {
+                    return;
+                }
+                if (src) {
+                    imagePreviewEl.style.backgroundImage = `url('${src}')`;
+                    return;
+                }
+                const placeholder = imagePreviewEl.dataset.placeholderImage;
+                imagePreviewEl.style.backgroundImage = placeholder ? `url('${placeholder}')` : '';
+            };
+
+            const resetFormForCreate = () => {
+                if (!dialogForm) {
+                    return;
+                }
+                dialogForm.reset();
+                const idField = dialogForm.querySelector('#product-id');
+                if (idField) {
+                    idField.value = '';
+                }
+                const descriptionField = dialogForm.querySelector('#product-description');
+                if (descriptionField) {
+                    descriptionField.value = '';
+                }
+                cleanupPreviewUrl();
+                setPreviewImage();
+                if (imageUrlInput) {
+                    imageUrlInput.value = '';
+                }
+                if (categorySelect) {
+                    Array.from(categorySelect.options).forEach((option) => {
+                        option.selected = false;
+                    });
+                }
+                updateHiddenCategoryInputs(new Set());
+                renderCategoryChips();
+            };
+
+            const toggleDialog = (show) => {
+                if (show) {
+                    overlay.classList.remove('hidden');
+                    overlay.classList.add('flex');
+                    document.body.classList.add('overflow-hidden');
+                } else {
+                    overlay.classList.add('hidden');
+                    overlay.classList.remove('flex');
+                    document.body.classList.remove('overflow-hidden');
+                }
+            };
+
+            if (categoryPickerOpenBtn) {
+                categoryPickerOpenBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    syncPickerFromSelect();
+                    toggleCategoryPicker(true);
+                });
+            }
+
+            if (categoryPickerApplyBtn) {
+                categoryPickerApplyBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    applyPickerSelection();
+                    toggleCategoryPicker(false);
+                });
+            }
+
+            if (categoryPickerClearBtn) {
+                categoryPickerClearBtn.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    clearCategorySelection();
+                    syncPickerFromSelect();
+                });
+            }
+
+            categoryPickerCloseButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    toggleCategoryPicker(false);
+                });
+            });
+
+            if (categoryPickerOverlay) {
+                categoryPickerOverlay.addEventListener('click', (event) => {
+                    if (event.target === categoryPickerOverlay) {
+                        toggleCategoryPicker(false);
+                    }
+                });
+            }
+
+            if (categoryPickerList) {
+                categoryPickerList.addEventListener('change', (event) => {
+                    if (event.target.matches('[data-category-checkbox]')) {
+                        applyPickerSelection();
+                    }
+                });
+            }
+
+            openButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const mode = button.getAttribute('data-dialog-mode') || 'edit';
+                    if (dialogForm) {
+                        dialogForm.dataset.mode = mode;
+                    }
+                    if (mode === 'create') {
+                        resetFormForCreate();
+                    } else {
+                        populateFormFromButton(button);
+                    }
+                    setDialogTitle(button.getAttribute('data-dialog-title'));
+                    toggleDialog(true);
+                });
+            });
+
+            renderCategoryChips();
+
+            closeButtons.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    toggleDialog(false);
+                    setDialogTitle();
+                    if (dialogForm) {
+                        dialogForm.dataset.mode = 'edit';
+                    }
+                });
+            });
+
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    toggleDialog(false);
+                    setDialogTitle();
+                    if (dialogForm) {
+                        dialogForm.dataset.mode = 'edit';
+                    }
+                }
+            });
+
+            if (imageFileInput) {
+                imageFileInput.addEventListener('change', () => {
+                    const [file] = imageFileInput.files || [];
+                    cleanupPreviewUrl();
+                    if (file) {
+                        previewObjectUrl = URL.createObjectURL(file);
+                        setPreviewImage(previewObjectUrl);
+                        if (imageUrlInput) {
+                            imageUrlInput.value = file.name;
+                        }
+                    } else {
+                        setPreviewImage();
+                        if (imageUrlInput) {
+                            imageUrlInput.value = '';
+                        }
+                    }
+                });
+            }
+
+            if (imageTriggerButton && imageFileInput) {
+                imageTriggerButton.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    imageFileInput.click();
+                });
+            }
+
+            const populateFormFromButton = (button) => {
+                if (!dialogForm) {
+                    return;
+                }
+                const idField = dialogForm.querySelector('#product-id');
+                if (idField) {
+                    idField.value = button.getAttribute('data-product-id') || '';
+                }
+                const nameField = dialogForm.querySelector('#product-name');
+                if (nameField) {
+                    nameField.value = button.getAttribute('data-product-name') || '';
+                }
+                const noteField = dialogForm.querySelector('#product-description');
+                if (noteField) {
+                    noteField.value = button.getAttribute('data-product-note') || '';
+                }
+                const originalPriceField = dialogForm.querySelector('#original-price');
+                if (originalPriceField) {
+                    const rawOriginal = button.getAttribute('data-product-original-price');
+                    originalPriceField.value = normalizeMoneyValue(rawOriginal);
+                }
+                const sellingPriceField = dialogForm.querySelector('#selling-price');
+                if (sellingPriceField) {
+                    const rawSelling = button.getAttribute('data-product-selling-price');
+                    sellingPriceField.value = normalizeMoneyValue(rawSelling);
+                }
+                const discountField = dialogForm.querySelector('#discount-price');
+                if (discountField) {
+                    const rawDiscount = button.getAttribute('data-product-discount');
+                    discountField.value = normalizeMoneyValue(rawDiscount);
+                }
+                const quantityField = dialogForm.querySelector('#product-quantity');
+                if (quantityField) {
+                    quantityField.value = button.getAttribute('data-product-quantity') || '';
+                }
+                if (imageUrlInput) {
+                    const imgValue = button.getAttribute('data-product-image') || '';
+                    imageUrlInput.value = imgValue;
+                    setPreviewImage(imgValue);
+                }
+                if (categorySelect) {
+                    const selectedIds = [];
+                    const rowElement = button.closest('tr');
+                    if (rowElement) {
+                        rowElement.querySelectorAll('[data-product-category-tag]').forEach((tag) => {
+                            const value = tag.getAttribute('data-category-id');
+                            if (value) {
+                                selectedIds.push(value);
+                            }
+                        });
+                    }
+                    Array.from(categorySelect.options).forEach((option) => {
+                        option.selected = selectedIds.includes(option.value);
+                    });
+                    updateHiddenCategoryInputs(new Set(selectedIds));
+                    renderCategoryChips();
+                }
+            };
+        });
+    </script>
 </body>
 
 </html>

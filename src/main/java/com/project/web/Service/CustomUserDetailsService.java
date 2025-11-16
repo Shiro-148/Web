@@ -1,6 +1,8 @@
 package com.project.web.Service;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,10 +27,16 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Không tìm thấy tài khoản với số điện thoại: " + phone);
         }
 
+        List<SimpleGrantedAuthority> authorities = account.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toList());
+        if (authorities.isEmpty()) {
+            authorities = Collections.singletonList(new SimpleGrantedAuthority("USER"));
+        }
+
         return new User(
                 account.getPhone(),
                 account.getPassword(),
-                Collections.singletonList(new SimpleGrantedAuthority(account.getRole()))
-        );
+                authorities);
     }
 }

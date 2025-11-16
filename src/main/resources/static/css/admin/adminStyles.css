@@ -27,3 +27,12 @@ html.dark body.admin-shell {
     object-fit: cover;
     display: block;
 }
+.w-admin-list-category{
+    max-height: 600px;
+    overflow-y: auto;
+}
+.w-sidebar{
+    height: 100vh;
+    position: fixed;
+    background-color: #fff;
+}

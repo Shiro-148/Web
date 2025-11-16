@@ -2,6 +2,9 @@ package com.project.web.dto;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import com.project.web.Entity.AccountEntity;
 
@@ -11,7 +14,7 @@ public class AccountDTO {
     private String fullName;
     private LocalDate birthDate;
     private String phone;
-    private String role;
+    private Set<String> roles = new HashSet<>();
     private Integer status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -56,12 +59,12 @@ public class AccountDTO {
         this.phone = phone;
     }
 
-    public String getRole() {
-        return role;
+    public Set<String> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<String> roles) {
+        this.roles = roles != null ? new HashSet<>(roles) : new HashSet<>();
     }
 
     public Integer getStatus() {
@@ -97,7 +100,7 @@ public class AccountDTO {
         d.setFullName(e.getFullName());
         d.setBirthDate(e.getBirthDate());
         d.setPhone(e.getPhone());
-        d.setRole(e.getRole());
+        d.setRoles(e.getRoles().stream().map(role -> role.getName()).collect(Collectors.toSet()));
         d.setStatus(e.getStatus());
         d.setCreatedAt(e.getCreatedAt());
         d.setUpdatedAt(e.getUpdatedAt());

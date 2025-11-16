@@ -43,17 +43,17 @@
                                     <img th:src="@{${product.imgPathProduct}}" alt="">
                                     <div class="title" th:text="${product.nameProduct}"></div>
                                     <div class="price"
-                                        th:text="|${#numbers.formatDecimal(product.priceProduct, 0, 'COMMA', 3, 'POINT')} ₫|">
+                                        th:text="|${#numbers.formatDecimal(product.priceProduct, 0, 'POINT', 0, 'NONE')} ₫|">
                                     </div>
                                     <div class="price_old" th:if="${product.priceOldProduct != null}">
                                         <i class='bx bxs-discount'></i>
                                         <span
-                                            th:text="|${#numbers.formatDecimal(product.priceOldProduct, 0, 'COMMA', 3, 'POINT')}₫|"></span>
+                                            th:text="|${#numbers.formatDecimal(product.priceOldProduct, 0, 'POINT', 0, 'NONE')} ₫|"></span>
                                     </div>
                                     <div class="note_discount" th:if="${product.priceOldProduct != null}">
                                         Bạn tiết kiệm được
                                         <span class="txt_note_discount"
-                                            th:text="|${#numbers.formatDecimal(product.priceOldProduct - product.priceProduct, 0, 'COMMA', 3, 'POINT')} ₫|"></span>
+                                            th:text="|${#numbers.formatDecimal(product.priceOldProduct - product.priceProduct, 0, 'POINT', 0, 'NONE')} ₫|"></span>
                                         sau khi giảm giá.
                                     </div>
                                     <div class="note">
@@ -74,7 +74,7 @@
                                                 </div>
                                                 <div class="price">
                                                     <span class="txt_price"
-                                                        th:text="|+${#numbers.formatDecimal(addon.price, 0, 'COMMA', 3, 'POINT')} ₫|"></span>
+                                                        th:text="|+${#numbers.formatDecimal(addon.price, 0, 'POINT', 0, 'NONE')} ₫|"></span>
                                                     <div class="count">
                                                         <button type="button" class="btn_minus">-</button>
                                                         <span class="txt_count">0</span>

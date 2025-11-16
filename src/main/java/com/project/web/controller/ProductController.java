@@ -50,7 +50,13 @@ public class ProductController {
         } else {
             products = productService.getAllProducts();
         }
-        model.addAttribute("products", products);
+        List<ProductEntity> availableProducts = products.stream()
+                .filter(product -> {
+                    Integer stock = product.getStockQuantity();
+                    return stock != null && stock > 0;
+                })
+                .collect(Collectors.toList());
+        model.addAttribute("products", availableProducts);
 
         // favorite ids của user hiện tại (dùng để hiển thị trái tim)
         java.util.Set<Integer> favoriteIds = new java.util.HashSet<>();

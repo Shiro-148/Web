@@ -1,0 +1,195 @@
+﻿<div xmlns:th="http://www.thymeleaf.org" th:fragment="product-dialog (dialogCategories)">
+    <div id="product-dialog-overlay"
+        class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
+        role="dialog" aria-modal="true" aria-labelledby="product-dialog-title">
+        <div
+            class="w-full max-w-2xl bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark shadow-2xl flex flex-col max-h-[90vh]">
+            <div
+                class="flex items-center justify-between p-6 border-b border-border-light dark:border-border-dark flex-shrink-0">
+                <h3 id="product-dialog-title" class="text-lg font-bold"
+                    data-default-title="Chỉnh sửa thông tin sản phẩm">Chỉnh sửa thông tin sản phẩm</h3>
+                <button type="button" data-dialog-close
+                    class="p-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 flex-grow overflow-y-auto">
+                <form class="space-y-6 flex flex-col h-full" method="post" th:action="@{/admin/products}" enctype="multipart/form-data">
+                    <input type="hidden" name="idProduct" id="product-id" />
+                    <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}" />
+                    <div>
+                        <label for="product-name"
+                            class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Tên
+                            Sản Phẩm</label>
+                        <input id="product-name" name="nameProduct" type="text"
+                            class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                            placeholder="Nhập tên sản phẩm" />
+                    </div>
+                    <div>
+                        <label for="product-description"
+                            class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Ghi
+                            chú</label>
+                        <textarea id="product-description" name="noteProduct" rows="3"
+                            class="form-textarea w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                            placeholder="Nhập ghi chú cho sản phẩm"></textarea>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="original-price"
+                                class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Giá
+                                Gốc</label>
+                            <input id="original-price" name="originalPrice" type="text"
+                                inputmode="decimal"
+                                class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                                placeholder="VD: 50.000" />
+                        </div>
+                        <div>
+                            <label for="selling-price"
+                                class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Giá
+                                Bán</label>
+                            <input id="selling-price" name="priceProduct" type="text"
+                                inputmode="decimal"
+                                class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                                placeholder="VD: 65.000" />
+                        </div>
+                    </div>
+                    <div>
+                        <label for="discount-price"
+                            class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">
+                            Giảm giá (nếu có)
+                        </label>
+                        <input id="discount-price" name="discountPrice" type="text" inputmode="decimal"
+                            class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                            placeholder="VD: 10.000" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">
+                            Danh Mục
+                        </label>
+                        <div class="space-y-3">
+                            <div id="selected-category-chips"
+                                class="min-h-[3rem] rounded-lg border border-dashed border-border-light dark:border-border-dark bg-background-light/50 dark:bg-background-dark/50 p-3 flex flex-wrap gap-2 items-center">
+                                <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary">
+                                    Chưa chọn danh mục nào
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" data-open-category-picker
+                                    class="px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark text-text-light-primary dark:text-text-dark-primary hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                                    Chọn danh mục
+                                </button>
+                                <button type="button" data-clear-category-picker
+                                    class="px-4 py-2 text-sm font-medium rounded-lg border border-red-200 text-red-500 hover:bg-red-50 dark:border-red-500/50 dark:text-red-400 dark:hover:bg-red-500/10 transition-colors">
+                                    Xóa lựa chọn
+                                </button>
+                            </div>
+                            <select id="product-categories" multiple class="hidden">
+                                <option th:each="category : ${dialogCategories}"
+                                    th:value="${category.idCategory}"
+                                    th:text="${category.nameCategory}">
+                                </option>
+                            </select>
+                            <div id="category-hidden-inputs"></div>
+                            <p class="text-xs text-text-light-secondary dark:text-text-dark-secondary"
+                                th:if="${dialogCategories == null || #lists.isEmpty(dialogCategories)}">
+                                Chưa có danh mục nào, hãy tạo danh mục trước khi thêm sản phẩm.
+                            </p>
+                        </div>
+                    </div>
+                    <div id="category-picker-overlay"
+                        class="fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4" role="dialog"
+                        aria-modal="true" aria-labelledby="category-picker-title">
+                        <div
+                            class="w-full max-w-xl bg-card-light dark:bg-card-dark rounded-xl border border-border-light dark:border-border-dark shadow-2xl flex flex-col max-h-[85vh]">
+                            <div class="flex items-center justify-between px-5 py-4 border-b border-border-light dark:border-border-dark">
+                                <h4 id="category-picker-title" class="text-base font-semibold">Chọn danh mục</h4>
+                                <button type="button" data-close-category-picker
+                                    class="p-2 rounded-full hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary transition-colors">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+                            <div class="p-5 overflow-y-auto" data-category-picker-list>
+                                <div th:if="${dialogCategories == null || #lists.isEmpty(dialogCategories)}"
+                                    class="text-sm text-text-light-secondary dark:text-text-dark-secondary">
+                                    Không có danh mục nào để chọn.
+                                </div>
+                                <div class="space-y-3"
+                                    th:if="${dialogCategories != null && !#lists.isEmpty(dialogCategories)}">
+                                    <label th:each="category : ${dialogCategories}"
+                                        class="flex items-center gap-3 p-3 rounded-lg border border-border-light dark:border-border-dark hover:border-primary transition-colors cursor-pointer">
+                                        <input type="checkbox" class="rounded text-primary focus:ring-primary"
+                                            data-category-checkbox th:value="${category.idCategory}"
+                                            th:data-category-name="${category.nameCategory}" />
+                                        <span class="text-sm font-medium" th:text="${category.nameCategory}">Tên danh mục</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-border-light dark:border-border-dark">
+                                <button type="button" data-close-category-picker
+                                    class="px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                                    Hủy
+                                </button>
+                                <button type="button" data-apply-category-picker
+                                    class="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">
+                                    Xác nhận
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="product-quantity"
+                            class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Số
+                            lượng tồn</label>
+                        <input id="product-quantity" name="stockQuantity" type="number" min="0"
+                            class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                            placeholder="Nhập số lượng hiện có" />
+                    </div>
+                    <div>
+                        <label
+                            class="block text-sm font-medium text-text-light-primary dark:text-text-dark-primary mb-1.5">Hình
+                            Ảnh Sản Phẩm</label>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div id="product-image-preview"
+                                    class="w-24 h-24 rounded-lg bg-cover bg-center bg-no-repeat border border-border-light dark:border-border-dark"
+                                    style="background-image: url('/image/img/order-empty.png');"
+                                    th:data-placeholder-image="@{/image/img/order-empty.png}"
+                                    th:style="'background-image: url(' + @{/image/img/order-empty.png} + ');'">
+                                </div>
+                                <div class="flex-1">
+                                    <input id="product-image-file" name="imageFile" type="file" accept="image/*"
+                                        class="absolute w-px h-px -m-px overflow-hidden border-0 p-0" aria-hidden="true"
+                                        tabindex="-1" aria-describedby="product-image-help" />
+                                    <button type="button" data-image-trigger="file"
+                                        class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark text-text-light-primary dark:text-text-dark-primary hover:bg-background-light dark:hover:bg-background-dark transition-colors">
+                                        <span class="material-symbols-outlined text-base">upload_file</span>
+                                        <span>Chọn ảnh</span>
+                                    </button>
+                                    <p id="product-image-help"
+                                        class="text-xs text-text-light-secondary dark:text-text-dark-secondary mt-1">
+                                        Chọn ảnh từ máy tính để tự động tải lên và lưu đường dẫn.
+                                    </p>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="product-image-url"
+                                    class="block text-xs font-medium text-text-light-secondary dark:text-text-dark-secondary mb-1">Hoặc
+                                    nhập đường dẫn ảnh</label>
+                                <input id="product-image-url" name="imgPathProduct" type="text"
+                                    class="form-input w-full rounded-lg border-border-light dark:border-border-dark bg-card-light dark:bg-card-dark focus:ring-2 focus:ring-primary text-sm"
+                                    placeholder="VD: /uploads/products/abc.jpg hoặc https://..." />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-end gap-4 pt-6 border-t border-border-light dark:border-border-dark mt-auto">
+                        <button type="button" data-dialog-close
+                            class="px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark transition-colors">Hủy</button>
+                        <button type="submit"
+                            class="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90 transition-colors">Lưu
+                            Thay Đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

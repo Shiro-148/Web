@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/css/admin/adminStyles.css" th:href="@{/css/admin/adminStyles.css}" />
+
 <body>
-    <aside th:fragment="sidebar(activeSection)
-            " class="w-64 flex-shrink-0 bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark flex flex-col">
-        <div class="flex flex-col gap-4 p-4 h-full">
+    <aside th:fragment="sidebar(activeSection)"
+        class="w-64 flex-shrink-0 bg-card-light dark:bg-card-dark border-r border-border-light dark:border-border-dark flex flex-col">
+        <div class="flex flex-col gap-4 p-4 w-sidebar">
             <div class="flex items-center gap-3 px-2">
                 <div class="bg-primary/20 text-primary p-2 rounded-lg">
                     <span class="material-symbols-outlined">restaurant_menu</span>
@@ -15,46 +17,45 @@
             </div>
             <nav class="flex flex-col gap-2 mt-4 flex-grow">
                 <a th:class="${activeSection == 'dashboard' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin}"
-                    href="/admin">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'dashboard' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">dashboard</span>
+                    th:href="@{/admin}" href="/admin">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'dashboard' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">dashboard</span>
                     <p class="text-sm font-medium">Dashboard</p>
                 </a>
                 <a th:class="${activeSection == 'orders' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin/orders}"
-                    href="/admin/orders">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'orders' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">receipt_long</span>
+                    th:href="@{/admin/orders}" href="/admin/orders">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'orders' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">receipt_long</span>
                     <p class="text-sm font-medium">Quản lý Đơn hàng</p>
                 </a>
                 <a th:class="${activeSection == 'products' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin/products}"
-                    href="/admin/products">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'products' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">inventory_2</span>
+                    th:href="@{/admin/products}" href="/admin/products">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'products' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">inventory_2</span>
                     <p class="text-sm font-medium">Quản lý Sản phẩm</p>
                 </a>
                 <a th:class="${activeSection == 'categories' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin/categories}"
-                    href="/admin/categories">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'categories' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">category</span>
+                    th:href="@{/admin/categories}" href="/admin/categories">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'categories' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">category</span>
                     <p class="text-sm font-medium">Quản lý Danh mục</p>
                 </a>
                 <a th:class="${activeSection == 'users' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin/users}"
-                    href="/admin/users">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'users' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">group</span>
+                    th:href="@{/admin/users}" href="/admin/users">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'users' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">group</span>
                     <p class="text-sm font-medium">Quản lý Người dùng</p>
                 </a>
                 <a th:class="${activeSection == 'settings' ? 'flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/20 text-primary' : 'flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-primary/10 transition-colors'}"
-                    th:href="@{/admin/settings}"
-                    href="/admin/settings">
-                    <span class="material-symbols-outlined" th:classappend="${activeSection == 'settings' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">settings</span>
+                    th:href="@{/admin/settings}" href="/admin/settings">
+                    <span class="material-symbols-outlined"
+                        th:classappend="${activeSection == 'settings' ? ' text-primary' : ' text-text-light-secondary dark:text-text-dark-secondary'}">settings</span>
                     <p class="text-sm font-medium">Cài đặt</p>
                 </a>
             </nav>
             <div class="flex flex-col gap-1 border-t border-border-light dark:border-border-dark pt-4">
                 <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-500/10 text-red-500 transition-colors"
-                    th:href="@{/logout}"
-                    href="/logout">
+                    th:href="@{/logout}" href="/logout">
                     <span class="material-symbols-outlined">logout</span>
                     <p class="text-sm font-medium">Đăng xuất</p>
                 </a>

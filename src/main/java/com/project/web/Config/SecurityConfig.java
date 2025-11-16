@@ -20,9 +20,10 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index", "/login", "/register", "/error","/product_list",
-                                "/css/**", "/js/**", "/image/**", "/static/**", "/favicon.ico","/admin/**")
+                        .requestMatchers("/", "/index", "/login", "/register", "/error", "/product_list",
+                                "/css/**", "/js/**", "/image/**", "/static/**", "/favicon.ico")
                         .permitAll()
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(form -> form.disable())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

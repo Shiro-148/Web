@@ -52,6 +52,9 @@ public class ProductEntity {
     @Column(name = "original_price", precision = 10, scale = 3, nullable = false)
     private BigDecimal originalPrice;
 
+    @Column(name = "stock_quantity")
+    private Integer stockQuantity;
+
     // Danh sách các account đã favorite sản phẩm này (mappedBy từ AccountEntity)
     @ManyToMany(mappedBy = "favorites", fetch = FetchType.LAZY)
     @JsonIgnore
@@ -121,6 +124,14 @@ public class ProductEntity {
 
     public void setOriginalPrice(BigDecimal originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
     }
 
     public Set<AddonEntity> getAddons() {

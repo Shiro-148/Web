@@ -39,6 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "";
   }
 
+  function openLoginModal() {
+    const loginModal = document.getElementById("login");
+    if (!loginModal) return;
+    loginModal.style.display = "flex";
+    loginModal.classList.add("show-modal");
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+
   const openRegister = document.querySelector('[data-switch-modal="register"]');
   if (openRegister) {
     openRegister.addEventListener("click", (e) => {
@@ -46,6 +55,14 @@ document.addEventListener("DOMContentLoaded", () => {
       openModal();
     });
   }
+
+  document.querySelectorAll('[data-switch-modal="login"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeModal();
+      openLoginModal();
+    });
+  });
 
   const form = document.getElementById("registerForm");
   if (form) {
