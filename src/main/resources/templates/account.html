@@ -209,7 +209,9 @@
                                             <div class="order_address order_info_child">
                                                 <span>Ship to: </span>
                                                 <!-- OrderEntity has no shippingAddress field. Show account name or fallback '-' -->
-                                                <span th:text="${order.account != null ? order.account.fullName : '-'}">123 Main St, City, Country</span>
+                                                <span
+                                                    th:text="${order.account != null ? order.account.fullName : '-'}">123
+                                                    Main St, City, Country</span>
 
                                             </div>
 
@@ -296,9 +298,10 @@
             </div>
         </div>
         <div th:insert="~{location}"></div>
-        <div th:insert="~{dialog-noti}"></div>
         <div th:insert="~{login}"></div>
+        <div th:insert="~{register}"></div>
         <script src="/js/scripts.js"></script>
+        <script src="/js/product.js"></script>
 </body>
 
 </html>

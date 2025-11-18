@@ -22,7 +22,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(overlay);
   }
 
-  registerModal.style.display = "none";
+  const isStandaloneRegisterPage = !!document.querySelector(".register_page_container");
+  if (isStandaloneRegisterPage) {
+    registerModal.classList.add("show-modal");
+    registerModal.style.display = "none";
+  } else {
+    registerModal.classList.remove("show-modal");
+    registerModal.style.display = "none";
+  }
   registerModal.style.zIndex = "999";
 
   function openModal() {
@@ -48,13 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.style.overflow = "hidden";
   }
 
-  const openRegister = document.querySelector('[data-switch-modal="register"]');
-  if (openRegister) {
-    openRegister.addEventListener("click", (e) => {
+  document.querySelectorAll('[data-switch-modal="register"]').forEach((trigger) => {
+    trigger.addEventListener("click", (e) => {
       e.preventDefault();
       openModal();
     });
-  }
+  });
 
   document.querySelectorAll('[data-switch-modal="login"]').forEach((link) => {
     link.addEventListener("click", (e) => {

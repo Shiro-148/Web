@@ -1,6 +1,7 @@
 .register_page .register {
     display: none;
 }
+
 .register_page .login {
   display: block !important;
   visibility: visible !important;
