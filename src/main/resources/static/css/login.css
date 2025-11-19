@@ -272,6 +272,7 @@
 
 .login_page .right_content img {
     border-radius: 0 15px 15px 0;
+    height: 500px;
     object-fit: cover;
 }
 
