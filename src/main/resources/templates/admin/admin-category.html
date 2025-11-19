@@ -75,16 +75,31 @@
                                 th:if="${categories == null || #lists.isEmpty(categories)}">
                                 Chưa có danh mục nào.
                             </p>
-                            <a th:each="category : ${categories}"
-                                class="flex items-center justify-between p-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-colors"
-                                th:classappend="${selectedCategory != null and selectedCategory.idCategory == category.idCategory} ? ' bg-primary/20 text-primary' : ''"
-                                th:href="@{/admin/categories(categoryId=${category.idCategory})}">
-                                <span class="font-medium text-sm"
-                                    th:text="${category.nameCategory}">Danh mục</span>
-                                <span
-                                    class="text-xs text-text-light-secondary dark:text-text-dark-secondary bg-background-light dark:bg-background-dark py-1 px-2 rounded-full"
-                                    th:text="${category.products != null ? category.products.size() : 0}">0</span>
-                            </a>
+                            <div th:each="category : ${categories}"
+                                class="flex items-center justify-between gap-2 p-3 rounded-lg hover:bg-background-light dark:hover:bg-background-dark transition-colors"
+                                th:attr="data-category-item=${category.idCategory},data-category-img=${category.imgPath}"
+                                th:classappend="${selectedCategory != null and selectedCategory.idCategory == category.idCategory} ? ' bg-primary/20 text-primary' : ''">
+                                <a class="flex items-center gap-2 flex-1 min-w-0"
+                                   th:href="@{/admin/categories(categoryId=${category.idCategory})}">
+                                    <span class="font-medium text-sm truncate" data-category-name
+                                          th:text="${category.nameCategory}">Danh mục</span>
+                                    <span
+                                        class="text-xs text-text-light-secondary dark:text-text-dark-secondary bg-background-light dark:bg-background-dark py-1 px-2 rounded-full flex-shrink-0"
+                                        th:text="${category.products != null ? category.products.size() : 0}">0</span>
+                                </a>
+                                <div class="flex items-center gap-1 flex-shrink-0">
+                                    <button type="button"
+                                            class="p-1.5 rounded hover:bg-background-light dark:hover:bg-background-dark text-text-light-secondary dark:text-text-dark-secondary"
+                                            th:onclick="|openEditCategoryModal(${category.idCategory})|">
+                                        <span class="material-symbols-outlined text-sm">edit</span>
+                                    </button>
+                                    <button type="button"
+                                            class="p-1.5 rounded hover:bg-background-light dark:hover:bg-background-dark text-red-500"
+                                            th:onclick="|confirmDeleteCategory(${category.idCategory})|">
+                                        <span class="material-symbols-outlined text-sm">delete</span>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="md:col-span-2 xl:col-span-3 flex flex-col gap-4">
@@ -104,7 +119,7 @@
                                 </p>
                             </div>
                             <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto flex-shrink-0">
-                                <button
+                                <button type="button" onclick="openCreateCategoryModal()"
                                     class="flex items-center justify-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary/20 text-primary hover:bg-primary/30 transition-colors">
                                     <span class="material-symbols-outlined">add</span>
                                     <span>Thêm Danh Mục Mới</span>
@@ -188,6 +203,173 @@
             </div>
         </main>
     </div>
+    <div id="adminCategoryModalOverlay" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40">
+        <div class="bg-card-light dark:bg-card-dark rounded-xl shadow-xl w-full max-w-md p-6">
+            <h3 id="adminCategoryModalTitle" class="text-base font-semibold mb-4">Danh mục</h3>
+            <form id="adminCategoryForm" class="flex flex-col gap-4">
+                <input type="hidden" id="adminCategoryId" />
+                <div class="flex flex-col gap-1">
+                    <label for="adminCategoryName" class="text-sm font-medium">Tên danh mục</label>
+                    <input id="adminCategoryName" type="text"
+                           class="border border-border-light dark:border-border-dark rounded-lg px-3 py-2 text-sm bg-background-light dark:bg-background-dark"
+                           placeholder="Nhập tên danh mục" required />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label for="adminCategoryImg" class="text-sm font-medium">Đường dẫn ảnh</label>
+                    <input id="adminCategoryImg" type="text"
+                           class="border border-border-light dark:border-border-dark rounded-lg px-3 py-2 text-sm bg-background-light dark:bg-background-dark"
+                           placeholder="Nhập URL ảnh (tuỳ chọn)" />
+                </div>
+                <div id="adminCategoryError" class="text-sm text-red-500 hidden"></div>
+                <div class="mt-4 flex justify-end gap-2">
+                    <button type="button" id="adminCategoryCancelBtn"
+                            class="px-4 py-2 text-sm font-medium rounded-lg border border-border-light dark:border-border-dark hover:bg-background-light dark:hover:bg-background-dark">
+                        Hủy
+                    </button>
+                    <button type="submit" id="adminCategorySubmitBtn"
+                            class="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-white hover:bg-primary/90">
+                        Lưu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const adminCategoryModalOverlay = document.getElementById('adminCategoryModalOverlay');
+        const adminCategoryForm = document.getElementById('adminCategoryForm');
+        const adminCategoryId = document.getElementById('adminCategoryId');
+        const adminCategoryName = document.getElementById('adminCategoryName');
+        const adminCategoryImg = document.getElementById('adminCategoryImg');
+        const adminCategoryTitle = document.getElementById('adminCategoryModalTitle');
+        const adminCategoryError = document.getElementById('adminCategoryError');
+        const adminCategoryCancelBtn = document.getElementById('adminCategoryCancelBtn');
+        const adminCategorySubmitBtn = document.getElementById('adminCategorySubmitBtn');
+
+        function openAdminCategoryModal(mode, id, name, img) {
+            if (!adminCategoryModalOverlay) return;
+            adminCategoryError.classList.add('hidden');
+            adminCategoryError.textContent = '';
+            if (mode === 'edit') {
+                adminCategoryTitle.textContent = 'Sửa danh mục';
+                adminCategoryId.value = id || '';
+                adminCategoryName.value = name || '';
+                adminCategoryImg.value = img || '';
+            } else {
+                adminCategoryTitle.textContent = 'Thêm danh mục mới';
+                adminCategoryId.value = '';
+                adminCategoryName.value = '';
+                adminCategoryImg.value = '';
+            }
+            adminCategoryModalOverlay.classList.remove('hidden');
+            adminCategoryModalOverlay.classList.add('flex');
+            adminCategoryName.focus();
+        }
+
+        function closeAdminCategoryModal() {
+            if (!adminCategoryModalOverlay) return;
+            adminCategoryModalOverlay.classList.add('hidden');
+            adminCategoryModalOverlay.classList.remove('flex');
+        }
+
+        function openEditCategoryModal(id) {
+            const item = document.querySelector('[data-category-item="' + id + '"]');
+            const nameEl = item ? item.querySelector('[data-category-name]') : null;
+            const name = nameEl ? nameEl.textContent.trim() : '';
+            const img = item ? item.getAttribute('data-category-img') : '';
+            openAdminCategoryModal('edit', id, name, img);
+        }
+
+        function openCreateCategoryModal() {
+            openAdminCategoryModal('create');
+        }
+
+        async function confirmDeleteCategory(id) {
+            const doDelete = async function () {
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/admin/categories/delete';
+                const inputId = document.createElement('input');
+                inputId.type = 'hidden';
+                inputId.name = 'idCategory';
+                inputId.value = id;
+                form.appendChild(inputId);
+                document.body.appendChild(form);
+                form.submit();
+            };
+
+            if (!window.showConfirm) {
+                if (window.confirm('Xóa danh mục này?')) {
+                    await doDelete();
+                }
+                return;
+            }
+            const ok = await window.showConfirm('Bạn có chắc chắn muốn xóa danh mục này?');
+            if (ok) {
+                await doDelete();
+            }
+        }
+
+        if (adminCategoryCancelBtn) {
+            adminCategoryCancelBtn.addEventListener('click', function () {
+                closeAdminCategoryModal();
+            });
+        }
+
+        if (adminCategoryModalOverlay) {
+            adminCategoryModalOverlay.addEventListener('click', function (e) {
+                if (e.target === adminCategoryModalOverlay) closeAdminCategoryModal();
+            });
+        }
+
+        if (adminCategoryForm) {
+            adminCategoryForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                adminCategoryError.classList.add('hidden');
+                adminCategoryError.textContent = '';
+                const id = adminCategoryId.value || null;
+                const name = adminCategoryName.value.trim();
+                const img = adminCategoryImg.value.trim();
+                if (!name) {
+                    adminCategoryError.textContent = 'Vui lòng nhập tên danh mục';
+                    adminCategoryError.classList.remove('hidden');
+                    return;
+                }
+                try {
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = id ? '/admin/categories/update' : '/admin/categories';
+
+                    const nameInput = document.createElement('input');
+                    nameInput.type = 'hidden';
+                    nameInput.name = 'nameCategory';
+                    nameInput.value = name;
+                    form.appendChild(nameInput);
+
+                    const imgInput = document.createElement('input');
+                    imgInput.type = 'hidden';
+                    imgInput.name = 'imgPathCategory';
+                    imgInput.value = img;
+                    form.appendChild(imgInput);
+
+                    if (id) {
+                        const idInput = document.createElement('input');
+                        idInput.type = 'hidden';
+                        idInput.name = 'idCategory';
+                        idInput.value = id;
+                        form.appendChild(idInput);
+                    }
+
+                    document.body.appendChild(form);
+                    form.submit();
+                } catch (err) {
+                    console.error(err);
+                    adminCategoryError.textContent = 'Lỗi kết nối máy chủ.';
+                    adminCategoryError.classList.remove('hidden');
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

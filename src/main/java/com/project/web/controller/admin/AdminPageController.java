@@ -254,6 +254,56 @@ public class AdminPageController {
         return "admin/admin-category";
     }
 
+    @PostMapping("/categories")
+    @Transactional
+    public String createCategory(
+            @RequestParam("nameCategory") String nameCategory,
+            @RequestParam(value = "imgPathCategory", required = false) String imgPathCategory,
+            RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.createCategory(nameCategory, imgPathCategory);
+            redirectAttributes.addFlashAttribute("successMessage", "Thêm danh mục thành công.");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Đã xảy ra lỗi khi thêm danh mục.");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/categories/update")
+    @Transactional
+    public String updateCategory(
+            @RequestParam("idCategory") Integer idCategory,
+            @RequestParam("nameCategory") String nameCategory,
+            @RequestParam(value = "imgPathCategory", required = false) String imgPathCategory,
+            RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.updateCategory(idCategory, nameCategory, imgPathCategory);
+            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật danh mục thành công.");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Đã xảy ra lỗi khi cập nhật danh mục.");
+        }
+        return "redirect:/admin/categories";
+    }
+
+    @PostMapping("/categories/delete")
+    @Transactional
+    public String deleteCategory(@RequestParam("idCategory") Integer idCategory,
+            RedirectAttributes redirectAttributes) {
+        try {
+            categoryService.deleteCategory(idCategory);
+            redirectAttributes.addFlashAttribute("successMessage", "Xoá danh mục thành công.");
+        } catch (IllegalArgumentException ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", ex.getMessage());
+        } catch (Exception ex) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Không thể xoá danh mục.");
+        }
+        return "redirect:/admin/categories";
+    }
+
     @GetMapping("/users")
     public String users(Model model) {
         List<AccountEntity> accounts = accountService.getAllAccounts();
