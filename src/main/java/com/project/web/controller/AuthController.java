@@ -3,6 +3,7 @@ package com.project.web.Controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Controller
 public class AuthController {
+
+    private static final Pattern PHONE_REGEX = Pattern.compile("^[0-9]{9,11}$");
 
     @Autowired
     private AccountService accountService;
@@ -155,6 +158,10 @@ public class AuthController {
         if (fullName == null || sdt == null || password == null ||
                 fullName.isBlank() || sdt.isBlank() || password.isBlank()) {
             return ResponseEntity.badRequest().body("Vui lòng điền đầy đủ thông tin");
+        }
+
+        if (!PHONE_REGEX.matcher(sdt).matches()) {
+            return ResponseEntity.badRequest().body("Số điện thoại không hợp lệ (9-11 chữ số)");
         }
 
         if (accountService.phoneExists(sdt)) {

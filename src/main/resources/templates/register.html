@@ -9,15 +9,6 @@
     <link rel="stylesheet" href="/css/register.css">
     <link rel="stylesheet" href="/css/header.css">
     <title>Đăng ký tài khoản</title>
-    <style>
-        body { background: #f7f7f7; }
-        .register_page_container { display: flex; justify-content: center; padding: 40px 12px; }
-        .register_page .register { position: relative; transform: none; left: auto; top: auto; display: block; }
-        .register_page .register .content { gap: 0; }
-        .register_page .modal-content .btn_close { display: none; }
-        .form_error { color: #d33; font-size: 14px; margin-top: 6px; }
-        .form_msg { color: #2e7d32; font-size: 14px; margin-top: 6px; }
-    </style>
 </head>
 
 <body>
@@ -29,8 +20,10 @@
                         <div class="left_content">
                             <form class="step-form" method="post" action="/register" id="registerForm">
                                 <span class="title">Tạo tài khoản mới</span>
-                                <div th:if="${error}" class="form_error" th:text="${error}"></div>
-                                <div th:if="${msg}" class="form_msg" th:text="${msg}"></div>
+                                <div id="registerError" class="form_error" th:text="${error}"
+                                    th:style="${error} ? '' : 'display:none;'"></div>
+                                <div id="registerMsg" class="form_msg" th:text="${msg}"
+                                    th:style="${msg} ? '' : 'display:none;'"></div>
                                 <div class="register_info">
                                     <div class="w-fullname">
                                         <label for="fullName" class="label">Họ và tên</label>
@@ -38,15 +31,16 @@
                                     </div>
                                     <div class="w-sdt">
                                         <label for="sdt" class="label">Số điện thoại</label>
-                                        <input class="form_input" id="sdt" name="sdt" type="tel" placeholder="0123456789" value="0123456789" required>
+                                        <input class="form_input" id="sdt" name="sdt" type="tel" placeholder="0123456789" value="" required>
+                                        <div id="registerPhoneError" class="form_error" style="display:none;"></div>
                                     </div>
                                     <div class="w-password">
                                         <label for="re-password" class="label">Mật khẩu</label>
-                                        <input class="form_input" id="re-password" name="password" value="123456" type="password" placeholder="Tối thiểu 6 ký tự" minlength="4" required>
+                                        <input class="form_input" id="re-password" name="password" value="" type="password" placeholder="Tối thiểu 6 ký tự" minlength="4" required>
                                     </div>
                                     <div class="w-password">
                                         <label for="confirmPassword" class="label">Xác nhận mật khẩu</label>
-                                        <input class="form_input" id="confirmPassword" name="confirmPassword" value="123456" type="password" placeholder="Nhập lại mật khẩu" minlength="4" required>
+                                        <input class="form_input" id="confirmPassword" name="confirmPassword" value="" type="password" placeholder="Nhập lại mật khẩu" minlength="4" required>
                                         <div id="pwMismatch" class="form_error" style="display:none;">Mật khẩu xác nhận không khớp</div>
                                     </div>
                                 </div>

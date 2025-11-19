@@ -81,6 +81,7 @@ public class AccountService {
         } else {
             entity.setPassword(null);
         }
+        entity.setLegacyRole("USER");
         entity.addRole(requireRole("USER"));
         entity.setStatus(1);
         entity.setCreatedAt(LocalDateTime.now());
@@ -184,6 +185,11 @@ public class AccountService {
 
     private RoleEntity requireRole(String name) {
         return roleRepository.findByNameIgnoreCase(name)
-                .orElseThrow(() -> new IllegalStateException("Role '" + name + "' chưa được cấu hình trong hệ thống."));
+                .orElseGet(() -> {
+                    RoleEntity role = new RoleEntity();
+                    role.setName(name.toUpperCase());
+                    role.setDescription("Auto generated role");
+                    return roleRepository.save(role);
+                });
     }
 }

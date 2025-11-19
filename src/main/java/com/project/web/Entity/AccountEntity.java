@@ -45,6 +45,11 @@ public class AccountEntity {
     @Column(nullable = false)
     private Integer status = 1;
 
+    // Cột legacy "role" vẫn còn trong bảng accounts (NOT NULL) để phục vụ dữ liệu
+    // cũ
+    @Column(name = "role", nullable = false, length = 50)
+    private String legacyRole = "USER";
+
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -114,6 +119,14 @@ public class AccountEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getLegacyRole() {
+        return legacyRole;
+    }
+
+    public void setLegacyRole(String legacyRole) {
+        this.legacyRole = legacyRole;
     }
 
     public LocalDateTime getCreatedAt() {

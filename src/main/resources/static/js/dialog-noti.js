@@ -25,25 +25,54 @@
   };
 
   window.showConfirm = function (text, onOk) {
-    if (window._dialogNotiReady && typeof window._dialogShowConfirm === 'function') {
-      return window._dialogShowConfirm(text, onOk);
-    }
     return new Promise(function (resolve) {
-      const once = function () {
-        try {
-          if (typeof window._dialogShowConfirm === 'function') {
-            window._dialogShowConfirm(text, onOk).then(resolve, resolve);
-          } else {
-            const r = window.confirm(text);
-            if (r && typeof onOk === 'function') onOk();
-            resolve(!!r);
-          }
-        } finally {
-          document.removeEventListener('dialog-noti-ready', once);
+      const run = function () {
+        if (typeof window._dialogShowConfirm === 'function') {
+          window._dialogShowConfirm(text, onOk).then(resolve, resolve);
+        } else {
+          try { console.info(text); } catch (e) { /* ignore */ }
+          resolve(false);
         }
       };
-      document.addEventListener('dialog-noti-ready', once);
+
+      if (window._dialogNotiReady) {
+        run();
+      } else {
+        const once = function () {
+          document.removeEventListener('dialog-noti-ready', once);
+          run();
+        };
+        document.addEventListener('dialog-noti-ready', once);
+      }
     });
+  };
+
+  window.confirmLogout = function () {
+    var authEl = document.getElementById('auth');
+    var isAuthenticated = authEl && authEl.getAttribute('data-authenticated') === 'true';
+
+    if (!isAuthenticated) {
+      window.location.href = '/logout';
+      return;
+    }
+
+    var runConfirm = function () {
+      if (typeof window._dialogShowConfirm === 'function') {
+        window._dialogShowConfirm('Bạn có chắc chắn muốn đăng xuất không?', function () {
+          window.location.href = '/logout';
+        });
+      }
+    };
+
+    if (window._dialogNotiReady) {
+      runConfirm();
+    } else {
+      var once = function () {
+        document.removeEventListener('dialog-noti-ready', once);
+        runConfirm();
+      };
+      document.addEventListener('dialog-noti-ready', once);
+    }
   };
 
   function onReady(fn) {
@@ -176,9 +205,8 @@
     window._dialogShowConfirm = function (text, onOk) {
       return new Promise(function (resolve) {
         if (!confirmOverlay || !confirmOk || !confirmCancel || !confirmText) {
-          const r = window.confirm(text);
-          if (r && typeof onOk === 'function') onOk();
-          return resolve(!!r);
+          try { console.info(text); } catch (e) { /* ignore */ }
+          return resolve(false);
         }
         confirmText.textContent = text || '';
         if (typeof onOk === 'function') {

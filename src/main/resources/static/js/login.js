@@ -5,6 +5,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const btnBack = step2?.querySelector('.btn_back');
     const inputUsername = document.getElementById('username');
     const hiddenUsername = document.getElementById('username_hidden');
+    const usernameError = document.getElementById('loginUsernameError');
+
+    const showUsernameFormatError = (message = '') => {
+        if (!usernameError) return;
+        usernameError.textContent = message;
+        usernameError.style.display = message ? 'block' : 'none';
+    };
 
     function switchStep(from, to) {
         from.classList.add('fade-out');
@@ -28,16 +35,16 @@ document.addEventListener('DOMContentLoaded', function () {
             e.preventDefault();
             const username = inputUsername.value.trim();
 
+            showUsernameFormatError();
+
             if (!username) {
-                if (window.showMessage) window.showMessage('Vui lòng nhập số điện thoại hoặc email của bạn.');
-                else console.info('Vui lòng nhập số điện thoại hoặc email của bạn.');
+                showUsernameFormatError('Vui lòng nhập số điện thoại hoặc email của bạn.');
                 inputUsername.focus();
                 return;
             }
 
             if (!isValidUsername(username)) {
-                if (window.showMessage) window.showMessage('Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại.');
-                else console.info('Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại.');
+                showUsernameFormatError('Số điện thoại hoặc email không hợp lệ. Vui lòng kiểm tra lại.');
                 inputUsername.focus();
                 return;
             }
@@ -54,12 +61,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    inputUsername.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            btnStep1.click();
-        }
-    });
+    if (inputUsername) {
+        inputUsername.addEventListener('input', () => showUsernameFormatError());
+
+        inputUsername.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                btnStep1?.click();
+            }
+        });
+    }
 
     step1.style.display = 'flex';
     step2.style.display = 'none';

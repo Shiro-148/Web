@@ -3,9 +3,37 @@
 }
 
 .register_page .login {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.register_page .register {
+    position: relative;
+    transform: none;
+    left: auto;
+    top: auto;
+    display: block;
+}
+
+.register_page .register .content {
+    gap: 0;
+}
+
+.register_page .modal-content .btn_close {
+    display: none;
+}
+
+.form_error {
+    color: #d33;
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.form_msg {
+    color: #2e7d32;
+    font-size: 14px;
+    margin-top: 6px;
 }
 
 .register_page form {
@@ -284,12 +312,11 @@
     -webkit-box-shadow: 5px 5px 10px rgba(0, 0, 0, .15);
 }
 
-.register_page .register.show-modal {
-    display: flex;
-}
+
 #register.show-modal {
     position: fixed;
     z-index: 999;
+    display: none;
     background-color: #ffffff;
     width: 750px;
     border-radius: 15px;
@@ -302,8 +329,9 @@
 
 /* Ẩn modal khi không mở */
 #register {
-  display: none;
+    display: none;
 }
+
 .register_page .form_footer .w-btn_guest {
     display: flex;
     justify-content: center;
@@ -337,6 +365,7 @@
     color: #FF5B6A;
     text-decoration: none;
 }
+
 .register_page .btn_back {
     display: flex;
     align-items: center;
@@ -346,6 +375,7 @@
     margin-bottom: 5px;
     font-weight: 500;
 }
+
 .register_page .btn_back i {
     font-size: 22px;
 }
