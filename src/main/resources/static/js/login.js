@@ -80,4 +80,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     step1.style.display = 'flex';
     step2.style.display = 'none';
+
+    const hasLoginError = document.body.dataset.loginError && document.body.dataset.loginError.trim().length > 0;
+    if (hasLoginError) {
+        const loginModal = document.getElementById('login');
+        if (loginModal) {
+            loginModal.classList.add('show-modal');
+        }
+        if (step1 && step2) {
+            step1.style.display = 'none';
+            step2.style.display = 'flex';
+        }
+    }
 });

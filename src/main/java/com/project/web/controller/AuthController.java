@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.web.Entity.AccountEntity;
 import com.project.web.Service.AccountService;
@@ -92,13 +93,14 @@ public class AuthController {
     @PostMapping(value = "/login", consumes = "application/x-www-form-urlencoded")
     public String loginFormSubmit(@RequestParam Map<String, String> params,
             HttpServletResponse response,
-            Model model) {
+            RedirectAttributes redirectAttributes) {
         String username = params.getOrDefault("username", params.get("sdt"));
         String password = params.get("password");
 
         if (username == null || password == null || username.isBlank() || password.isBlank()) {
-            model.addAttribute("error", "Vui lòng nhập đầy đủ thông tin");
-            return "login";
+            redirectAttributes.addFlashAttribute("error", "Vui lòng nhập đầy đủ thông tin");
+            redirectAttributes.addFlashAttribute("loginFailed", true);
+            return "redirect:/";
         }
 
         AccountEntity account = accountService.getAccountByPhone(username);
@@ -106,8 +108,9 @@ public class AuthController {
             account = accountService.getAccountByEmail(username);
 
         if (account == null) {
-            model.addAttribute("error", "Số điện thoại hoặc mật khẩu không đúng");
-            return "login";
+            redirectAttributes.addFlashAttribute("error", "Số điện thoại hoặc mật khẩu không đúng");
+            redirectAttributes.addFlashAttribute("loginFailed", true);
+            return "redirect:/";
         }
 
         String stored = account.getPassword();
@@ -125,8 +128,9 @@ public class AuthController {
         }
 
         if (!ok) {
-            model.addAttribute("error", "Số điện thoại hoặc mật khẩu không đúng");
-            return "login";
+            redirectAttributes.addFlashAttribute("error", "Số điện thoại hoặc mật khẩu không đúng");
+            redirectAttributes.addFlashAttribute("loginFailed", true);
+            return "redirect:/";
         }
 
         String jwt = jwtUtil.generateToken(account.getPhone());

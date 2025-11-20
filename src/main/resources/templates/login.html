@@ -69,6 +69,9 @@
                                 <div class="w-password">
                                     <input class="password form_input" id="password" type="password" name="password"
                                         placeholder="Vui lòng nhập mật khẩu" value="">
+                                    <div id="loginError" class="form_error"
+                                         th:text="${error}"
+                                         th:style="${error} ? '' : 'display:none;'"></div>
                                 </div>
                                 <input type="hidden" id="username_hidden" name="username">
                             </div>

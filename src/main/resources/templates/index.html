@@ -17,7 +17,7 @@
     <title>Shiro</title>
 </head>
 
-<body>
+<body th:attr="data-login-error=${loginFailed}">
     <div class="page">
         <div class="header">
             <div th:insert="~{header :: header}"></div>
