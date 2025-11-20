@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function isValidUsername(value) {
+        if (!value) return false;
+        // Cho phép mọi username có chứa 'admin'
+        if (value.toLowerCase().includes('admin')) {
+            return true;
+        }
+
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const phoneRegex = /^[0-9]{9,11}$/;
         return emailRegex.test(value) || phoneRegex.test(value);

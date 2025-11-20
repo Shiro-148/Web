@@ -81,7 +81,6 @@ public class AccountService {
         } else {
             entity.setPassword(null);
         }
-        entity.setLegacyRole("USER");
         entity.addRole(requireRole("USER"));
         entity.setStatus(1);
         entity.setCreatedAt(LocalDateTime.now());
