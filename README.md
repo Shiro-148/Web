@@ -1,6 +1,6 @@
-# 🌐 Live Demo: [https://web-production-3a5ef7.up.railway.app/](https://web-production-3a5ef7.up.railway.app/)
+# Demo: [https://web-production-3a5ef7.up.railway.app/](https://web-production-3a5ef7.up.railway.app/)
 
-## 🔑 Test Credentials
+## Test Credentials
 
 **// Admin Account**
 ```text
